@@ -34,9 +34,56 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _WrapperCommonBg(
-        child: Center(
-          child: Text("Login Page"),
-        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              margin: EdgeInsets.symmetric(vertical: 16.0),
+              child: Text(
+                "Rating",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 48,
+                  fontStyle: FontStyle.italic,
+                  fontWeight: FontWeight.bold
+                ),
+              ),
+            ),
+            Text(
+              "You can reflect",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 18,
+              ),
+            ),
+            Text(
+              "feelings to actually evaluations...",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 18,
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.symmetric(vertical: 16.0),
+              child: RaisedButton.icon(
+                icon: Icon(
+                  Icons.login,
+                  size: 48,
+                  color: Colors.white,
+                ),
+                label: Text(
+                  "LOGIN",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                  ),
+                ),
+                onPressed: () {},
+              ),
+            )
+          ],
+        )
       ),
     );
   }
