@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:linnefromice/screens/home_page.dart';
 
 class _WrapperCommonBg extends StatelessWidget {
   _WrapperCommonBg({
@@ -86,7 +87,11 @@ class LoginPage extends StatelessWidget {
                     borderRadius: BorderRadius.all(Radius.circular(10))
                   ),
                 ),
-                onPressed: () {}, // TODO: show dialog
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => HomePage())
+                  );
+                }, // TODO: show dialog
               ),
             )
           ],
