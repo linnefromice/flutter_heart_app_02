@@ -66,7 +66,7 @@ class LoginPage extends StatelessWidget {
             ),
             Container(
               margin: EdgeInsets.symmetric(vertical: 16.0),
-              child: RaisedButton.icon(
+              child: ElevatedButton.icon(
                 icon: Icon(
                   Icons.login,
                   size: 48,
@@ -79,7 +79,14 @@ class LoginPage extends StatelessWidget {
                     fontSize: 18,
                   ),
                 ),
-                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.grey,
+                  onPrimary: Colors.black,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10))
+                  ),
+                ),
+                onPressed: () {}, // TODO: show dialog
               ),
             )
           ],
