@@ -9,8 +9,36 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: WrapperCommonBackground(
-        child: Center(
-          child: Text("Home"),
+        child: Stack(
+          children: [
+            Align(
+              alignment: Alignment.center,
+              child: Container(
+                height: MediaQuery.of(context).size.width * 0.75,
+                width: MediaQuery.of(context).size.width * 0.75,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [
+                      Colors.red[100],
+                      Colors.deepOrange[100],
+                    ],
+                  ),
+                ),
+                child: FractionallySizedBox(
+                  alignment: Alignment.topCenter,
+                  widthFactor: 0.6,
+                  child: CircleAvatar(
+                    maxRadius: 30,
+                    child: Text("Avatar", style: TextStyle(color: Colors.red)),
+                    backgroundColor: Colors.white,
+                  )
+                ),
+              ),
+            ),
+          ],
         ),
       ),
       floatingActionButton: Builder(
