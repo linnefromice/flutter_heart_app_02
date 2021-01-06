@@ -83,7 +83,7 @@ class HomePage extends StatelessWidget {
               )
             ),
             Positioned(
-              top: MediaQuery.of(context).size.height * 0.65,
+              top: MediaQuery.of(context).size.height * 0.70,
               left: 0,
               right: 0,
               child: Center(
@@ -164,5 +164,4 @@ class _FabCircularMenu extends StatelessWidget {
       ],
     );
   }
-
 }
