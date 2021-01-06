@@ -14,8 +14,8 @@ class HomePage extends StatelessWidget {
             Align(
               alignment: Alignment.center,
               child: Container(
-                height: MediaQuery.of(context).size.width * 0.75,
-                width: MediaQuery.of(context).size.width * 0.75,
+                height: MediaQuery.of(context).size.width * 0.7,
+                width: MediaQuery.of(context).size.width * 0.7,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   gradient: LinearGradient(
@@ -37,6 +37,14 @@ class HomePage extends StatelessWidget {
                   )
                 ),
               ),
+            ),
+            Positioned(
+              top: MediaQuery.of(context).size.height * 0.70,
+              left: 0,
+              right: 0,
+              child: Center(
+                child: Text("Avatar", style: TextStyle(color: Colors.red)),
+              )
             ),
           ],
         ),
