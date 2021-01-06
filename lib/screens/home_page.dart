@@ -17,6 +17,10 @@ class HomePage extends StatelessWidget {
         builder: (context) => FabCircularMenu(
           key: fabKey,
           alignment: Alignment.bottomCenter,
+          ringColor: Colors.red.withOpacity(0.5),
+          fabColor: Colors.red.withOpacity(0.5),
+          fabOpenIcon: Icon(Icons.menu, color: Colors.white),
+          fabCloseIcon: Icon(Icons.close, color: Colors.white),
           children: <Widget>[
             RawMaterialButton(
               onPressed: () => print("You pressed 1"),
