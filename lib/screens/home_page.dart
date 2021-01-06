@@ -11,8 +11,10 @@ class HomePage extends StatelessWidget {
       body: WrapperCommonBackground(
         child: Stack(
           children: [
-            Align(
-              alignment: Alignment.center,
+            Positioned(
+              top: MediaQuery.of(context).size.height * 0.25,
+              left: 0,
+              right: 0,
               child: Container(
                 height: MediaQuery.of(context).size.width * 0.7,
                 width: MediaQuery.of(context).size.width * 0.7,
@@ -29,7 +31,7 @@ class HomePage extends StatelessWidget {
                 ),
                 child: FractionallySizedBox(
                   alignment: Alignment.topCenter,
-                  widthFactor: 0.6,
+                  widthFactor: 0.5,
                   child: CircleAvatar(
                     maxRadius: 30,
                     child: Text("Avatar", style: TextStyle(color: Colors.red)),
@@ -39,13 +41,31 @@ class HomePage extends StatelessWidget {
               ),
             ),
             Positioned(
-              top: MediaQuery.of(context).size.height * 0.70,
+              top: MediaQuery.of(context).size.height * 0.6,
               left: 0,
               right: 0,
               child: Center(
                 child: Text("Avatar", style: TextStyle(color: Colors.red)),
               )
             ),
+            Positioned(
+              top: MediaQuery.of(context).size.height * 0.65,
+              left: 0,
+              right: 0,
+              child: Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Icon(Icons.favorite, size: 50, color: Colors.pink.withOpacity(0.5)),
+                    Icon(Icons.favorite, size: 50, color: Colors.pink.withOpacity(0.5)),
+                    Icon(Icons.favorite, size: 50, color: Colors.pink.withOpacity(0.5)),
+                    Icon(Icons.favorite, size: 50, color: Colors.pink.withOpacity(0.5)),
+                    Icon(Icons.favorite, size: 50, color: Colors.pink.withOpacity(0.5)),
+                  ],
+                )
+              )
+            )
           ],
         ),
       ),
