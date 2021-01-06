@@ -1,5 +1,6 @@
 import 'package:fab_circular_menu/fab_circular_menu.dart';
 import 'package:flutter/material.dart';
+import 'package:linnefromice/components/wrapper_common_background.dart';
 
 class HomePage extends StatelessWidget {
   final GlobalKey<FabCircularMenuState> fabKey = GlobalKey();
@@ -7,6 +8,11 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      body: WrapperCommonBackground(
+        child: Center(
+          child: Text("Home"),
+        ),
+      ),
       floatingActionButton: Builder(
         builder: (context) => FabCircularMenu(
           key: fabKey,
