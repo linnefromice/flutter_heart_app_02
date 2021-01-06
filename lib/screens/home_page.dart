@@ -41,6 +41,40 @@ class HomePage extends StatelessWidget {
               ),
             ),
             Positioned(
+              top: MediaQuery.of(context).size.height * 0.5,
+              left: 0,
+              right: 0,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ButtonTheme(
+                    minWidth: 50,
+                    height: 50,
+                    child: RaisedButton(
+                      child: Icon(
+                        Icons.arrow_back,
+                        color: Colors.white,
+                      ),
+                      color: Colors.transparent,
+                      shape: CircleBorder(),
+                      onPressed: () {}
+                    ),
+                  ),
+                  SizedBox(width: 200),
+                  ButtonTheme(
+                    minWidth: 50,
+                    height: 50,
+                    child: RaisedButton(
+                      child: Icon(Icons.arrow_forward, color: Colors.white,),
+                      color: Colors.transparent,
+                      shape: CircleBorder(),
+                      onPressed: () {}
+                    ),
+                  )
+                ],
+              )
+            ),
+            Positioned(
               top: MediaQuery.of(context).size.height * 0.6,
               left: 0,
               right: 0,
