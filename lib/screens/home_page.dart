@@ -33,6 +33,7 @@ class HomePage extends StatefulWidget {
 class _State extends State<HomePage> {
   final GlobalKey<FabCircularMenuState> fabKey = GlobalKey();
   PageController _pageController;
+  String _name;
   final int _initialPageIndex = 0;
 
   @override
@@ -41,6 +42,7 @@ class _State extends State<HomePage> {
       initialPage: _initialPageIndex,
       viewportFraction: 0.5,
     );
+    _name = datas[_initialPageIndex]["name"];
   }
 
   Widget _buildPageWidget({final String name}) {
@@ -107,6 +109,9 @@ class _State extends State<HomePage> {
                           duration: Duration(milliseconds: 500),
                           curve: Curves.easeInOut,
                         );
+                        setState(() {
+                          _name = datas[nextPageIndex]["name"];
+                        });
                       }
                     ),
                   ),
@@ -125,6 +130,9 @@ class _State extends State<HomePage> {
                           duration: Duration(milliseconds: 500),
                           curve: Curves.easeInOut,
                         );
+                        setState(() {
+                          _name = datas[nextPageIndex]["name"];
+                        });
                       }
                     ),
                   )
@@ -136,7 +144,7 @@ class _State extends State<HomePage> {
               left: 0,
               right: 0,
               child: Center(
-                child: Text(datas[0]["name"], style: TextStyle(color: Colors.red)),
+                child: Text(_name, style: TextStyle(color: Colors.red)),
               )
             ),
             Positioned(
