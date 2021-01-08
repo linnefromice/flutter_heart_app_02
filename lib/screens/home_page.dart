@@ -32,6 +32,43 @@ class HomePage extends StatefulWidget {
 
 class _State extends State<HomePage> {
   final GlobalKey<FabCircularMenuState> fabKey = GlobalKey();
+  PageController _pageController;
+  final int _initialPageIndex = 0;
+
+  @override
+  void initState() {
+    _pageController = PageController(
+      initialPage: _initialPageIndex,
+      viewportFraction: 0.5,
+    );
+  }
+
+  Widget _buildPageWidget({final String name}) {
+    return Container(
+        height: MediaQuery.of(context).size.width,
+        width: MediaQuery.of(context).size.width,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              Colors.red[100],
+              Colors.deepOrange[100],
+            ],
+          ),
+        ),
+        child: FractionallySizedBox(
+            alignment: Alignment.topCenter,
+            widthFactor: 0.7,
+            child: CircleAvatar(
+              maxRadius: 30,
+              child: Text(name, style: TextStyle(color: Colors.red)),
+              backgroundColor: Colors.white,
+            )
+        ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,37 +76,15 @@ class _State extends State<HomePage> {
       body: WrapperCommonBackground(
         child: Stack(
           children: [
-            Positioned(
-              top: MediaQuery.of(context).size.height * 0.25,
-              left: 0,
-              right: 0,
-              child: Container(
-                height: MediaQuery.of(context).size.width * 0.7,
-                width: MediaQuery.of(context).size.width * 0.7,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors: [
-                      Colors.red[100],
-                      Colors.deepOrange[100],
-                    ],
-                  ),
-                ),
-                child: FractionallySizedBox(
-                  alignment: Alignment.topCenter,
-                  widthFactor: 0.5,
-                  child: CircleAvatar(
-                    maxRadius: 30,
-                    child: Text(datas[0]["name"], style: TextStyle(color: Colors.red)),
-                    backgroundColor: Colors.white,
-                  )
-                ),
-              ),
+            PageView(
+              controller: _pageController,
+              children: List.generate(datas.length, (index) {
+                final user = datas[index];
+                return _buildPageWidget(name: user["name"]);
+              }),
             ),
             Positioned(
-              top: MediaQuery.of(context).size.height * 0.5,
+              top: MediaQuery.of(context).size.height * 0.55,
               left: 0,
               right: 0,
               child: Row(
@@ -103,7 +118,7 @@ class _State extends State<HomePage> {
               )
             ),
             Positioned(
-              top: MediaQuery.of(context).size.height * 0.6,
+              top: MediaQuery.of(context).size.height * 0.65,
               left: 0,
               right: 0,
               child: Center(
