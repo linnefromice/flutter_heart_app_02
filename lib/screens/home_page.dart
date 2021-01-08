@@ -25,7 +25,12 @@ final List datas = [
   },
 ];
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => _State();
+}
+
+class _State extends State<HomePage> {
   final GlobalKey<FabCircularMenuState> fabKey = GlobalKey();
 
   @override
