@@ -100,7 +100,14 @@ class _State extends State<HomePage> {
                       ),
                       color: Colors.transparent,
                       shape: CircleBorder(),
-                      onPressed: () {}
+                      onPressed: () {
+                        final int nextPageIndex = _pageController.page.toInt() - 1;
+                        _pageController.animateToPage(
+                          nextPageIndex,
+                          duration: Duration(milliseconds: 500),
+                          curve: Curves.easeInOut,
+                        );
+                      }
                     ),
                   ),
                   SizedBox(width: 200),
@@ -111,7 +118,14 @@ class _State extends State<HomePage> {
                       child: Icon(Icons.arrow_forward, color: Colors.white,),
                       color: Colors.transparent,
                       shape: CircleBorder(),
-                      onPressed: () {}
+                      onPressed: () {
+                        final int nextPageIndex = _pageController.page.toInt() + 1;
+                        _pageController.animateToPage(
+                          nextPageIndex,
+                          duration: Duration(milliseconds: 500),
+                          curve: Curves.easeInOut,
+                        );
+                      }
                     ),
                   )
                 ],
