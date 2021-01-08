@@ -34,6 +34,7 @@ class _State extends State<HomePage> {
   final GlobalKey<FabCircularMenuState> fabKey = GlobalKey();
   PageController _pageController;
   String _name;
+  int _rating;
   final int _initialPageIndex = 0;
 
   @override
@@ -43,6 +44,7 @@ class _State extends State<HomePage> {
       viewportFraction: 0.5,
     );
     _name = datas[_initialPageIndex]["name"];
+    _rating = datas[_initialPageIndex]["rating"];
   }
 
   Widget _buildPageWidget({final String name}) {
@@ -111,6 +113,7 @@ class _State extends State<HomePage> {
                         );
                         setState(() {
                           _name = datas[nextPageIndex]["name"];
+                          _rating = datas[nextPageIndex]["rating"];
                         });
                       }
                     ),
@@ -132,6 +135,7 @@ class _State extends State<HomePage> {
                         );
                         setState(() {
                           _name = datas[nextPageIndex]["name"];
+                          _rating = datas[nextPageIndex]["rating"];
                         });
                       }
                     ),
@@ -156,11 +160,11 @@ class _State extends State<HomePage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Icon(Icons.favorite, size: 50, color: Colors.pink.withOpacity(0.5)),
-                    Icon(Icons.favorite, size: 50, color: Colors.pink.withOpacity(0.5)),
-                    Icon(Icons.favorite, size: 50, color: Colors.pink.withOpacity(0.5)),
-                    Icon(Icons.favorite, size: 50, color: Colors.pink.withOpacity(0.5)),
-                    Icon(Icons.favorite, size: 50, color: Colors.pink.withOpacity(0.5)),
+                    Icon(Icons.favorite, size: 50, color: _rating >= 1 ? Colors.pink.withOpacity(0.5) : Colors.white),
+                    Icon(Icons.favorite, size: 50, color: _rating >= 2 ? Colors.pink.withOpacity(0.5) : Colors.white),
+                    Icon(Icons.favorite, size: 50, color: _rating >= 3 ? Colors.pink.withOpacity(0.5) : Colors.white),
+                    Icon(Icons.favorite, size: 50, color: _rating >= 4 ? Colors.pink.withOpacity(0.5) : Colors.white),
+                    Icon(Icons.favorite, size: 50, color: _rating >= 5 ? Colors.pink.withOpacity(0.5) : Colors.white),
                   ],
                 )
               )
