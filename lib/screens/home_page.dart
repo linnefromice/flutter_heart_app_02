@@ -2,6 +2,29 @@ import 'package:fab_circular_menu/fab_circular_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:linnefromice/components/wrapper_common_background.dart';
 
+final List datas = [
+  {
+    "name": "Zidane Tribal",
+    "rating": 4,
+  },
+  {
+    "name": "Dagger",
+    "rating": 4,
+  },
+  {
+    "name": "Vivi Orunitia",
+    "rating": 3,
+  },
+  {
+    "name": "Adelbert Steiner",
+    "rating": 2,
+  },
+  {
+    "name": "Kuja",
+    "rating": 5,
+  },
+];
+
 class HomePage extends StatelessWidget {
   final GlobalKey<FabCircularMenuState> fabKey = GlobalKey();
 
@@ -34,7 +57,7 @@ class HomePage extends StatelessWidget {
                   widthFactor: 0.5,
                   child: CircleAvatar(
                     maxRadius: 30,
-                    child: Text("Avatar", style: TextStyle(color: Colors.red)),
+                    child: Text(datas[0]["name"], style: TextStyle(color: Colors.red)),
                     backgroundColor: Colors.white,
                   )
                 ),
@@ -79,7 +102,7 @@ class HomePage extends StatelessWidget {
               left: 0,
               right: 0,
               child: Center(
-                child: Text("Avatar", style: TextStyle(color: Colors.red)),
+                child: Text(datas[0]["name"], style: TextStyle(color: Colors.red)),
               )
             ),
             Positioned(
