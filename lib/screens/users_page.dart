@@ -6,54 +6,67 @@ final List datas = [
   {
     "name": "Zidane Tribal",
     "rating": 4,
+    "isFriend": true,
   },
   {
     "name": "Dagger",
     "rating": 4,
+    "isFriend": true,
   },
   {
     "name": "Vivi Orunitia",
     "rating": 3,
+    "isFriend": true,
   },
   {
     "name": "Adelbert Steiner",
     "rating": 2,
+    "isFriend": true,
   },
   {
     "name": "Amarant Coral",
     "rating": 4,
+    "isFriend": true,
   },
   {
     "name": "Freya Crescent",
     "rating": 3,
+    "isFriend": true,
   },
   {
     "name": "Quina Quen",
     "rating": 3,
+    "isFriend": true,
   },
   {
     "name": "Eiko Carol",
     "rating": 5,
+    "isFriend": true,
   },
   {
     "name": "Kuja",
     "rating": 5,
+    "isFriend": false,
   },
   {
     "name": "Queen Brahne",
     "rating": 4,
+    "isFriend": false,
   },
   {
     "name": "Zorn and Thorn",
     "rating": 5,
+    "isFriend": false,
   },
   {
     "name": "Garland",
     "rating": 3,
+    "isFriend": false,
   },
   {
     "name": "Necron",
     "rating": 3,
+    "isFriend": false,
   },
 ];
 
@@ -63,10 +76,12 @@ class _UserListTile extends StatelessWidget {
     this.idx,
     this.name,
     this.rating,
+    this.isFriend,
   }) : super(key: key);
   final int idx;
   final String name;
   final int rating;
+  final bool isFriend;
 
   @override
   Widget build(BuildContext context) {
@@ -91,7 +106,7 @@ class _UserListTile extends StatelessWidget {
           Icon(Icons.favorite, size: 30, color: rating >= 5 ? Colors.pink.withOpacity(0.5) : Colors.white),
         ],
       ),
-      trailing: RaisedButton(
+      trailing: isFriend ? RaisedButton(
         child: Text(
           "Friend",
           style: TextStyle(color: Colors.orange),
@@ -99,6 +114,13 @@ class _UserListTile extends StatelessWidget {
         shape: StadiumBorder(),
         color: Colors.white,
         onPressed: () => {},
+      ) : OutlineButton(
+        child: Text(
+          "+ Friend",
+          style: TextStyle(color: Colors.white),
+        ),
+        shape: StadiumBorder(),
+        onPressed: () {},
       )
     );
   }
@@ -145,6 +167,7 @@ class UsersPage extends HookWidget {
                     idx: index,
                     name: datas[index]["name"],
                     rating: datas[index]["rating"],
+                    isFriend: datas[index]["isFriend"],
                   ))
                 ),
               ),
