@@ -9,49 +9,49 @@ final List datas = [
     "name": "Zidane Tribal",
     "rating": 4,
     "isFriend": true,
-    "image": "https://static.wikia.nocookie.net/finalfantasy/images/1/11/Zidane_Tribal_character.png/revision/latest/scale-to-width-down/84?cb=20120811142151"
+    "avatarUrl": "https://static.wikia.nocookie.net/finalfantasy/images/1/11/Zidane_Tribal_character.png/revision/latest/scale-to-width-down/84?cb=20120811142151"
   },
   {
     "name": "Dagger",
     "rating": 4,
     "isFriend": true,
-    "image": "https://static.wikia.nocookie.net/finalfantasy/images/e/e8/Garnet_Til_Alexandros_XVII_character.jpg/revision/latest/scale-to-width-down/55?cb=20130321045317"
+    "avatarUrl": "https://static.wikia.nocookie.net/finalfantasy/images/e/e8/Garnet_Til_Alexandros_XVII_character.jpg/revision/latest/scale-to-width-down/55?cb=20130321045317"
   },
   {
     "name": "Vivi Orunitia",
     "rating": 3,
     "isFriend": true,
-    "image": "https://static.wikia.nocookie.net/finalfantasy/images/b/b5/Vivi_Ornitier_from_Final_Fantasy_IX_render.png/revision/latest/scale-to-width-down/94?cb=20200516160037"
+    "avatarUrl": "https://static.wikia.nocookie.net/finalfantasy/images/b/b5/Vivi_Ornitier_from_Final_Fantasy_IX_render.png/revision/latest/scale-to-width-down/94?cb=20200516160037"
   },
   {
     "name": "Adelbert Steiner",
     "rating": 2,
     "isFriend": true,
-    "image": "https://static.wikia.nocookie.net/finalfantasy/images/3/3f/Adelbert_Steiner_from_Final_Fantasy_IX_render.png/revision/latest/scale-to-width-down/104?cb=20200523163741"
+    "avatarUrl": "https://static.wikia.nocookie.net/finalfantasy/images/3/3f/Adelbert_Steiner_from_Final_Fantasy_IX_render.png/revision/latest/scale-to-width-down/104?cb=20200523163741"
   },
   {
     "name": "Amarant Coral",
     "rating": 4,
     "isFriend": true,
-    "image": "https://static.wikia.nocookie.net/finalfantasy/images/8/80/Amarant_Coral_character.jpg/revision/latest/scale-to-width-down/85?cb=20130321014600"
+    "avatarUrl": "https://static.wikia.nocookie.net/finalfantasy/images/8/80/Amarant_Coral_character.jpg/revision/latest/scale-to-width-down/85?cb=20130321014600"
   },
   {
     "name": "Freya Crescent",
     "rating": 3,
     "isFriend": true,
-    "image": "https://static.wikia.nocookie.net/finalfantasy/images/5/5c/Freya_Crescent_character.jpg/revision/latest/scale-to-width-down/170?cb=20130321024835"
+    "avatarUrl": "https://static.wikia.nocookie.net/finalfantasy/images/5/5c/Freya_Crescent_character.jpg/revision/latest/scale-to-width-down/170?cb=20130321024835"
   },
   {
     "name": "Quina Quen",
     "rating": 3,
     "isFriend": true,
-    "image": "https://static.wikia.nocookie.net/finalfantasy/images/d/df/Quina_Quen_from_Final_Fantasy_IX_render.png/revision/latest/scale-to-width-down/144?cb=20200521042616"
+    "avatarUrl": "https://static.wikia.nocookie.net/finalfantasy/images/d/df/Quina_Quen_from_Final_Fantasy_IX_render.png/revision/latest/scale-to-width-down/144?cb=20200521042616"
   },
   {
     "name": "Eiko Carol",
     "rating": 5,
     "isFriend": true,
-    "image": "https://static.wikia.nocookie.net/finalfantasy/images/f/fc/Eiko_Carol_character.jpg/revision/latest/scale-to-width-down/82?cb=20130321013026"
+    "avatarUrl": "https://static.wikia.nocookie.net/finalfantasy/images/f/fc/Eiko_Carol_character.jpg/revision/latest/scale-to-width-down/82?cb=20130321013026"
   },
   {
     "name": "Kuja",
@@ -86,20 +86,23 @@ class _UserListTile extends StatelessWidget {
     this.name,
     this.rating,
     this.isFriend,
+    this.avatarUrl,
   }) : super(key: key);
   final String name;
   final int rating;
   final bool isFriend;
+  final String avatarUrl;
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
       leading: CircleAvatar(
-        child: Text(
+        child: avatarUrl == null ? Text(
           name.characters.first,
           style: TextStyle(color: Colors.white),
-        ),
-        backgroundColor: Colors.grey,
+        ) : null,
+        backgroundColor: avatarUrl == null ? Colors.grey : null,
+        backgroundImage: avatarUrl != null ? NetworkImage(avatarUrl) : null,
       ),
       title: Text(
         name,
@@ -177,6 +180,7 @@ class UsersPage extends HookWidget {
                     name: datas[index]["name"],
                     rating: datas[index]["rating"],
                     isFriend: datas[index]["isFriend"],
+                    avatarUrl: datas[index]["avatarUrl"],
                   ))
                 ),
               ),
