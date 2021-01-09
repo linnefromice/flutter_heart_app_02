@@ -73,12 +73,10 @@ final List datas = [
 class _UserListTile extends StatelessWidget {
   _UserListTile({
     Key key,
-    this.idx,
     this.name,
     this.rating,
     this.isFriend,
   }) : super(key: key);
-  final int idx;
   final String name;
   final int rating;
   final bool isFriend;
@@ -164,7 +162,6 @@ class UsersPage extends HookWidget {
               child: SingleChildScrollView(
                 child: Column(
                   children: List.generate(datas.length, (index) => _UserListTile(
-                    idx: index,
                     name: datas[index]["name"],
                     rating: datas[index]["rating"],
                     isFriend: datas[index]["isFriend"],
