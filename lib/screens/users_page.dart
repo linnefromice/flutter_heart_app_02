@@ -140,18 +140,28 @@ class _UserListTile extends StatelessWidget {
 class UsersPage extends HookWidget {
   final GlobalKey<FabCircularMenuState> fabKey = GlobalKey();
 
-  Widget _buildHeader() {
+  Widget _buildHeader({final ValueNotifier valueNotifier, final TextEditingController textEditingController}) {
     return Column(
       children: [
         Container(
           margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
           child: TextField(
+            controller: textEditingController,
             decoration: InputDecoration(
               hintText: "Search...",
               hintStyle: TextStyle(color: Colors.white),
               prefixIcon: IconButton(
                 icon: Icon(Icons.search, color: Colors.white),
-                onPressed: () {},
+                onPressed: () { // does not work...
+                  print(textEditingController.text);
+                  final text = textEditingController.text;
+                  final results = List();
+                  valueNotifier.value((v) {
+                    if (v["name"].contains(text)) results.add(v);
+                  });
+                  valueNotifier.value = results;
+                  print(results);
+                },
               ),
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.white, width: 0.0),
@@ -166,21 +176,27 @@ class UsersPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ValueNotifier _datas = useState(datas);
+    final TextEditingController textEditingController = useTextEditingController();
+
     return Scaffold(
       body: WrapperCommonBackground(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(height: 50),
-            _buildHeader(),
+            _buildHeader(
+              valueNotifier: _datas,
+              textEditingController: textEditingController
+            ),
             Expanded(
               child: SingleChildScrollView(
                 child: Column(
-                  children: List.generate(datas.length, (index) => _UserListTile(
-                    name: datas[index]["name"],
-                    rating: datas[index]["rating"],
-                    isFriend: datas[index]["isFriend"],
-                    avatarUrl: datas[index]["avatarUrl"],
+                  children: List.generate(_datas.value.length, (index) => _UserListTile(
+                    name: _datas.value[index]["name"],
+                    rating: _datas.value[index]["rating"],
+                    isFriend: _datas.value[index]["isFriend"],
+                    avatarUrl: _datas.value[index]["avatarUrl"],
                   ))
                 ),
               ),
