@@ -1,6 +1,7 @@
 import 'package:fab_circular_menu/fab_circular_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:linnefromice/components/wrapper_fab_circle_menu.dart';
 import 'package:linnefromice/components/wrapper_common_background.dart';
 
 final List datas = [
@@ -162,64 +163,8 @@ class HomePage extends HookWidget {
         ),
       ),
       floatingActionButton: Builder(
-        builder: (context) => _FabCircularMenu(fabKey: fabKey)
+        builder: (context) => WrapperFabCircularMenu(fabKey: fabKey)
       ),
-    );
-  }
-}
-
-class _FabCircularMenu extends StatelessWidget {
-  _FabCircularMenu({
-    Key key,
-    this.fabKey,
-  }) : super(key: key);
-
-  final GlobalKey<FabCircularMenuState> fabKey;
-
-  @override
-  Widget build(BuildContext context) {
-    return FabCircularMenu(
-      key: fabKey,
-      alignment: Alignment.bottomCenter,
-      ringColor: Colors.red.withOpacity(0.5),
-      fabColor: Colors.red.withOpacity(0.5),
-      fabOpenIcon: Icon(Icons.menu, color: Colors.white),
-      fabCloseIcon: Icon(Icons.close, color: Colors.white),
-      children: <Widget>[
-        RawMaterialButton(
-          onPressed: () => print("You pressed 1"),
-          shape: CircleBorder(),
-          padding: EdgeInsets.all(24.0),
-          child: Icon(Icons.home, color: Colors.white),
-        ),
-        RawMaterialButton(
-          onPressed: () => print("You pressed 2"),
-          shape: CircleBorder(),
-          padding: EdgeInsets.all(24.0),
-          child: Icon(Icons.supervisor_account, color: Colors.white),
-        ),
-        RawMaterialButton(
-          onPressed: () => print("You pressed 3"),
-          shape: CircleBorder(),
-          padding: EdgeInsets.all(24.0),
-          child: Icon(Icons.save, color: Colors.white),
-        ),
-        RawMaterialButton(
-          onPressed: () => print("You pressed 4. This one closes the menu on tap"),
-          shape: CircleBorder(),
-          padding: EdgeInsets.all(24.0),
-          child: Icon(Icons.settings, color: Colors.white),
-        ),
-        RawMaterialButton(
-          onPressed: () {
-            print("You pressed 5. This one closes the menu on tap");
-            fabKey.currentState.close();
-          },
-          shape: CircleBorder(),
-          padding: EdgeInsets.all(24.0),
-          child: Icon(Icons.close, color: Colors.white),
-        )
-      ],
     );
   }
 }
