@@ -92,8 +92,14 @@ class _UserListTile extends StatelessWidget {
         ],
       ),
       trailing: RaisedButton(
-        child: Text("Friend"),
-      ) ,
+        child: Text(
+          "Friend",
+          style: TextStyle(color: Colors.orange),
+        ),
+        shape: StadiumBorder(),
+        color: Colors.white,
+        onPressed: () => {},
+      )
     );
   }
 }
@@ -135,10 +141,10 @@ class UsersPage extends HookWidget {
             Expanded(
               child: SingleChildScrollView(
                 child: Column(
-                  children: List.generate(100, (index) => _UserListTile(
+                  children: List.generate(datas.length, (index) => _UserListTile(
                     idx: index,
-                    name: datas[index % 5]["name"],
-                    rating: datas[index % 5]["rating"],
+                    name: datas[index]["name"],
+                    rating: datas[index]["rating"],
                   ))
                 ),
               ),
