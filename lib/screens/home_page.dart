@@ -1,5 +1,6 @@
 import 'package:fab_circular_menu/fab_circular_menu.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:linnefromice/components/wrapper_common_background.dart';
 
 final List datas = [
@@ -25,29 +26,11 @@ final List datas = [
   },
 ];
 
-class HomePage extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() => _State();
-}
-
-class _State extends State<HomePage> {
+class HomePage extends HookWidget {
   final GlobalKey<FabCircularMenuState> fabKey = GlobalKey();
-  PageController _pageController;
-  String _name;
-  int _rating;
   final int _initialPageIndex = 0;
 
-  @override
-  void initState() {
-    _pageController = PageController(
-      initialPage: _initialPageIndex,
-      viewportFraction: 0.5,
-    );
-    _name = datas[_initialPageIndex]["name"];
-    _rating = datas[_initialPageIndex]["rating"];
-  }
-
-  Widget _buildPageWidget({final String name}) {
+  Widget _buildPageWidget({final BuildContext context, final String name}) {
     return Container(
         height: MediaQuery.of(context).size.width,
         width: MediaQuery.of(context).size.width,
@@ -76,6 +59,13 @@ class _State extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final PageController _pageController = usePageController(
+      initialPage: _initialPageIndex,
+      viewportFraction: 0.5,
+    );
+    final _name = useState(datas[_initialPageIndex]["name"]);
+    final _rating = useState(datas[_initialPageIndex]["rating"]);
+
     return Scaffold(
       body: WrapperCommonBackground(
         child: Stack(
@@ -84,7 +74,10 @@ class _State extends State<HomePage> {
               controller: _pageController,
               children: List.generate(datas.length, (index) {
                 final user = datas[index];
-                return _buildPageWidget(name: user["name"]);
+                return _buildPageWidget(
+                  context: context,
+                  name: user["name"]
+                );
               }),
             ),
             Positioned(
@@ -111,10 +104,8 @@ class _State extends State<HomePage> {
                           duration: Duration(milliseconds: 500),
                           curve: Curves.easeInOut,
                         );
-                        setState(() {
-                          _name = datas[nextPageIndex]["name"];
-                          _rating = datas[nextPageIndex]["rating"];
-                        });
+                        _name.value = datas[nextPageIndex]["name"];
+                        _rating.value = datas[nextPageIndex]["rating"];
                       }
                     ),
                   ),
@@ -133,10 +124,8 @@ class _State extends State<HomePage> {
                           duration: Duration(milliseconds: 500),
                           curve: Curves.easeInOut,
                         );
-                        setState(() {
-                          _name = datas[nextPageIndex]["name"];
-                          _rating = datas[nextPageIndex]["rating"];
-                        });
+                        _name.value = datas[nextPageIndex]["name"];
+                        _rating.value = datas[nextPageIndex]["rating"];
                       }
                     ),
                   )
@@ -148,7 +137,7 @@ class _State extends State<HomePage> {
               left: 0,
               right: 0,
               child: Center(
-                child: Text(_name, style: TextStyle(color: Colors.red)),
+                child: Text(_name.value, style: TextStyle(color: Colors.red)),
               )
             ),
             Positioned(
@@ -160,11 +149,11 @@ class _State extends State<HomePage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Icon(Icons.favorite, size: 50, color: _rating >= 1 ? Colors.pink.withOpacity(0.5) : Colors.white),
-                    Icon(Icons.favorite, size: 50, color: _rating >= 2 ? Colors.pink.withOpacity(0.5) : Colors.white),
-                    Icon(Icons.favorite, size: 50, color: _rating >= 3 ? Colors.pink.withOpacity(0.5) : Colors.white),
-                    Icon(Icons.favorite, size: 50, color: _rating >= 4 ? Colors.pink.withOpacity(0.5) : Colors.white),
-                    Icon(Icons.favorite, size: 50, color: _rating >= 5 ? Colors.pink.withOpacity(0.5) : Colors.white),
+                    Icon(Icons.favorite, size: 50, color: _rating.value >= 1 ? Colors.pink.withOpacity(0.5) : Colors.white),
+                    Icon(Icons.favorite, size: 50, color: _rating.value >= 2 ? Colors.pink.withOpacity(0.5) : Colors.white),
+                    Icon(Icons.favorite, size: 50, color: _rating.value >= 3 ? Colors.pink.withOpacity(0.5) : Colors.white),
+                    Icon(Icons.favorite, size: 50, color: _rating.value >= 4 ? Colors.pink.withOpacity(0.5) : Colors.white),
+                    Icon(Icons.favorite, size: 50, color: _rating.value >= 5 ? Colors.pink.withOpacity(0.5) : Colors.white),
                   ],
                 )
               )
