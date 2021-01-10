@@ -24,23 +24,45 @@ class App extends StatelessWidget {
         builder: (context, snapshot) {
           // Check for errors
           if (snapshot.hasError) {
-            return Scaffold(body: Center(child: Text("Occurred Error when initialize Firebase ...")));
+            return _ErrorView();
           }
           // Once complete, show your application
           if (snapshot.connectionState == ConnectionState.done) {
             return UsersPage();
           }
           // Otherwise, show something whilst waiting for initialization to complete
-          return Scaffold(body: Center(child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              CircularProgressIndicator(),
-              Text("Loading ...")
-            ],
-          )));
+          return _LoadingView();
         },
       ),
+    );
+  }
+}
+
+class _ErrorView extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Text("Occurred Error when initialize Firebase ...")
+      )
+    );
+  }
+}
+
+class _LoadingView extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            CircularProgressIndicator(),
+            Text("Loading ...")
+          ],
+        )
+      )
     );
   }
 }
