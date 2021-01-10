@@ -221,7 +221,7 @@ class UsersPage extends HookWidget {
                               name: _datas.value[index]["name"],
                               rating: _datas.value[index]["rating"],
                               isFriend: _datas.value[index]["isFriend"],
-                              avatarUrl: _datas.value[index]["avatarUrl"],
+                              avatarUrl: hasConnectivity.data ? _datas.value[index]["avatarUrl"] : null,
                             ))
                           );
                   }
