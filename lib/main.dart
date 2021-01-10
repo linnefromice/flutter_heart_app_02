@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:linnefromice/components/wrapper_common_background.dart';
 import 'package:linnefromice/screens/users_page.dart';
 
 import 'screens/login_page.dart';
@@ -42,8 +43,10 @@ class _ErrorView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Text("Occurred Error when initialize Firebase ...")
+      body: WrapperCommonBackground(
+        child: Center(
+          child: Text("Occurred Error when initialize Firebase ...")
+        ),
       )
     );
   }
@@ -53,15 +56,17 @@ class _LoadingView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            CircularProgressIndicator(),
-            Text("Loading ...")
-          ],
-        )
+      body: WrapperCommonBackground(
+        child: Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              CircularProgressIndicator(),
+              Text("Loading ...")
+            ],
+          )
+        ),
       )
     );
   }
