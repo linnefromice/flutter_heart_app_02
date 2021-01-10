@@ -1,3 +1,4 @@
+import 'package:connectivity/connectivity.dart';
 import 'package:fab_circular_menu/fab_circular_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -139,6 +140,7 @@ class _UserListTile extends StatelessWidget {
 
 class UsersPage extends HookWidget {
   final GlobalKey<FabCircularMenuState> fabKey = GlobalKey();
+  final Connectivity _connectivity = Connectivity();
 
   Widget _buildHeader({final ValueNotifier valueNotifier, final TextEditingController textEditingController}) {
     return Column(
@@ -178,6 +180,24 @@ class UsersPage extends HookWidget {
   Widget build(BuildContext context) {
     final ValueNotifier _datas = useState(datas);
     final TextEditingController textEditingController = useTextEditingController();
+    final hasConnectivityController = useStreamController<bool>(keys: ["hasConnectivity"]);
+
+    useEffect(
+      () {
+        _connectivity.checkConnectivity().then((result) async {
+          switch (result) {
+            case ConnectivityResult.wifi:
+            case ConnectivityResult.mobile:
+              hasConnectivityController.add(true);
+              break;
+            case ConnectivityResult.none:
+              hasConnectivityController.add(false);
+              break;
+          }
+        }).catchError((e) => hasConnectivityController.addError(e));
+        return null;
+      }, [hasConnectivityController, ["hasConnectivity"]]
+    );
 
     return Scaffold(
       body: WrapperCommonBackground(
@@ -191,13 +211,20 @@ class UsersPage extends HookWidget {
             ),
             Expanded(
               child: SingleChildScrollView(
-                child: Column(
-                  children: List.generate(_datas.value.length, (index) => _UserListTile(
-                    name: _datas.value[index]["name"],
-                    rating: _datas.value[index]["rating"],
-                    isFriend: _datas.value[index]["isFriend"],
-                    avatarUrl: _datas.value[index]["avatarUrl"],
-                  ))
+                child: HookBuilder(
+                  builder: (context) {
+                    final AsyncSnapshot<bool> hasConnectivity = useStream(hasConnectivityController.stream);
+                    return !hasConnectivity.hasData
+                        ? CircularProgressIndicator()
+                        : Column(
+                            children: List.generate(_datas.value.length, (index) => _UserListTile(
+                              name: _datas.value[index]["name"],
+                              rating: _datas.value[index]["rating"],
+                              isFriend: _datas.value[index]["isFriend"],
+                              avatarUrl: _datas.value[index]["avatarUrl"],
+                            ))
+                          );
+                  }
                 ),
               ),
             ),
