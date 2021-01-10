@@ -30,6 +30,7 @@ dependencies:
   cupertino_icons: ^1.0.1
   fab_circular_menu: ^1.0.1
   flutter_hooks: ^0.15.0
+  connectivity: ^2.0.2
 
 dev_dependencies:
   flutter_test:
