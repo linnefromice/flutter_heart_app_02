@@ -213,7 +213,17 @@ class UsersPage extends HookWidget {
               child: SingleChildScrollView(
                 child: HookBuilder(
                   builder: (context) {
-                    final AsyncSnapshot<bool> hasConnectivity = useStream(hasConnectivityController.stream);
+                    // final AsyncSnapshot<bool> hasConnectivity = useStream(hasConnectivityController.stream); // if use useEffect & useStreamController
+                    final AsyncSnapshot<bool> hasConnectivity = useFuture(_connectivity.checkConnectivity().then((value) {
+                      switch (value) {
+                        case ConnectivityResult.wifi:
+                        case ConnectivityResult.mobile:
+                          return true;
+                        case ConnectivityResult.none:
+                        default:
+                          return false;
+                      }
+                    }));
                     return !hasConnectivity.hasData
                         ? CircularProgressIndicator()
                         : Column(
