@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:linnefromice/components/wrapper_common_background.dart';
@@ -111,10 +112,22 @@ class LoginPage extends HookWidget {
                     borderRadius: BorderRadius.all(Radius.circular(10))
                   ),
                 ),
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => HomePage())
-                  );
+                onPressed: () async {
+                  try {
+                    UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+                      email: _emailController.text + "@gmail.com",
+                      password: _passwordController.text
+                    );
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => HomePage())
+                    );
+                  } on FirebaseAuthException catch (e) {
+                    if (e.code == 'user-not-found') {
+                      print('No user found for that email.');
+                    } else if (e.code == 'wrong-password') {
+                      print('Wrong password provided for that user.');
+                    }
+                  }
                 }, // TODO: show dialog
               ),
             )
