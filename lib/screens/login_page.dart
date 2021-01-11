@@ -25,7 +25,10 @@ class LoginPage extends HookWidget {
   
   Widget _buildErrorDialog(final BuildContext context, final String title) {
     return AlertDialog(
-      title: Text(title),
+      title: Text(
+        title,
+        style: TextStyle(color: Colors.red),
+      ),
       actions: <Widget>[
         TextButton(
           child: Text('OK'),
@@ -41,6 +44,7 @@ class LoginPage extends HookWidget {
   Widget build(BuildContext context) {
     final _emailController = useTextEditingController();
     final _passwordController = useTextEditingController();
+    final 
 
     return Scaffold(
       body: WrapperCommonBackground(
