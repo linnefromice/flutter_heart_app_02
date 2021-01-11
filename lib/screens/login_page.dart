@@ -85,40 +85,49 @@ class LoginPage extends HookWidget {
                       ),
                     ),
                   ),
-                  Text("@", style: TextStyle(color: Colors.white)),
-                  DropdownButton<String>(
-                    value: _selectedDomain.value,
-                    onChanged: (value) => _selectedDomain.value = value,
-                    items: [
-                      DropdownMenuItem(
-                        value: "gmail.com",
-                        child: Text("gmail.com"),
-                      ),
-                      DropdownMenuItem(
-                        value: "yahoo.co.jp",
-                        child: Text("yahoo.co.jp"),
-                      ),
-                      DropdownMenuItem(
-                        value: "ezweb.ne.jp",
-                        child: Text("ezweb.ne.jp"),
-                      ),
-                      DropdownMenuItem(
-                        value: "au.com",
-                        child: Text("au.com"),
-                      ),
-                      DropdownMenuItem(
-                        value: "docomo.ne.jp",
-                        child: Text("docomo.ne.jp"),
-                      ),
-                      DropdownMenuItem(
-                        value: "i.softbank.jp",
-                        child: Text("i.softbank.jp"),
-                      ),
-                      DropdownMenuItem(
-                        value: "softbank.ne.jp",
-                        child: Text("softbank.ne.jp"),
-                      ),
-                    ],
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: 4.0),
+                    child: Text("@", style: TextStyle(color: Colors.white))
+                  ),
+                  Theme(
+                    data: ThemeData(
+                      canvasColor: Colors.grey
+                    ),
+                    child: DropdownButton<String>(
+                      value: _selectedDomain.value,
+                      onChanged: (value) => _selectedDomain.value = value,
+                      style: TextStyle(color: Colors.white),
+                      items: [
+                        DropdownMenuItem(
+                          value: "gmail.com",
+                          child: Text("gmail.com"),
+                        ),
+                        DropdownMenuItem(
+                          value: "yahoo.co.jp",
+                          child: Text("yahoo.co.jp"),
+                        ),
+                        DropdownMenuItem(
+                          value: "ezweb.ne.jp",
+                          child: Text("ezweb.ne.jp"),
+                        ),
+                        DropdownMenuItem(
+                          value: "au.com",
+                          child: Text("au.com"),
+                        ),
+                        DropdownMenuItem(
+                          value: "docomo.ne.jp",
+                          child: Text("docomo.ne.jp"),
+                        ),
+                        DropdownMenuItem(
+                          value: "i.softbank.jp",
+                          child: Text("i.softbank.jp"),
+                        ),
+                        DropdownMenuItem(
+                          value: "softbank.ne.jp",
+                          child: Text("softbank.ne.jp"),
+                        ),
+                      ],
+                    ),
                   )
                 ]
               ),
@@ -193,7 +202,7 @@ class LoginPage extends HookWidget {
                 onPressed: () async {
                   try {
                     UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-                      email: _emailController.text,
+                      email: _emailController.text + "@" + _selectedDomain.value,
                       password: _passwordController.text
                     );
                     Navigator.of(context).push(
