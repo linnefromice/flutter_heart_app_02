@@ -45,6 +45,7 @@ class LoginPage extends HookWidget {
     final _emailController = useTextEditingController();
     final _passwordController = useTextEditingController();
     final _isObscureText = useState(true);
+    final _selectedDomain = useState("gmail.com");
 
     return Scaffold(
       body: WrapperCommonBackground(
@@ -60,24 +61,66 @@ class LoginPage extends HookWidget {
             _buildDescriptionLine("feelings to actually evaluations..."),
             Container(
               margin: EdgeInsets.symmetric(vertical: 8.0),
-              child: TextField( // TODO: can select domain (ex @gmail.com)
-                controller: _emailController,
-                keyboardType: TextInputType.emailAddress,
-                obscureText: false,
-                style: TextStyle(
-                  fontSize: 18.0,
-                  color: Colors.white
-                ),
-                decoration: InputDecoration(
-                  contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                  prefixIcon: Icon(Icons.account_circle, color: Colors.white),
-                  hintText: "Email",
-                  hintStyle: TextStyle(color: Colors.white),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white),
-                    borderRadius: BorderRadius.circular(32.0)
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Flexible(
+                    child: TextField( // TODO: can select domain (ex @gmail.com)
+                      controller: _emailController,
+                      keyboardType: TextInputType.emailAddress,
+                      obscureText: false,
+                      style: TextStyle(
+                        fontSize: 18.0,
+                        color: Colors.white
+                      ),
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                        prefixIcon: Icon(Icons.account_circle, color: Colors.white),
+                        hintText: "Email",
+                        hintStyle: TextStyle(color: Colors.white),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white),
+                          borderRadius: BorderRadius.circular(32.0)
+                        )
+                      ),
+                    ),
+                  ),
+                  Text("@", style: TextStyle(color: Colors.white)),
+                  DropdownButton<String>(
+                    value: _selectedDomain.value,
+                    onChanged: (value) => _selectedDomain.value = value,
+                    items: [
+                      DropdownMenuItem(
+                        value: "gmail.com",
+                        child: Text("gmail.com"),
+                      ),
+                      DropdownMenuItem(
+                        value: "yahoo.co.jp",
+                        child: Text("yahoo.co.jp"),
+                      ),
+                      DropdownMenuItem(
+                        value: "ezweb.ne.jp",
+                        child: Text("ezweb.ne.jp"),
+                      ),
+                      DropdownMenuItem(
+                        value: "au.com",
+                        child: Text("au.com"),
+                      ),
+                      DropdownMenuItem(
+                        value: "docomo.ne.jp",
+                        child: Text("docomo.ne.jp"),
+                      ),
+                      DropdownMenuItem(
+                        value: "i.softbank.jp",
+                        child: Text("i.softbank.jp"),
+                      ),
+                      DropdownMenuItem(
+                        value: "softbank.ne.jp",
+                        child: Text("softbank.ne.jp"),
+                      ),
+                    ],
                   )
-                ),
+                ]
               ),
             ),
             Container(
