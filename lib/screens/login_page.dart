@@ -44,6 +44,34 @@ class LoginPage extends StatelessWidget {
             _buildDescriptionLine("You can reflect"),
             _buildDescriptionLine("feelings to actually evaluations..."),
             Container(
+              margin: EdgeInsets.symmetric(vertical: 8.0),
+              child: TextField(
+                obscureText: false,
+                style: TextStyle(fontFamily: 'Montserrat', fontSize: 18.0),
+                decoration: InputDecoration(
+                  contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                  hintText: "Email",
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(32.0)
+                  )
+                ),
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.symmetric(vertical: 8.0),
+              child: TextField(
+                obscureText: true,
+                style: TextStyle(fontFamily: 'Montserrat', fontSize: 18.0),
+                decoration: InputDecoration(
+                  contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                  hintText: "Password",
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(32.0),
+                  )
+                ),
+              ),
+            ),
+            Container(
               margin: EdgeInsets.symmetric(vertical: 16.0),
               child: ElevatedButton.icon(
                 icon: Icon(
