@@ -59,7 +59,7 @@ class LoginPage extends HookWidget {
             ),
             _buildDescriptionLine("You can reflect"),
             _buildDescriptionLine("feelings to actually evaluations..."),
-            Container(
+            Container( // Input Email
               margin: EdgeInsets.symmetric(vertical: 8.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -93,46 +93,23 @@ class LoginPage extends HookWidget {
                     data: ThemeData(
                       canvasColor: Colors.grey
                     ),
-                    child: DropdownButton<String>(
-                      value: _selectedDomain.value,
-                      onChanged: (value) => _selectedDomain.value = value,
-                      style: TextStyle(color: Colors.white),
-                      items: [
-                        DropdownMenuItem(
-                          value: "gmail.com",
-                          child: Text("gmail.com"),
-                        ),
-                        DropdownMenuItem(
-                          value: "yahoo.co.jp",
-                          child: Text("yahoo.co.jp"),
-                        ),
-                        DropdownMenuItem(
-                          value: "ezweb.ne.jp",
-                          child: Text("ezweb.ne.jp"),
-                        ),
-                        DropdownMenuItem(
-                          value: "au.com",
-                          child: Text("au.com"),
-                        ),
-                        DropdownMenuItem(
-                          value: "docomo.ne.jp",
-                          child: Text("docomo.ne.jp"),
-                        ),
-                        DropdownMenuItem(
-                          value: "i.softbank.jp",
-                          child: Text("i.softbank.jp"),
-                        ),
-                        DropdownMenuItem(
-                          value: "softbank.ne.jp",
-                          child: Text("softbank.ne.jp"),
-                        ),
-                      ],
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButton<String>(
+                        value: _selectedDomain.value,
+                        onChanged: (value) => _selectedDomain.value = value,
+                        style: TextStyle(color: Colors.white),
+                        items: ["gmail.com", "yahoo.co.jp", "ezweb.ne.jp", "au.com", "docomo.ne.jp", "i.softbank.jp", "softbank.ne.jp"]
+                          .map((value) => DropdownMenuItem(
+                            value: value,
+                            child: Text(value),
+                          )) .toList(),
+                      ),
                     ),
                   )
                 ]
               ),
             ),
-            Container(
+            Container( // Input Password
               margin: EdgeInsets.symmetric(vertical: 8.0),
               child: TextField(
                 controller: _passwordController,
