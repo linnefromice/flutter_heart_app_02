@@ -44,7 +44,7 @@ class LoginPage extends HookWidget {
   Widget build(BuildContext context) {
     final _emailController = useTextEditingController();
     final _passwordController = useTextEditingController();
-    final 
+    final _isObscureText = useState(true);
 
     return Scaffold(
       body: WrapperCommonBackground(
@@ -85,7 +85,7 @@ class LoginPage extends HookWidget {
               child: TextField(
                 controller: _passwordController,
                 keyboardType: TextInputType.text,
-                obscureText: true,
+                obscureText: _isObscureText.value,
                 style: TextStyle(
                   fontSize: 18.0,
                   color: Colors.white
@@ -100,6 +100,23 @@ class LoginPage extends HookWidget {
                     borderRadius: BorderRadius.circular(32.0),
                   )
                 ),
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.symmetric(vertical: 8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    "Show password",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  Checkbox(
+                    value: _isObscureText.value,
+                    onChanged: (value) => _isObscureText.value = value,
+                  )
+                ],
               ),
             ),
             Container(
