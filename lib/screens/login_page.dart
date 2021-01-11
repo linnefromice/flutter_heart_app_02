@@ -31,6 +31,20 @@ class LoginPage extends HookWidget {
     ),
   );
 
+  Widget _buildErrorDialog(final BuildContext context, final String title) {
+    return AlertDialog(
+      title: Text(title),
+      actions: <Widget>[
+        TextButton(
+          child: Text('OK'),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final _emailController = useTextEditingController();
@@ -128,16 +142,9 @@ class LoginPage extends HookWidget {
                       showDialog(
                         context: context,
                         builder: (BuildContext buildContext) {
-                          return AlertDialog(
-                            title: Text("No user found for that email."),
-                            actions: <Widget>[
-                              TextButton(
-                                child: Text('OK'),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                            ],
+                          return _buildErrorDialog(
+                            context,
+                            "No user found for that email."
                           );
                         }
                       );
@@ -145,16 +152,9 @@ class LoginPage extends HookWidget {
                       showDialog(
                         context: context,
                         builder: (BuildContext buildContext) {
-                          return AlertDialog(
-                            title: Text("Wrong password provided for that user."),
-                            actions: <Widget>[
-                              TextButton(
-                                child: Text('OK'),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                            ],
+                          return _buildErrorDialog(
+                            context,
+                            "Wrong password provided for that user."
                           );
                         }
                       );
