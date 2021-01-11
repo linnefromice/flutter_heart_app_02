@@ -1,12 +1,18 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:linnefromice/components/wrapper_common_background.dart';
+import 'package:linnefromice/screens/users_page.dart';
 
 import 'screens/login_page.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(App());
 }
 
 class App extends StatelessWidget {
+  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -14,7 +20,54 @@ class App extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: LoginPage(),
+      home: FutureBuilder(
+        future: _initialization,
+        builder: (context, snapshot) {
+          // Check for errors
+          if (snapshot.hasError) {
+            return _ErrorView();
+          }
+          // Once complete, show your application
+          if (snapshot.connectionState == ConnectionState.done) {
+            return UsersPage();
+          }
+          // Otherwise, show something whilst waiting for initialization to complete
+          return _LoadingView();
+        },
+      ),
+    );
+  }
+}
+
+class _ErrorView extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: WrapperCommonBackground(
+        child: Center(
+          child: Text("Occurred Error when initialize Firebase ...")
+        ),
+      )
+    );
+  }
+}
+
+class _LoadingView extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: WrapperCommonBackground(
+        child: Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              CircularProgressIndicator(),
+              Text("Loading ...")
+            ],
+          )
+        ),
+      )
     );
   }
 }

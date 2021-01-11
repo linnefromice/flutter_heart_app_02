@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>222691870266-1ihb8v3rhmftu8f8jo0ma73ro65d8ri5.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.222691870266-1ihb8v3rhmftu8f8jo0ma73ro65d8ri5</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAm31vLoNa19txuYlzJs_4pdo2zZVuKE7Q</string>
+	<key>GCM_SENDER_ID</key>
+	<string>222691870266</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.linnefromice</string>
+	<key>PROJECT_ID</key>
+	<string>dev-heart-app-02</string>
+	<key>STORAGE_BUCKET</key>
+	<string>dev-heart-app-02.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:222691870266:ios:cb1725e5c5ab532ffa9703</string>
+</dict>
+</plist>

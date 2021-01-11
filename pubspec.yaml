@@ -32,6 +32,10 @@ dependencies:
   flutter_hooks: ^0.15.0
   connectivity: ^2.0.2
 
+  # for Firebase
+  firebase_core: ^0.5.3
+  firebase_auth: ^0.18.4+1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
