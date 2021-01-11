@@ -3,6 +3,32 @@ import 'package:linnefromice/components/wrapper_common_background.dart';
 import 'package:linnefromice/screens/home_page.dart';
 
 class LoginPage extends StatelessWidget {
+  Widget _buildTitle() => Text(
+    "Rating",
+    style: TextStyle(
+      color: Colors.white,
+      fontSize: 48,
+      fontStyle: FontStyle.italic,
+      fontWeight: FontWeight.bold
+    ),
+  );
+
+  Widget _buildDescriptionLine(final String description) => Text(
+    description,
+    style: TextStyle(
+      color: Colors.white,
+      fontSize: 18,
+    ),
+  );
+
+  Widget _buildDescriptionTwo() => Text(
+    "You can reflect",
+    style: TextStyle(
+      color: Colors.white,
+      fontSize: 18,
+    ),
+  );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,30 +39,10 @@ class LoginPage extends StatelessWidget {
           children: [
             Container(
               margin: EdgeInsets.symmetric(vertical: 16.0),
-              child: Text(
-                "Rating",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 48,
-                  fontStyle: FontStyle.italic,
-                  fontWeight: FontWeight.bold
-                ),
-              ),
+              child: _buildTitle(),
             ),
-            Text(
-              "You can reflect",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 18,
-              ),
-            ),
-            Text(
-              "feelings to actually evaluations...",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 18,
-              ),
-            ),
+            _buildDescriptionLine("You can reflect"),
+            _buildDescriptionLine("feelings to actually evaluations..."),
             Container(
               margin: EdgeInsets.symmetric(vertical: 16.0),
               child: ElevatedButton.icon(
