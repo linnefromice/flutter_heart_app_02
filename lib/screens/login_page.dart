@@ -47,9 +47,10 @@ class LoginPage extends StatelessWidget {
               margin: EdgeInsets.symmetric(vertical: 8.0),
               child: TextField(
                 obscureText: false,
-                style: TextStyle(fontFamily: 'Montserrat', fontSize: 18.0),
+                style: TextStyle(fontSize: 18.0),
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                  prefixIcon: Icon(Icons.account_circle, color: Colors.white),
                   hintText: "Email",
                   hintStyle: TextStyle(color: Colors.white),
                   enabledBorder: OutlineInputBorder(
@@ -63,9 +64,10 @@ class LoginPage extends StatelessWidget {
               margin: EdgeInsets.symmetric(vertical: 8.0),
               child: TextField(
                 obscureText: true,
-                style: TextStyle(fontFamily: 'Montserrat', fontSize: 18.0),
+                style: TextStyle(fontSize: 18.0),
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                  prefixIcon: Icon(Icons.lock, color: Colors.white),
                   hintText: "Password",
                   hintStyle: TextStyle(color: Colors.white),
                   enabledBorder: OutlineInputBorder(
