@@ -50,7 +50,7 @@ class LoginPage extends HookWidget {
             _buildDescriptionLine("feelings to actually evaluations..."),
             Container(
               margin: EdgeInsets.symmetric(vertical: 8.0),
-              child: TextField(
+              child: TextField( // TODO: can select domain (ex @gmail.com)
                 controller: _emailController,
                 keyboardType: TextInputType.emailAddress,
                 obscureText: false,
@@ -125,9 +125,39 @@ class LoginPage extends HookWidget {
                     );
                   } on FirebaseAuthException catch (e) {
                     if (e.code == 'user-not-found') {
-                      print('No user found for that email.');
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext buildContext) {
+                          return AlertDialog(
+                            title: Text("No user found for that email."),
+                            actions: <Widget>[
+                              TextButton(
+                                child: Text('OK'),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ],
+                          );
+                        }
+                      );
                     } else if (e.code == 'wrong-password') {
-                      print('Wrong password provided for that user.');
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext buildContext) {
+                          return AlertDialog(
+                            title: Text("Wrong password provided for that user."),
+                            actions: <Widget>[
+                              TextButton(
+                                child: Text('OK'),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ],
+                          );
+                        }
+                      );
                     }
                   }
                 }, // TODO: show dialog
