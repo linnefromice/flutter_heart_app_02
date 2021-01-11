@@ -93,7 +93,7 @@ class LoginPage extends StatelessWidget {
                   ),
                 ),
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.grey,
+                  primary: Colors.transparent,
                   onPrimary: Colors.black,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10))
