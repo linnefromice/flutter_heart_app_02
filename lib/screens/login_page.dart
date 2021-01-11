@@ -52,6 +52,7 @@ class LoginPage extends HookWidget {
               margin: EdgeInsets.symmetric(vertical: 8.0),
               child: TextField(
                 controller: _emailController,
+                keyboardType: TextInputType.emailAddress,
                 obscureText: false,
                 style: TextStyle(
                   fontSize: 18.0,
@@ -73,6 +74,7 @@ class LoginPage extends HookWidget {
               margin: EdgeInsets.symmetric(vertical: 8.0),
               child: TextField(
                 controller: _passwordController,
+                keyboardType: TextInputType.text,
                 obscureText: true,
                 style: TextStyle(
                   fontSize: 18.0,
@@ -115,7 +117,7 @@ class LoginPage extends HookWidget {
                 onPressed: () async {
                   try {
                     UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-                      email: _emailController.text + "@gmail.com",
+                      email: _emailController.text,
                       password: _passwordController.text
                     );
                     Navigator.of(context).push(
