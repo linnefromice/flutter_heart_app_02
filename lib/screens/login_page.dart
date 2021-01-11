@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:linnefromice/components/wrapper_common_background.dart';
 import 'package:linnefromice/screens/home_page.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends HookWidget {
   Widget _buildTitle() => Text(
     "Rating",
     style: TextStyle(
@@ -31,6 +32,9 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _emailController = useTextEditingController();
+    final _passwordController = useTextEditingController();
+
     return Scaffold(
       body: WrapperCommonBackground(
         child: Column(
@@ -46,8 +50,12 @@ class LoginPage extends StatelessWidget {
             Container(
               margin: EdgeInsets.symmetric(vertical: 8.0),
               child: TextField(
+                controller: _emailController,
                 obscureText: false,
-                style: TextStyle(fontSize: 18.0),
+                style: TextStyle(
+                  fontSize: 18.0,
+                  color: Colors.white
+                ),
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                   prefixIcon: Icon(Icons.account_circle, color: Colors.white),
@@ -63,8 +71,12 @@ class LoginPage extends StatelessWidget {
             Container(
               margin: EdgeInsets.symmetric(vertical: 8.0),
               child: TextField(
+                controller: _passwordController,
                 obscureText: true,
-                style: TextStyle(fontSize: 18.0),
+                style: TextStyle(
+                  fontSize: 18.0,
+                  color: Colors.white
+                ),
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                   prefixIcon: Icon(Icons.lock, color: Colors.white),
