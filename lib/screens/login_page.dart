@@ -112,9 +112,15 @@ class LoginPage extends HookWidget {
                     "Show password",
                     style: TextStyle(color: Colors.white),
                   ),
-                  Checkbox(
-                    value: _isObscureText.value,
-                    onChanged: (value) => _isObscureText.value = value,
+                  Theme(
+                    data: ThemeData(
+                      primarySwatch: Colors.grey,
+                      unselectedWidgetColor: Colors.white
+                    ),
+                    child: Checkbox(
+                      value: _isObscureText.value,
+                      onChanged: (value) => _isObscureText.value = value,
+                    ),
                   )
                 ],
               ),
