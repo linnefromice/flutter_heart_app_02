@@ -22,15 +22,7 @@ class LoginPage extends HookWidget {
       fontSize: 18,
     ),
   );
-
-  Widget _buildDescriptionTwo() => Text(
-    "You can reflect",
-    style: TextStyle(
-      color: Colors.white,
-      fontSize: 18,
-    ),
-  );
-
+  
   Widget _buildErrorDialog(final BuildContext context, final String title) {
     return AlertDialog(
       title: Text(title),
@@ -160,7 +152,7 @@ class LoginPage extends HookWidget {
                       );
                     }
                   }
-                }, // TODO: show dialog
+                },
               ),
             )
           ],
