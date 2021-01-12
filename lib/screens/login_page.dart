@@ -4,6 +4,16 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:linnefromice/components/wrapper_common_background.dart';
 import 'package:linnefromice/screens/home_page.dart';
 
+final List<String> domainList = [
+  "gmail.com",
+  "yahoo.co.jp",
+  "ezweb.ne.jp",
+  "au.com",
+  "docomo.ne.jp",
+  "i.softbank.jp",
+  "softbank.ne.jp"
+];
+
 class LoginPage extends HookWidget {
   Widget _buildTitle() => Text(
     "Rating",
@@ -45,7 +55,7 @@ class LoginPage extends HookWidget {
     final _emailController = useTextEditingController();
     final _passwordController = useTextEditingController();
     final _isObscureText = useState(true);
-    final _selectedDomain = useState("gmail.com");
+    final _selectedDomain = useState(domainList.first);
 
     return Scaffold(
       body: WrapperCommonBackground(
@@ -98,11 +108,10 @@ class LoginPage extends HookWidget {
                         value: _selectedDomain.value,
                         onChanged: (value) => _selectedDomain.value = value,
                         style: TextStyle(color: Colors.white),
-                        items: ["gmail.com", "yahoo.co.jp", "ezweb.ne.jp", "au.com", "docomo.ne.jp", "i.softbank.jp", "softbank.ne.jp"]
-                          .map((value) => DropdownMenuItem(
-                            value: value,
-                            child: Text(value),
-                          )) .toList(),
+                        items: domainList.map((value) => DropdownMenuItem(
+                          value: value,
+                          child: Text(value),
+                        )) .toList(),
                       ),
                     ),
                   )
