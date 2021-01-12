@@ -11,6 +11,15 @@ class WrapperFabCircularMenu extends StatelessWidget {
 
   final GlobalKey<FabCircularMenuState> fabKey;
 
+  RawMaterialButton _buildRawMaterialButton({final Icon icon, final Function onPressed}) {
+    return RawMaterialButton(
+      onPressed: onPressed,
+      shape: CircleBorder(),
+      padding: EdgeInsets.all(24.0),
+      child: icon
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return FabCircularMenu(
@@ -21,42 +30,30 @@ class WrapperFabCircularMenu extends StatelessWidget {
       fabOpenIcon: Icon(Icons.menu, color: Colors.white),
       fabCloseIcon: Icon(Icons.close, color: Colors.white),
       children: <Widget>[
-        RawMaterialButton(
+        _buildRawMaterialButton(
+          icon: Icon(Icons.home, color: Colors.white),
           onPressed: () => Navigator.of(context).push(
             MaterialPageRoute(builder: (context) => HomePage())
           ),
-          shape: CircleBorder(),
-          padding: EdgeInsets.all(24.0),
-          child: Icon(Icons.home, color: Colors.white),
         ),
-        RawMaterialButton(
+        _buildRawMaterialButton(
+          icon: Icon(Icons.supervisor_account, color: Colors.white),
           onPressed: () => Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => UsersPage())
+            MaterialPageRoute(builder: (context) => UsersPage()),
           ),
-          shape: CircleBorder(),
-          padding: EdgeInsets.all(24.0),
-          child: Icon(Icons.supervisor_account, color: Colors.white),
         ),
-        RawMaterialButton(
+        _buildRawMaterialButton(
+          icon: Icon(Icons.save, color: Colors.white),
           onPressed: () => print("Unimplemented"),
-          shape: CircleBorder(),
-          padding: EdgeInsets.all(24.0),
-          child: Icon(Icons.save, color: Colors.white),
         ),
-        RawMaterialButton(
+        _buildRawMaterialButton(
+          icon: Icon(Icons.settings, color: Colors.white),
           onPressed: () => print("Unimplemented"),
-          shape: CircleBorder(),
-          padding: EdgeInsets.all(24.0),
-          child: Icon(Icons.settings, color: Colors.white),
         ),
-        RawMaterialButton(
-          onPressed: () {
-            fabKey.currentState.close();
-          },
-          shape: CircleBorder(),
-          padding: EdgeInsets.all(24.0),
-          child: Icon(Icons.close, color: Colors.white),
-        )
+        _buildRawMaterialButton(
+          icon: Icon(Icons.close, color: Colors.white),
+          onPressed: () => fabKey.currentState.close()
+        ),
       ],
     );
   }
