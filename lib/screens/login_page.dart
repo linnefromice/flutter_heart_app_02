@@ -4,6 +4,16 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:linnefromice/components/wrapper_common_background.dart';
 import 'package:linnefromice/screens/home_page.dart';
 
+final List<String> domainList = [
+  "gmail.com",
+  "yahoo.co.jp",
+  "ezweb.ne.jp",
+  "au.com",
+  "docomo.ne.jp",
+  "i.softbank.jp",
+  "softbank.ne.jp"
+];
+
 class LoginPage extends HookWidget {
   Widget _buildTitle() => Text(
     "Rating",
@@ -40,12 +50,45 @@ class LoginPage extends HookWidget {
     );
   }
 
+  void _authenticate({final BuildContext context, final String email, final String domain, final String password}) async {
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance
+        .signInWithEmailAndPassword(
+          email: email + "@" + domain,
+          password: password
+        );
+      Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomePage()));
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        showDialog(
+          context: context,
+          builder: (BuildContext buildContext) {
+            return _buildErrorDialog(
+              context,
+              "No user found for that email."
+            );
+          }
+        );
+      } else if (e.code == 'wrong-password') {
+        showDialog(
+          context: context,
+          builder: (BuildContext buildContext) {
+            return _buildErrorDialog(
+              context,
+              "Wrong password provided for that user."
+            );
+          }
+        );
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final _emailController = useTextEditingController();
     final _passwordController = useTextEditingController();
     final _isObscureText = useState(true);
-    final _selectedDomain = useState("gmail.com");
+    final _selectedDomain = useState(domainList.first);
 
     return Scaffold(
       body: WrapperCommonBackground(
@@ -98,11 +141,10 @@ class LoginPage extends HookWidget {
                         value: _selectedDomain.value,
                         onChanged: (value) => _selectedDomain.value = value,
                         style: TextStyle(color: Colors.white),
-                        items: ["gmail.com", "yahoo.co.jp", "ezweb.ne.jp", "au.com", "docomo.ne.jp", "i.softbank.jp", "softbank.ne.jp"]
-                          .map((value) => DropdownMenuItem(
-                            value: value,
-                            child: Text(value),
-                          )) .toList(),
+                        items: domainList.map((value) => DropdownMenuItem(
+                          value: value,
+                          child: Text(value),
+                        )) .toList(),
                       ),
                     ),
                   )
@@ -176,39 +218,12 @@ class LoginPage extends HookWidget {
                     borderRadius: BorderRadius.all(Radius.circular(10))
                   ),
                 ),
-                onPressed: () async {
-                  try {
-                    UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-                      email: _emailController.text + "@" + _selectedDomain.value,
-                      password: _passwordController.text
-                    );
-                    Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => HomePage())
-                    );
-                  } on FirebaseAuthException catch (e) {
-                    if (e.code == 'user-not-found') {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext buildContext) {
-                          return _buildErrorDialog(
-                            context,
-                            "No user found for that email."
-                          );
-                        }
-                      );
-                    } else if (e.code == 'wrong-password') {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext buildContext) {
-                          return _buildErrorDialog(
-                            context,
-                            "Wrong password provided for that user."
-                          );
-                        }
-                      );
-                    }
-                  }
-                },
+                onPressed: () => _authenticate(
+                  context: context,
+                  email: _emailController.text,
+                  domain: _selectedDomain.value,
+                  password: _passwordController.text
+                ),
               ),
             )
           ],
@@ -216,5 +231,4 @@ class LoginPage extends HookWidget {
       ),
     );
   }
-
 }

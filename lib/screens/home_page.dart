@@ -8,18 +8,22 @@ final List datas = [
   {
     "name": "Zidane Tribal",
     "rating": 4,
+    "avatarUrl": "https://static.wikia.nocookie.net/finalfantasy/images/1/11/Zidane_Tribal_character.png/revision/latest/scale-to-width-down/84?cb=20120811142151"
   },
   {
     "name": "Dagger",
     "rating": 4,
+    "avatarUrl": "https://static.wikia.nocookie.net/finalfantasy/images/e/e8/Garnet_Til_Alexandros_XVII_character.jpg/revision/latest/scale-to-width-down/55?cb=20130321045317"
   },
   {
     "name": "Vivi Orunitia",
     "rating": 3,
+    "avatarUrl": "https://static.wikia.nocookie.net/finalfantasy/images/b/b5/Vivi_Ornitier_from_Final_Fantasy_IX_render.png/revision/latest/scale-to-width-down/94?cb=20200516160037"
   },
   {
     "name": "Adelbert Steiner",
     "rating": 2,
+    "avatarUrl": "https://static.wikia.nocookie.net/finalfantasy/images/3/3f/Adelbert_Steiner_from_Final_Fantasy_IX_render.png/revision/latest/scale-to-width-down/104?cb=20200523163741"
   },
   {
     "name": "Kuja",
@@ -31,7 +35,7 @@ class HomePage extends HookWidget {
   final GlobalKey<FabCircularMenuState> fabKey = GlobalKey();
   final int _initialPageIndex = 0;
 
-  Widget _buildPageWidget({final BuildContext context, final String name}) {
+  Widget _buildPageWidget({final BuildContext context, final String name, final String avatarUrl}) {
     return Container(
         height: MediaQuery.of(context).size.width,
         width: MediaQuery.of(context).size.width,
@@ -51,8 +55,9 @@ class HomePage extends HookWidget {
             widthFactor: 0.7,
             child: CircleAvatar(
               maxRadius: 30,
-              child: Text(name, style: TextStyle(color: Colors.red)),
-              backgroundColor: Colors.white,
+              child: avatarUrl != null ? null : Text(name, style: TextStyle(color: Colors.red)),
+              backgroundColor: avatarUrl == null ? Colors.white : null,
+              backgroundImage: avatarUrl != null ? NetworkImage(avatarUrl) : null,
             )
         ),
     );
@@ -77,7 +82,8 @@ class HomePage extends HookWidget {
                 final user = datas[index];
                 return _buildPageWidget(
                   context: context,
-                  name: user["name"]
+                  name: user["name"],
+                  avatarUrl: user["avatarUrl"]
                 );
               }),
             ),
