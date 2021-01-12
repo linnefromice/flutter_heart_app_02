@@ -50,6 +50,39 @@ class LoginPage extends HookWidget {
     );
   }
 
+  void _authenticate({final BuildContext context, final String email, final String domain, final String password}) async {
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance
+        .signInWithEmailAndPassword(
+          email: email + "@" + domain,
+          password: password
+        );
+      Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomePage()));
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        showDialog(
+          context: context,
+          builder: (BuildContext buildContext) {
+            return _buildErrorDialog(
+              context,
+              "No user found for that email."
+            );
+          }
+        );
+      } else if (e.code == 'wrong-password') {
+        showDialog(
+          context: context,
+          builder: (BuildContext buildContext) {
+            return _buildErrorDialog(
+              context,
+              "Wrong password provided for that user."
+            );
+          }
+        );
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final _emailController = useTextEditingController();
@@ -185,39 +218,12 @@ class LoginPage extends HookWidget {
                     borderRadius: BorderRadius.all(Radius.circular(10))
                   ),
                 ),
-                onPressed: () async {
-                  try {
-                    UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-                      email: _emailController.text + "@" + _selectedDomain.value,
-                      password: _passwordController.text
-                    );
-                    Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => HomePage())
-                    );
-                  } on FirebaseAuthException catch (e) {
-                    if (e.code == 'user-not-found') {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext buildContext) {
-                          return _buildErrorDialog(
-                            context,
-                            "No user found for that email."
-                          );
-                        }
-                      );
-                    } else if (e.code == 'wrong-password') {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext buildContext) {
-                          return _buildErrorDialog(
-                            context,
-                            "Wrong password provided for that user."
-                          );
-                        }
-                      );
-                    }
-                  }
-                },
+                onPressed: () => _authenticate(
+                  context: context,
+                  email: _emailController.text,
+                  domain: _selectedDomain.value,
+                  password: _passwordController.text
+                ),
               ),
             )
           ],
@@ -225,5 +231,4 @@ class LoginPage extends HookWidget {
       ),
     );
   }
-
 }
