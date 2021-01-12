@@ -1,5 +1,7 @@
 import 'package:fab_circular_menu/fab_circular_menu.dart';
 import 'package:flutter/material.dart';
+import 'package:linnefromice/screens/home_page.dart';
+import 'package:linnefromice/screens/users_page.dart';
 
 class WrapperFabCircularMenu extends StatelessWidget {
   WrapperFabCircularMenu({
@@ -20,32 +22,35 @@ class WrapperFabCircularMenu extends StatelessWidget {
       fabCloseIcon: Icon(Icons.close, color: Colors.white),
       children: <Widget>[
         RawMaterialButton(
-          onPressed: () => print("You pressed 1"),
+          onPressed: () => Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => HomePage())
+          ),
           shape: CircleBorder(),
           padding: EdgeInsets.all(24.0),
           child: Icon(Icons.home, color: Colors.white),
         ),
         RawMaterialButton(
-          onPressed: () => print("You pressed 2"),
+          onPressed: () => Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => UsersPage())
+          ),
           shape: CircleBorder(),
           padding: EdgeInsets.all(24.0),
           child: Icon(Icons.supervisor_account, color: Colors.white),
         ),
         RawMaterialButton(
-          onPressed: () => print("You pressed 3"),
+          onPressed: () => print("Unimplemented"),
           shape: CircleBorder(),
           padding: EdgeInsets.all(24.0),
           child: Icon(Icons.save, color: Colors.white),
         ),
         RawMaterialButton(
-          onPressed: () => print("You pressed 4. This one closes the menu on tap"),
+          onPressed: () => print("Unimplemented"),
           shape: CircleBorder(),
           padding: EdgeInsets.all(24.0),
           child: Icon(Icons.settings, color: Colors.white),
         ),
         RawMaterialButton(
           onPressed: () {
-            print("You pressed 5. This one closes the menu on tap");
             fabKey.currentState.close();
           },
           shape: CircleBorder(),
