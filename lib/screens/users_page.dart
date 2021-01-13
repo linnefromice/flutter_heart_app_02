@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:fab_circular_menu/fab_circular_menu.dart';
 import 'package:flutter/material.dart';
@@ -148,13 +149,28 @@ class _UserList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: List.generate(datas.length, (index) => _UserListTile(
-        name: datas[index]["name"],
-        rating: datas[index]["rating"],
-        isFriend: datas[index]["isFriend"],
-        avatarUrl: hasConnectivity ? datas[index]["avatarUrl"] : null,
-      ))
+    return StreamBuilder<QuerySnapshot>(
+      stream: FirebaseFirestore.instance.collection('users').snapshots(),
+      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        if (snapshot.hasError) {
+          return Text('Something went wrong');
+        }
+        // snapshot.connectionState -> waiting (always...?)
+        /*
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Text("Loading");
+        }
+        */
+
+        return Column(
+          children: snapshot.data.docs.map((DocumentSnapshot document) => _UserListTile(
+            name: document.data()["name"],
+            rating: document.data()["rating"],
+            isFriend: document.data()["isFriend"],
+            avatarUrl: hasConnectivity ? document.data()["avatarUrl"] : null,
+          )).toList()
+        );
+      },
     );
   }
 }
