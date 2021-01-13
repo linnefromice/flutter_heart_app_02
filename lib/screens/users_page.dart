@@ -138,6 +138,27 @@ class _UserListTile extends StatelessWidget {
   }
 }
 
+class _UserList extends StatelessWidget {
+  _UserList({
+    Key key,
+    this.hasConnectivity
+  }) : super(key: key);
+
+  final bool hasConnectivity;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: List.generate(datas.length, (index) => _UserListTile(
+        name: datas[index]["name"],
+        rating: datas[index]["rating"],
+        isFriend: datas[index]["isFriend"],
+        avatarUrl: hasConnectivity ? datas[index]["avatarUrl"] : null,
+      ))
+    );
+  }
+}
+
 class UsersPage extends HookWidget {
   final GlobalKey<FabCircularMenuState> fabKey = GlobalKey();
   final Connectivity _connectivity = Connectivity();
@@ -226,14 +247,7 @@ class UsersPage extends HookWidget {
                     }));
                     return !hasConnectivity.hasData
                         ? CircularProgressIndicator()
-                        : Column(
-                            children: List.generate(_datas.value.length, (index) => _UserListTile(
-                              name: _datas.value[index]["name"],
-                              rating: _datas.value[index]["rating"],
-                              isFriend: _datas.value[index]["isFriend"],
-                              avatarUrl: hasConnectivity.data ? _datas.value[index]["avatarUrl"] : null,
-                            ))
-                          );
+                        : _UserList(hasConnectivity: hasConnectivity.data);
                   }
                 ),
               ),
