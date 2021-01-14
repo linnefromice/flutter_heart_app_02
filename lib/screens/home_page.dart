@@ -108,8 +108,7 @@ class _Content extends HookWidget {
       children: [
         PageView(
           controller: _pageController,
-          children: queryDocumentSnapshotList.map((DocumentSnapshot document) => _buildPageWidget(
-            context: context,
+          children: queryDocumentSnapshotList.map((DocumentSnapshot document) => _ContentAvatar(
             name: document.data()["name"],
             avatarUrl: document.data()["avatarUrl"]
           )).toList(),
@@ -195,4 +194,45 @@ class _Content extends HookWidget {
       ],
     );
   }
+}
+
+class _ContentAvatar extends StatelessWidget {
+  _ContentAvatar({
+    Key key,
+    this.name,
+    this.avatarUrl,
+  }) : super(key: key);
+
+  final String name;
+  final String avatarUrl;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: MediaQuery.of(context).size.width,
+      width: MediaQuery.of(context).size.width,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            Colors.red[100],
+            Colors.deepOrange[100],
+          ],
+        ),
+      ),
+      child: FractionallySizedBox(
+        alignment: Alignment.topCenter,
+        widthFactor: 0.7,
+        child: CircleAvatar(
+          maxRadius: 30,
+          child: avatarUrl != null ? null : Text(name, style: TextStyle(color: Colors.red)),
+          backgroundColor: avatarUrl == null ? Colors.white : null,
+          backgroundImage: avatarUrl != null ? NetworkImage(avatarUrl) : null,
+        )
+      ),
+    );
+  }
+
 }
