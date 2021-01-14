@@ -42,7 +42,7 @@ class HomePage extends StatelessWidget {
         child: StreamBuilder<QuerySnapshot>(
           stream: FirebaseFirestore.instance.collection('users').snapshots(),
           builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-            if (snapshot.hasError) {
+            if (snapshot.hasError || snapshot.data == null) {
               return Text('Something went wrong');
             }
             return _Content(
