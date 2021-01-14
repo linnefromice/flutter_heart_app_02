@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:fab_circular_menu/fab_circular_menu.dart';
 import 'package:flutter/material.dart';
@@ -138,6 +139,42 @@ class _UserListTile extends StatelessWidget {
   }
 }
 
+class _UserList extends StatelessWidget {
+  _UserList({
+    Key key,
+    this.hasConnectivity
+  }) : super(key: key);
+
+  final bool hasConnectivity;
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<QuerySnapshot>(
+      stream: FirebaseFirestore.instance.collection('users').snapshots(),
+      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        if (snapshot.hasError) {
+          return Text('Something went wrong');
+        }
+        // snapshot.connectionState -> waiting (always...?)
+        /*
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Text("Loading");
+        }
+        */
+
+        return Column(
+          children: snapshot.data.docs.map((DocumentSnapshot document) => _UserListTile(
+            name: document.data()["name"],
+            rating: document.data()["rating"],
+            isFriend: document.data()["isFriend"],
+            avatarUrl: hasConnectivity ? document.data()["avatarUrl"] : null,
+          )).toList()
+        );
+      },
+    );
+  }
+}
+
 class UsersPage extends HookWidget {
   final GlobalKey<FabCircularMenuState> fabKey = GlobalKey();
   final Connectivity _connectivity = Connectivity();
@@ -226,14 +263,7 @@ class UsersPage extends HookWidget {
                     }));
                     return !hasConnectivity.hasData
                         ? CircularProgressIndicator()
-                        : Column(
-                            children: List.generate(_datas.value.length, (index) => _UserListTile(
-                              name: _datas.value[index]["name"],
-                              rating: _datas.value[index]["rating"],
-                              isFriend: _datas.value[index]["isFriend"],
-                              avatarUrl: hasConnectivity.data ? _datas.value[index]["avatarUrl"] : null,
-                            ))
-                          );
+                        : _UserList(hasConnectivity: hasConnectivity.data);
                   }
                 ),
               ),
