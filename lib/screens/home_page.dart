@@ -67,31 +67,19 @@ class _Content extends HookWidget {
   final List<QueryDocumentSnapshot> queryDocumentSnapshotList;
   final int _initialPageIndex = 0;
 
-  Widget _buildPageWidget({final BuildContext context, final String name, final String avatarUrl}) {
-    return Container(
-        height: MediaQuery.of(context).size.width,
-        width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              Colors.red[100],
-              Colors.deepOrange[100],
-            ],
-          ),
+  Widget _buildPagingButton({final double minWidth, final double height, final IconData iconData, final Function onPressed}) {
+    return ButtonTheme(
+      minWidth: minWidth,
+      height: height,
+      child: RaisedButton(
+        child: Icon(
+          iconData,
+          color: Colors.white,
         ),
-        child: FractionallySizedBox(
-            alignment: Alignment.topCenter,
-            widthFactor: 0.7,
-            child: CircleAvatar(
-              maxRadius: 30,
-              child: avatarUrl != null ? null : Text(name, style: TextStyle(color: Colors.red)),
-              backgroundColor: avatarUrl == null ? Colors.white : null,
-              backgroundImage: avatarUrl != null ? NetworkImage(avatarUrl) : null,
-            )
-        ),
+        color: Colors.transparent,
+        shape: CircleBorder(),
+        onPressed: onPressed
+      ),
     );
   }
 
@@ -120,48 +108,37 @@ class _Content extends HookWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ButtonTheme(
+              _buildPagingButton(
                 minWidth: 50,
                 height: 50,
-                child: RaisedButton(
-                  child: Icon(
-                    Icons.arrow_back,
-                    color: Colors.white,
-                  ),
-                  color: Colors.transparent,
-                  shape: CircleBorder(),
-                  onPressed: () {
-                    final int nextPageIndex = _pageController.page.toInt() - 1;
-                    _pageController.animateToPage(
-                      nextPageIndex,
-                      duration: Duration(milliseconds: 500),
-                      curve: Curves.easeInOut,
-                    );
-                    _name.value = queryDocumentSnapshotList[nextPageIndex].data()["name"];
-                    _rating.value = queryDocumentSnapshotList[nextPageIndex].data()["rating"];
-                  }
-                ),
+                iconData: Icons.arrow_back,
+                onPressed: () {
+                  final int nextPageIndex = _pageController.page.toInt() - 1;
+                  _pageController.animateToPage(
+                    nextPageIndex,
+                    duration: Duration(milliseconds: 500),
+                    curve: Curves.easeInOut,
+                  );
+                  _name.value = queryDocumentSnapshotList[nextPageIndex].data()["name"];
+                  _rating.value = queryDocumentSnapshotList[nextPageIndex].data()["rating"];
+                }
               ),
               SizedBox(width: 200),
-              ButtonTheme(
+              _buildPagingButton(
                 minWidth: 50,
                 height: 50,
-                child: RaisedButton(
-                  child: Icon(Icons.arrow_forward, color: Colors.white,),
-                  color: Colors.transparent,
-                  shape: CircleBorder(),
-                  onPressed: () {
-                    final int nextPageIndex = _pageController.page.toInt() + 1;
-                    _pageController.animateToPage(
-                      nextPageIndex,
-                      duration: Duration(milliseconds: 500),
-                      curve: Curves.easeInOut,
-                    );
-                    _name.value = queryDocumentSnapshotList[nextPageIndex].data()["name"];
-                    _rating.value = queryDocumentSnapshotList[nextPageIndex].data()["rating"];
-                  }
-                ),
-              )
+                iconData: Icons.arrow_forward,
+                onPressed: () {
+                  final int nextPageIndex = _pageController.page.toInt() + 1;
+                  _pageController.animateToPage(
+                    nextPageIndex,
+                    duration: Duration(milliseconds: 500),
+                    curve: Curves.easeInOut,
+                  );
+                  _name.value = queryDocumentSnapshotList[nextPageIndex].data()["name"];
+                  _rating.value = queryDocumentSnapshotList[nextPageIndex].data()["rating"];
+                }
+              ),
             ],
           )
         ),
