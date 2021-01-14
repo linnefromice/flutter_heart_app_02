@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fab_circular_menu/fab_circular_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -38,7 +39,17 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: WrapperCommonBackground(
-        child: _Content(),
+        child: StreamBuilder<QuerySnapshot>(
+          stream: FirebaseFirestore.instance.collection('users').snapshots(),
+          builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (snapshot.hasError) {
+              return Text('Something went wrong');
+            }
+            return _Content(
+              queryDocumentSnapshotList: snapshot.data.docs,
+            );
+          },
+        ),
       ),
       floatingActionButton: Builder(
         builder: (context) => WrapperFabCircularMenu(fabKey: fabKey)
@@ -48,6 +59,12 @@ class HomePage extends StatelessWidget {
 }
 
 class _Content extends HookWidget {
+  _Content({
+    Key key,
+    this.queryDocumentSnapshotList,
+  }) : super(key: key);
+
+  final List<QueryDocumentSnapshot> queryDocumentSnapshotList;
   final int _initialPageIndex = 0;
 
   Widget _buildPageWidget({final BuildContext context, final String name, final String avatarUrl}) {
@@ -84,21 +101,18 @@ class _Content extends HookWidget {
       initialPage: _initialPageIndex,
       viewportFraction: 0.5,
     );
-    final _name = useState(datas[_initialPageIndex]["name"]);
-    final _rating = useState(datas[_initialPageIndex]["rating"]);
+    final _name = useState(queryDocumentSnapshotList[_initialPageIndex].data()["name"]);
+    final _rating = useState(queryDocumentSnapshotList[_initialPageIndex].data()["rating"]);
 
     return Stack(
       children: [
         PageView(
           controller: _pageController,
-          children: List.generate(datas.length, (index) {
-            final user = datas[index];
-            return _buildPageWidget(
-              context: context,
-              name: user["name"],
-              avatarUrl: user["avatarUrl"]
-            );
-          }),
+          children: queryDocumentSnapshotList.map((DocumentSnapshot document) => _buildPageWidget(
+            context: context,
+            name: document.data()["name"],
+            avatarUrl: document.data()["avatarUrl"]
+          )).toList(),
         ),
         Positioned(
           top: MediaQuery.of(context).size.height * 0.55,
@@ -124,8 +138,8 @@ class _Content extends HookWidget {
                       duration: Duration(milliseconds: 500),
                       curve: Curves.easeInOut,
                     );
-                    _name.value = datas[nextPageIndex]["name"];
-                    _rating.value = datas[nextPageIndex]["rating"];
+                    _name.value = queryDocumentSnapshotList[nextPageIndex].data()["name"];
+                    _rating.value = queryDocumentSnapshotList[nextPageIndex].data()["rating"];
                   }
                 ),
               ),
@@ -144,8 +158,8 @@ class _Content extends HookWidget {
                       duration: Duration(milliseconds: 500),
                       curve: Curves.easeInOut,
                     );
-                    _name.value = datas[nextPageIndex]["name"];
-                    _rating.value = datas[nextPageIndex]["rating"];
+                    _name.value = queryDocumentSnapshotList[nextPageIndex].data()["name"];
+                    _rating.value = queryDocumentSnapshotList[nextPageIndex].data()["rating"];
                   }
                 ),
               )
