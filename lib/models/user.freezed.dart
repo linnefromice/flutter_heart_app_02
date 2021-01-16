@@ -8,6 +8,9 @@ part of 'user.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+User _$UserFromJson(Map<String, dynamic> json) {
+  return _User.fromJson(json);
+}
 
 /// @nodoc
 class _$UserTearOff {
@@ -22,6 +25,11 @@ class _$UserTearOff {
       avatarUrl: avatarUrl,
     );
   }
+
+// ignore: unused_element
+  User fromJson(Map<String, Object> json) {
+    return User.fromJson(json);
+  }
 }
 
 /// @nodoc
@@ -35,6 +43,7 @@ mixin _$User {
   bool get isFriend;
   String get avatarUrl;
 
+  Map<String, dynamic> toJson();
   @JsonKey(ignore: true)
   $UserCopyWith<User> get copyWith;
 }
@@ -103,9 +112,14 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
   }
 }
 
+@JsonSerializable()
+
 /// @nodoc
 class _$_User with DiagnosticableTreeMixin implements _User {
   const _$_User({this.name, this.rating, this.isFriend, this.avatarUrl});
+
+  factory _$_User.fromJson(Map<String, dynamic> json) =>
+      _$_$_UserFromJson(json);
 
   @override
   final String name;
@@ -160,11 +174,18 @@ class _$_User with DiagnosticableTreeMixin implements _User {
   @override
   _$UserCopyWith<_User> get copyWith =>
       __$UserCopyWithImpl<_User>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$_UserToJson(this);
+  }
 }
 
 abstract class _User implements User {
   const factory _User(
       {String name, int rating, bool isFriend, String avatarUrl}) = _$_User;
+
+  factory _User.fromJson(Map<String, dynamic> json) = _$_User.fromJson;
 
   @override
   String get name;
