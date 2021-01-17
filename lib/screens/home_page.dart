@@ -46,7 +46,9 @@ class HomePage extends StatelessWidget {
           stream: userService.streamUsers(),
           builder: (BuildContext context, AsyncSnapshot<List<User>> snapshot) {
             if (snapshot.hasError || snapshot.data == null) {
-              return Text('Something went wrong');
+              return Center(
+                child: Text(snapshot.error.toString()),
+              );
             }
             // snapshot.connectionState -> waiting (always...?)
             /*
