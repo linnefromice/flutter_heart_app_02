@@ -11,7 +11,7 @@ class UserService {
         rating: queryDocumentSnapshot.data()["rating"],
         isFriend: queryDocumentSnapshot.data()["isFriend"],
         avatarUrl: queryDocumentSnapshot.data()["avatarUrl"],
-      ))
+      )).toList()
     );
   }
 
