@@ -4,6 +4,17 @@ import 'package:linnefromice/models/user.dart';
 class UserService {
   final _instance = FirebaseFirestore.instance;
 
+  Stream<List<User>> streamUsers() {
+    return _instance.collection("users").snapshots().map(
+      (QuerySnapshot querySnapshot) => querySnapshot.docs.map((QueryDocumentSnapshot queryDocumentSnapshot) => User(
+        name: queryDocumentSnapshot.data()["name"],
+        rating: queryDocumentSnapshot.data()["rating"],
+        isFriend: queryDocumentSnapshot.data()["isFriend"],
+        avatarUrl: queryDocumentSnapshot.data()["avatarUrl"],
+      ))
+    );
+  }
+
   Future<List<User>> findUsers() async {
     QuerySnapshot querySnapshot = await _instance.collection("users").get();
     return querySnapshot.docs.map((DocumentSnapshot document) => User(
