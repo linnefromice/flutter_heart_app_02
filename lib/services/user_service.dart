@@ -11,6 +11,6 @@ class UserService {
       rating: document.data()["rating"],
       isFriend: document.data()["isFriend"],
       avatarUrl: document.data()["avatarUrl"],
-    ));
+    )).toList();
   }
 }
