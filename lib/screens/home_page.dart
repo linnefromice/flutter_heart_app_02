@@ -45,6 +45,12 @@ class HomePage extends StatelessWidget {
             if (snapshot.hasError || snapshot.data == null) {
               return Text('Something went wrong');
             }
+            // snapshot.connectionState -> waiting (always...?)
+            /*
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Text("Loading");
+            }
+            */
             return _Content(
               queryDocumentSnapshotList: snapshot.data.docs,
             );
