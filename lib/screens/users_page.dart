@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:linnefromice/components/wrapper_common_background.dart';
 import 'package:linnefromice/components/wrapper_fab_circle_menu.dart';
+import 'package:linnefromice/models/user.dart';
+import 'package:linnefromice/services/user_service.dart';
 
 final List datas = [
   {
@@ -146,28 +148,22 @@ class _UserList extends StatelessWidget {
   }) : super(key: key);
 
   final bool hasConnectivity;
+  final userService = UserService();
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<QuerySnapshot>(
-      stream: FirebaseFirestore.instance.collection('users').snapshots(),
-      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+    return FutureBuilder<List<User>>(
+      future: userService.findUsers(),
+      builder: (BuildContext context, AsyncSnapshot<List<User>> snapshot) {
         if (snapshot.hasError) {
-          return Text('Something went wrong');
+          return Text(snapshot.error.toString());
         }
-        // snapshot.connectionState -> waiting (always...?)
-        /*
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Text("Loading");
-        }
-        */
-
         return Column(
-          children: snapshot.data.docs.map((DocumentSnapshot document) => _UserListTile(
-            name: document.data()["name"],
-            rating: document.data()["rating"],
-            isFriend: document.data()["isFriend"],
-            avatarUrl: hasConnectivity ? document.data()["avatarUrl"] : null,
+          children: snapshot.data.map((value) => _UserListTile(
+            name: value.name,
+            rating: value.rating,
+            isFriend: value.isFriend,
+            avatarUrl: hasConnectivity ? value.avatarUrl : null,
           )).toList()
         );
       },

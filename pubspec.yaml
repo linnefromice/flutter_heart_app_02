@@ -32,6 +32,10 @@ dependencies:
   flutter_hooks: ^0.15.0
   connectivity: ^2.0.2
 
+  # for freezed
+  freezed_annotation:
+  json_serializable:
+
   # for Firebase
   firebase_core: ^0.7.0
   firebase_auth: ^0.20.0
@@ -40,6 +44,8 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  build_runner:
+  freezed:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
