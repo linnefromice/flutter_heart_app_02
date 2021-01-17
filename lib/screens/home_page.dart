@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:linnefromice/components/wrapper_fab_circle_menu.dart';
 import 'package:linnefromice/components/wrapper_common_background.dart';
+import 'package:linnefromice/models/user.dart';
+import 'package:linnefromice/services/user_service.dart';
 
 final List datas = [
   {
@@ -34,14 +36,15 @@ final List datas = [
 
 class HomePage extends StatelessWidget {
   final GlobalKey<FabCircularMenuState> fabKey = GlobalKey();
+  final userService = UserService();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: WrapperCommonBackground(
-        child: StreamBuilder<QuerySnapshot>(
-          stream: FirebaseFirestore.instance.collection('users').snapshots(),
-          builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        child: StreamBuilder<List<User>>(
+          stream: userService.streamUsers(),
+          builder: (BuildContext context, AsyncSnapshot<List<User>> snapshot) {
             if (snapshot.hasError || snapshot.data == null) {
               return Text('Something went wrong');
             }
@@ -52,7 +55,7 @@ class HomePage extends StatelessWidget {
             }
             */
             return _Content(
-              queryDocumentSnapshotList: snapshot.data.docs,
+              users: snapshot.data,
             );
           },
         ),
@@ -67,10 +70,10 @@ class HomePage extends StatelessWidget {
 class _Content extends HookWidget {
   _Content({
     Key key,
-    this.queryDocumentSnapshotList,
+    this.users,
   }) : super(key: key);
 
-  final List<QueryDocumentSnapshot> queryDocumentSnapshotList;
+  final List<User> users;
   final int _initialPageIndex = 0;
 
   Widget _buildPagingButton({final double minWidth, final double height, final IconData iconData, final Function onPressed}) {
@@ -95,16 +98,16 @@ class _Content extends HookWidget {
       initialPage: _initialPageIndex,
       viewportFraction: 0.5,
     );
-    final _name = useState(queryDocumentSnapshotList[_initialPageIndex].data()["name"]);
-    final _rating = useState(queryDocumentSnapshotList[_initialPageIndex].data()["rating"]);
+    final _name = useState(users[_initialPageIndex].name);
+    final _rating = useState(users[_initialPageIndex].rating);
 
     return Stack(
       children: [
         PageView(
           controller: _pageController,
-          children: queryDocumentSnapshotList.map((DocumentSnapshot document) => _ContentAvatar(
-            name: document.data()["name"],
-            avatarUrl: document.data()["avatarUrl"]
+          children: users.map((User user) => _ContentAvatar(
+            name: user.name,
+            avatarUrl: user.avatarUrl
           )).toList(),
         ),
         Positioned(
@@ -125,8 +128,8 @@ class _Content extends HookWidget {
                     duration: Duration(milliseconds: 500),
                     curve: Curves.easeInOut,
                   );
-                  _name.value = queryDocumentSnapshotList[nextPageIndex].data()["name"];
-                  _rating.value = queryDocumentSnapshotList[nextPageIndex].data()["rating"];
+                  _name.value = users[nextPageIndex].name;
+                  _rating.value = users[nextPageIndex].rating;
                 }
               ),
               SizedBox(width: 200),
@@ -141,8 +144,8 @@ class _Content extends HookWidget {
                     duration: Duration(milliseconds: 500),
                     curve: Curves.easeInOut,
                   );
-                  _name.value = queryDocumentSnapshotList[nextPageIndex].data()["name"];
-                  _rating.value = queryDocumentSnapshotList[nextPageIndex].data()["rating"];
+                  _name.value = users[nextPageIndex].name;
+                  _rating.value = users[nextPageIndex].rating;
                 }
               ),
             ],
