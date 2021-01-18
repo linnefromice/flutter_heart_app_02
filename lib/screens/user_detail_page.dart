@@ -38,6 +38,12 @@ class UserDetailPage extends HookWidget {
               ),
             ),
             Positioned(
+              top: MediaQuery.of(context).size.height * 0.70,
+              left: MediaQuery.of(context).size.width * 0.1,
+              right: MediaQuery.of(context).size.width * 0.1,
+              child: Divider(height: 40, thickness: 2, color: Colors.white),
+            ),
+            Positioned(
               top: MediaQuery.of(context).size.height * 0.75,
               left: 0,
               right: 0,
