@@ -150,6 +150,17 @@ class _UserList extends StatelessWidget {
   final bool hasConnectivity;
   final userService = UserService();
 
+  Column _buildContents(AsyncSnapshot<List<User>> snapshot) {
+    return Column(
+      children: snapshot.data.map((value) => _UserListTile(
+        name: value.name,
+        rating: value.rating,
+        isFriend: value.isFriend,
+        avatarUrl: hasConnectivity ? value.avatarUrl : null,
+      )).toList()
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<User>>(
@@ -161,14 +172,7 @@ class _UserList extends StatelessWidget {
         if (snapshot.data == null) {
           return Center(child: Text("NO DATA"));
         }
-        return Column(
-          children: snapshot.data.map((value) => _UserListTile(
-            name: value.name,
-            rating: value.rating,
-            isFriend: value.isFriend,
-            avatarUrl: hasConnectivity ? value.avatarUrl : null,
-          )).toList()
-        );
+        return _buildContents(snapshot);
       },
     );
   }
