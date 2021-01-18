@@ -22,6 +22,22 @@ class UserDetailPage extends HookWidget {
                 diameter: MediaQuery.of(context).size.width * 0.8,
                 image: NetworkImage("https://static.wikia.nocookie.net/finalfantasy/images/1/11/Zidane_Tribal_character.png/revision/latest/scale-to-width-down/84?cb=20120811142151"),
               ),
+            ),
+            Positioned(
+              top: MediaQuery.of(context).size.height * 0.75,
+              left: 0,
+              right: 0,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Icon(Icons.favorite, size: 50, color: Colors.pink.withOpacity(0.5)),
+                  Icon(Icons.favorite, size: 50, color: Colors.pink.withOpacity(0.5)),
+                  Icon(Icons.favorite, size: 50, color: Colors.pink.withOpacity(0.5)),
+                  Icon(Icons.favorite, size: 50, color: Colors.pink.withOpacity(0.5)),
+                  Icon(Icons.favorite, size: 50, color: Colors.white),
+                ],
+            ),
             )
           ],
         )
