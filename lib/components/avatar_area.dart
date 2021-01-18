@@ -22,8 +22,8 @@ class AvatarArea extends StatelessWidget {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            Colors.white,
-            Colors.blue[100],
+            Colors.red[100],
+            Colors.deepOrange[100],
           ],
         )
       ),
