@@ -45,17 +45,16 @@ class HomePage extends StatelessWidget {
         child: StreamBuilder<List<User>>(
           stream: userService.streamUsers(),
           builder: (BuildContext context, AsyncSnapshot<List<User>> snapshot) {
-            if (snapshot.hasError || snapshot.data == null) {
+            if (snapshot.hasError) {
               return Center(
                 child: Text(snapshot.error.toString()),
               );
             }
-            // snapshot.connectionState -> waiting (always...?)
-            /*
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Text("Loading");
+            if (snapshot.data == null) {
+              return Center(
+                  child: Text("NO DATA")
+              );
             }
-            */
             return _Content(
               users: snapshot.data,
             );

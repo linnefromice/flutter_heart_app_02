@@ -156,7 +156,10 @@ class _UserList extends StatelessWidget {
       future: userService.findUsers(),
       builder: (BuildContext context, AsyncSnapshot<List<User>> snapshot) {
         if (snapshot.hasError) {
-          return Text(snapshot.error.toString());
+          return Center(child: Text(snapshot.error.toString()));
+        }
+        if (snapshot.data == null) {
+          return Center(child: Text("NO DATA"));
         }
         return Column(
           children: snapshot.data.map((value) => _UserListTile(
