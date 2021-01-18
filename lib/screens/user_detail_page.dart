@@ -24,6 +24,20 @@ class UserDetailPage extends HookWidget {
               ),
             ),
             Positioned(
+              top: MediaQuery.of(context).size.height * 0.65,
+              left: 0,
+              right: 0,
+              child: Text(
+                "Zidane Tribal",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 30.0,
+                  color: Colors.white
+                ),
+              ),
+            ),
+            Positioned(
               top: MediaQuery.of(context).size.height * 0.75,
               left: 0,
               right: 0,
