@@ -5,6 +5,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:linnefromice/components/wrapper_common_background.dart';
 import 'package:linnefromice/components/wrapper_fab_circle_menu.dart';
 import 'package:linnefromice/models/user.dart';
+import 'package:linnefromice/screens/user_detail_page.dart';
 import 'package:linnefromice/services/user_service.dart';
 
 final List datas = [
@@ -99,6 +100,7 @@ class _UserListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => UserDetailPage())),
       leading: CircleAvatar(
         child: avatarUrl == null ? Text(
           name.characters.first,
