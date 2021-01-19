@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:fab_circular_menu/fab_circular_menu.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +5,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:linnefromice/components/wrapper_common_background.dart';
 import 'package:linnefromice/components/wrapper_fab_circle_menu.dart';
 import 'package:linnefromice/models/user.dart';
+import 'package:linnefromice/screens/user_detail_page.dart';
 import 'package:linnefromice/services/user_service.dart';
 
 final List datas = [
@@ -100,6 +100,13 @@ class _UserListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      onTap: () => Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => UserDetailPage(
+            user: User(name: name, rating: rating, avatarUrl: avatarUrl, isFriend: isFriend)
+          )
+        )
+      ),
       leading: CircleAvatar(
         child: avatarUrl == null ? Text(
           name.characters.first,
@@ -150,22 +157,29 @@ class _UserList extends StatelessWidget {
   final bool hasConnectivity;
   final userService = UserService();
 
+  Column _buildContents(AsyncSnapshot<List<User>> snapshot) {
+    return Column(
+      children: snapshot.data.map((value) => _UserListTile(
+        name: value.name,
+        rating: value.rating,
+        isFriend: value.isFriend,
+        avatarUrl: hasConnectivity ? value.avatarUrl : null,
+      )).toList()
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<User>>(
       future: userService.findUsers(),
       builder: (BuildContext context, AsyncSnapshot<List<User>> snapshot) {
         if (snapshot.hasError) {
-          return Text(snapshot.error.toString());
+          return Center(child: Text(snapshot.error.toString()));
         }
-        return Column(
-          children: snapshot.data.map((value) => _UserListTile(
-            name: value.name,
-            rating: value.rating,
-            isFriend: value.isFriend,
-            avatarUrl: hasConnectivity ? value.avatarUrl : null,
-          )).toList()
-        );
+        if (snapshot.data == null) {
+          return Center(child: Text("NO DATA"));
+        }
+        return _buildContents(snapshot);
       },
     );
   }
