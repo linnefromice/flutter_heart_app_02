@@ -100,7 +100,13 @@ class _UserListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => UserDetailPage())),
+      onTap: () => Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => UserDetailPage(
+            user: User(name: name, rating: rating, avatarUrl: avatarUrl, isFriend: isFriend)
+          )
+        )
+      ),
       leading: CircleAvatar(
         child: avatarUrl == null ? Text(
           name.characters.first,

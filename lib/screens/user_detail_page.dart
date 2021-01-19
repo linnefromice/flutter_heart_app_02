@@ -4,8 +4,15 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:linnefromice/components/avatar_area.dart';
 import 'package:linnefromice/components/wrapper_common_background.dart';
 import 'package:linnefromice/components/wrapper_fab_circle_menu.dart';
+import 'package:linnefromice/models/user.dart';
 
 class UserDetailPage extends HookWidget {
+  UserDetailPage({
+    Key key,
+    @required this.user
+  }) : super(key: key);
+
+  final User user;
   final GlobalKey<FabCircularMenuState> fabKey = GlobalKey();
 
   @override
@@ -20,7 +27,7 @@ class UserDetailPage extends HookWidget {
               right: 0,
               child: AvatarArea(
                 diameter: MediaQuery.of(context).size.width * 0.8,
-                image: NetworkImage("https://static.wikia.nocookie.net/finalfantasy/images/1/11/Zidane_Tribal_character.png/revision/latest/scale-to-width-down/84?cb=20120811142151"),
+                image: NetworkImage(user.avatarUrl),
               ),
             ),
             Positioned(
@@ -28,7 +35,7 @@ class UserDetailPage extends HookWidget {
               left: 0,
               right: 0,
               child: Text(
-                "Zidane Tribal",
+                user.name,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontWeight: FontWeight.w400,
@@ -51,11 +58,11 @@ class UserDetailPage extends HookWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Icon(Icons.favorite, size: 50, color: Colors.pink.withOpacity(0.5)),
-                  Icon(Icons.favorite, size: 50, color: Colors.pink.withOpacity(0.5)),
-                  Icon(Icons.favorite, size: 50, color: Colors.pink.withOpacity(0.5)),
-                  Icon(Icons.favorite, size: 50, color: Colors.pink.withOpacity(0.5)),
-                  Icon(Icons.favorite, size: 50, color: Colors.white),
+                  Icon(Icons.favorite, size: 50, color: user.rating >= 1 ? Colors.pink.withOpacity(0.5) : Colors.white),
+                  Icon(Icons.favorite, size: 50, color: user.rating >= 2 ? Colors.pink.withOpacity(0.5) : Colors.white),
+                  Icon(Icons.favorite, size: 50, color: user.rating >= 3 ? Colors.pink.withOpacity(0.5) : Colors.white),
+                  Icon(Icons.favorite, size: 50, color: user.rating >= 4 ? Colors.pink.withOpacity(0.5) : Colors.white),
+                  Icon(Icons.favorite, size: 50, color: user.rating >= 5 ? Colors.pink.withOpacity(0.5) : Colors.white),
                 ],
             ),
             )
