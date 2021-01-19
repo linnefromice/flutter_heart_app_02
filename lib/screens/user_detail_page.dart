@@ -27,7 +27,8 @@ class UserDetailPage extends HookWidget {
               right: 0,
               child: AvatarArea(
                 diameter: MediaQuery.of(context).size.width * 0.8,
-                image: NetworkImage(user.avatarUrl),
+                image: user.avatarUrl != null ? NetworkImage(user.avatarUrl) : null,
+                child: user.avatarUrl == null ? Text("NO IMAGE", style: TextStyle(color: Colors.black)) : null,
               ),
             ),
             Positioned(

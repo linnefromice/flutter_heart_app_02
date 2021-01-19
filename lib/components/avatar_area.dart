@@ -33,7 +33,8 @@ class AvatarArea extends StatelessWidget {
         child: CircleAvatar(
           maxRadius: 30,
           child: child,
-          backgroundImage: image
+          backgroundImage: image,
+          backgroundColor: Colors.white,
         )
       ),
     );
