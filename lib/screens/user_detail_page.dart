@@ -15,6 +15,36 @@ class UserDetailPage extends HookWidget {
   final User user;
   final GlobalKey<FabCircularMenuState> fabKey = GlobalKey();
 
+  AvatarArea _buildAvatarArea({final double diameter}) {
+    return AvatarArea(
+      diameter: diameter,
+      image: user.avatarUrl != null ? NetworkImage(user.avatarUrl) : null,
+      child: user.avatarUrl == null ? Text("NO IMAGE", style: TextStyle(color: Colors.black)) : null,
+    );
+  }
+
+  Text _buildNameArea() => Text(
+    user.name,
+    textAlign: TextAlign.center,
+    style: TextStyle(
+      fontWeight: FontWeight.w400,
+      fontSize: 30.0,
+      color: Colors.white
+    ),
+  );
+
+  Row _buildRatingArea() => Row(
+    mainAxisAlignment: MainAxisAlignment.center,
+    crossAxisAlignment: CrossAxisAlignment.center,
+    children: [
+      Icon(Icons.favorite, size: 50, color: user.rating >= 1 ? Colors.pink.withOpacity(0.5) : Colors.white),
+      Icon(Icons.favorite, size: 50, color: user.rating >= 2 ? Colors.pink.withOpacity(0.5) : Colors.white),
+      Icon(Icons.favorite, size: 50, color: user.rating >= 3 ? Colors.pink.withOpacity(0.5) : Colors.white),
+      Icon(Icons.favorite, size: 50, color: user.rating >= 4 ? Colors.pink.withOpacity(0.5) : Colors.white),
+      Icon(Icons.favorite, size: 50, color: user.rating >= 5 ? Colors.pink.withOpacity(0.5) : Colors.white),
+    ],
+  );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,25 +55,15 @@ class UserDetailPage extends HookWidget {
               top: MediaQuery.of(context).size.height * 0.25,
               left: 0,
               right: 0,
-              child: AvatarArea(
-                diameter: MediaQuery.of(context).size.width * 0.8,
-                image: user.avatarUrl != null ? NetworkImage(user.avatarUrl) : null,
-                child: user.avatarUrl == null ? Text("NO IMAGE", style: TextStyle(color: Colors.black)) : null,
+              child: _buildAvatarArea(
+                diameter: MediaQuery.of(context).size.width * 0.8
               ),
             ),
             Positioned(
               top: MediaQuery.of(context).size.height * 0.65,
               left: 0,
               right: 0,
-              child: Text(
-                user.name,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontWeight: FontWeight.w400,
-                  fontSize: 30.0,
-                  color: Colors.white
-                ),
-              ),
+              child: _buildNameArea(),
             ),
             Positioned(
               top: MediaQuery.of(context).size.height * 0.70,
@@ -55,17 +75,7 @@ class UserDetailPage extends HookWidget {
               top: MediaQuery.of(context).size.height * 0.75,
               left: 0,
               right: 0,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Icon(Icons.favorite, size: 50, color: user.rating >= 1 ? Colors.pink.withOpacity(0.5) : Colors.white),
-                  Icon(Icons.favorite, size: 50, color: user.rating >= 2 ? Colors.pink.withOpacity(0.5) : Colors.white),
-                  Icon(Icons.favorite, size: 50, color: user.rating >= 3 ? Colors.pink.withOpacity(0.5) : Colors.white),
-                  Icon(Icons.favorite, size: 50, color: user.rating >= 4 ? Colors.pink.withOpacity(0.5) : Colors.white),
-                  Icon(Icons.favorite, size: 50, color: user.rating >= 5 ? Colors.pink.withOpacity(0.5) : Colors.white),
-                ],
-            ),
+              child: _buildRatingArea(),
             )
           ],
         )
