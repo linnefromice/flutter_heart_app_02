@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:linnefromice/components/wrapper_common_background.dart';
+import 'package:linnefromice/models/user.dart';
+import 'package:linnefromice/services/user_service.dart';
 
 class AddUserPage extends HookWidget {
+  final userService = UserService();
+
   @override
   Widget build(BuildContext context) {
     final _nameController = useTextEditingController();
@@ -57,7 +61,14 @@ class AddUserPage extends HookWidget {
               child: RaisedButton(
                 child: Text("SUBMIT"),
                 onPressed: () {
-                  print("${_nameController.text} / ${_ratingController.text} / ${_avatarUrlController.text}"); // TODO: debug
+                  userService.createUser(
+                    User(
+                      name: _nameController.text,
+                      rating: int.parse(_ratingController.text),
+                      isFriend: false, // initial status
+                      avatarUrl: _avatarUrlController.text,
+                    )
+                  );
                 },
               ),
             )
