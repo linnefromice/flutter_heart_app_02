@@ -109,70 +109,19 @@ class LoginPage extends HookWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Flexible(
-                    child: TextField( // TODO: can select domain (ex @gmail.com)
-                      controller: _emailController,
-                      keyboardType: TextInputType.emailAddress,
-                      obscureText: false,
-                      style: TextStyle(
-                        fontSize: 18.0,
-                        color: Colors.white
-                      ),
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                        prefixIcon: Icon(Icons.account_circle, color: Colors.white),
-                        hintText: "Email",
-                        hintStyle: TextStyle(color: Colors.white),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white),
-                          borderRadius: BorderRadius.circular(32.0)
-                        )
-                      ),
-                    ),
+                    child: _buildEmailField(_emailController),
                   ),
                   Container(
                     margin: EdgeInsets.symmetric(horizontal: 4.0),
                     child: Text("@", style: TextStyle(color: Colors.white))
                   ),
-                  Theme(
-                    data: ThemeData(
-                      canvasColor: Colors.grey
-                    ),
-                    child: DropdownButtonHideUnderline(
-                      child: DropdownButton<String>(
-                        value: _selectedDomain.value,
-                        onChanged: (value) => _selectedDomain.value = value,
-                        style: TextStyle(color: Colors.white),
-                        items: domainList.map((value) => DropdownMenuItem(
-                          value: value,
-                          child: Text(value),
-                        )) .toList(),
-                      ),
-                    ),
-                  )
+                  _buildEmailDomainSelector(_selectedDomain)
                 ]
               ),
             ),
             Container( // Input Password
               margin: EdgeInsets.symmetric(vertical: 8.0),
-              child: TextField(
-                controller: _passwordController,
-                keyboardType: TextInputType.text,
-                obscureText: _isObscureText.value,
-                style: TextStyle(
-                  fontSize: 18.0,
-                  color: Colors.white
-                ),
-                decoration: InputDecoration(
-                  contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                  prefixIcon: Icon(Icons.lock, color: Colors.white),
-                  hintText: "Password",
-                  hintStyle: TextStyle(color: Colors.white),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white),
-                    borderRadius: BorderRadius.circular(32.0),
-                  )
-                ),
-              ),
+              child: _buildPasswordField(_passwordController, _isObscureText),
             ),
             Container(
               margin: EdgeInsets.symmetric(vertical: 8.0),
@@ -199,64 +148,135 @@ class LoginPage extends HookWidget {
             ),
             Container(
               margin: EdgeInsets.symmetric(vertical: 16.0),
-              child: ElevatedButton.icon(
-                icon: Icon(
-                  Icons.login,
-                  size: 48,
-                  color: Colors.white,
-                ),
-                label: Text(
-                  "LOGIN",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                  ),
-                ),
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.transparent,
-                  onPrimary: Colors.black,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10))
-                  ),
-                ),
-                onPressed: () => _authenticate(
-                  context: context,
-                  email: _emailController.text,
-                  domain: _selectedDomain.value,
-                  password: _passwordController.text
-                ),
-              ),
+              child: _buildLoginButton(context, _emailController, _selectedDomain, _passwordController),
             ),
             Container(
               margin: EdgeInsets.symmetric(vertical: 16.0),
-              child: ElevatedButton.icon(
-                icon: Icon(
-                  Icons.build,
-                  size: 24,
-                  color: Colors.white,
-                ),
-                label: Text(
-                  "DEBUG\nadd user",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 12,
-                  ),
-                ),
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.transparent,
-                  onPrimary: Colors.black,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10))
-                  ),
-                ),
-                onPressed: () => Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => AddUserPage()
-                  )
-                )
-              ),
+              child: _buildAddUserButton(context),
             )
           ],
+        )
+      ),
+    );
+  }
+
+  ElevatedButton _buildAddUserButton(BuildContext context) {
+    return ElevatedButton.icon(
+      icon: Icon(
+        Icons.build,
+        size: 24,
+        color: Colors.white,
+      ),
+      label: Text(
+        "DEBUG\nadd user",
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 12,
+        ),
+      ),
+      style: ElevatedButton.styleFrom(
+        primary: Colors.transparent,
+        onPrimary: Colors.black,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(10))
+        ),
+      ),
+      onPressed: () => Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => AddUserPage()
+        )
+      )
+    );
+  }
+
+  ElevatedButton _buildLoginButton(BuildContext context, TextEditingController _emailController, ValueNotifier<String> _selectedDomain, TextEditingController _passwordController) {
+    return ElevatedButton.icon(
+      icon: Icon(
+        Icons.login,
+        size: 48,
+        color: Colors.white,
+      ),
+      label: Text(
+        "LOGIN",
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 18,
+        ),
+      ),
+      style: ElevatedButton.styleFrom(
+        primary: Colors.transparent,
+        onPrimary: Colors.black,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(10))
+        ),
+      ),
+      onPressed: () => _authenticate(
+        context: context,
+        email: _emailController.text,
+        domain: _selectedDomain.value,
+        password: _passwordController.text
+      ),
+    );
+  }
+
+  TextField _buildPasswordField(TextEditingController _passwordController, ValueNotifier<bool> _isObscureText) {
+    return TextField(
+      controller: _passwordController,
+      keyboardType: TextInputType.text,
+      obscureText: _isObscureText.value,
+      style: TextStyle(
+        fontSize: 18.0,
+        color: Colors.white
+      ),
+      decoration: InputDecoration(
+        contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+        prefixIcon: Icon(Icons.lock, color: Colors.white),
+        hintText: "Password",
+        hintStyle: TextStyle(color: Colors.white),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.white),
+          borderRadius: BorderRadius.circular(32.0),
+        )
+      ),
+    );
+  }
+
+  Theme _buildEmailDomainSelector(ValueNotifier<String> _selectedDomain) {
+    return Theme(
+      data: ThemeData(
+        canvasColor: Colors.grey
+      ),
+      child: DropdownButtonHideUnderline(
+        child: DropdownButton<String>(
+          value: _selectedDomain.value,
+          onChanged: (value) => _selectedDomain.value = value,
+          style: TextStyle(color: Colors.white),
+          items: domainList.map((value) => DropdownMenuItem(
+            value: value,
+            child: Text(value),
+          )) .toList(),
+        ),
+      ),
+    );
+  }
+
+  TextField _buildEmailField(TextEditingController _emailController) {
+    return TextField(
+      controller: _emailController,
+      keyboardType: TextInputType.emailAddress,
+      obscureText: false,
+      style: TextStyle(
+        fontSize: 18.0,
+        color: Colors.white
+      ),
+      decoration: InputDecoration(
+        contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+        prefixIcon: Icon(Icons.account_circle, color: Colors.white),
+        hintText: "Email",
+        hintStyle: TextStyle(color: Colors.white),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.white),
+          borderRadius: BorderRadius.circular(32.0)
         )
       ),
     );
