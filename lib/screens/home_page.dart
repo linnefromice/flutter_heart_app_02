@@ -209,9 +209,9 @@ class _ContentAvatar extends StatelessWidget {
         widthFactor: 0.7,
         child: CircleAvatar(
           maxRadius: 30,
-          child: avatarUrl != null ? null : Text(name, style: TextStyle(color: Colors.red)),
-          backgroundColor: avatarUrl == null ? Colors.white : null,
-          backgroundImage: avatarUrl != null ? NetworkImage(avatarUrl) : null,
+          child: !(avatarUrl == null || avatarUrl == "") ? null : Text(name, style: TextStyle(color: Colors.red)),
+          backgroundColor: avatarUrl == null || avatarUrl == "" ? Colors.white : null,
+          backgroundImage: !(avatarUrl == null || avatarUrl == "") ? NetworkImage(avatarUrl) : null,
         )
       ),
     );
