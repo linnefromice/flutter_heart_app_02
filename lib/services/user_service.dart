@@ -33,4 +33,8 @@ class UserService {
       (DocumentSnapshot documentSnapshot) => _generateUserFromDocumentSnapshot(documentSnapshot)
     ).toList();
   }
+  
+  Future<void> createUser(final User user) async {
+    _instance.collection(_collectionName).add(user.toJson());
+  }
 }
