@@ -18,8 +18,8 @@ class UserDetailPage extends HookWidget {
   AvatarArea _buildAvatarArea({final double diameter}) {
     return AvatarArea(
       diameter: diameter,
-      image: user.avatarUrl != null ? NetworkImage(user.avatarUrl) : null,
-      child: user.avatarUrl == null ? Text("NO IMAGE", style: TextStyle(color: Colors.black)) : null,
+      image: !(user.avatarUrl == null || user.avatarUrl == "") ? NetworkImage(user.avatarUrl) : null,
+      child: user.avatarUrl == null || user.avatarUrl == "" ? Text("NO IMAGE", style: TextStyle(color: Colors.black)) : null,
     );
   }
 

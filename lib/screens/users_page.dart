@@ -108,12 +108,12 @@ class _UserListTile extends StatelessWidget {
         )
       ),
       leading: CircleAvatar(
-        child: avatarUrl == null ? Text(
+        child: avatarUrl == null || avatarUrl == "" ? Text(
           name.characters.first,
           style: TextStyle(color: Colors.white),
         ) : null,
-        backgroundColor: avatarUrl == null ? Colors.grey : null,
-        backgroundImage: avatarUrl != null ? NetworkImage(avatarUrl) : null,
+        backgroundColor: avatarUrl == null || avatarUrl == "" ? Colors.grey : null,
+        backgroundImage: !(avatarUrl == null || avatarUrl == "") ? NetworkImage(avatarUrl) : null,
       ),
       title: Text(
         name,
