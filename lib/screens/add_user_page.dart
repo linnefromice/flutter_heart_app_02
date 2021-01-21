@@ -60,18 +60,24 @@ class AddUserPage extends HookWidget {
     );
   }
 
-  DropdownButton<int> _buildRatingField(ValueNotifier<int> state) {
-    return DropdownButton<int>(
-      value: state.value,
-      icon: Icon(Icons.arrow_downward),
-      onChanged: (int value) => state.value = value,
-      items: <int>[0, 1, 2, 3, 4, 5]
-          .map<DropdownMenuItem<int>>((int value) {
-        return DropdownMenuItem<int>(
-          value: value,
-          child: Text(value.toString()),
-        );
-      }).toList(),
+  Row _buildRatingField(ValueNotifier<int> state) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        Text("Rating"),
+        DropdownButton<int>(
+          value: state.value,
+          icon: Icon(Icons.arrow_downward),
+          onChanged: (int value) => state.value = value,
+          items: <int>[0, 1, 2, 3, 4, 5]
+              .map<DropdownMenuItem<int>>((int value) {
+            return DropdownMenuItem<int>(
+              value: value,
+              child: Text(value.toString()),
+            );
+          }).toList(),
+        ),
+      ],
     );
   }
   
@@ -80,7 +86,7 @@ class AddUserPage extends HookWidget {
       controller: _avatarUrlController,
       keyboardType: TextInputType.text,
       decoration: InputDecoration(
-          hintText: "avatarUrl"
+          hintText: "AvatarUrl"
       ),
     );
   }
