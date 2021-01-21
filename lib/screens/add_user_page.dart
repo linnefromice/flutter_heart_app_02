@@ -10,7 +10,7 @@ class AddUserPage extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final _nameController = useTextEditingController();
-    final _ratingController = useTextEditingController();
+    final _rating = useState(0);
     final _avatarUrlController = useTextEditingController();
 
     return Scaffold(
@@ -31,7 +31,7 @@ class AddUserPage extends HookWidget {
             Container(
               margin: EdgeInsets.symmetric(vertical: 8.0),
               padding: EdgeInsets.symmetric(horizontal: 10.0),
-              child: _buildRatingField(_ratingController),
+              child: _buildRatingField(_rating),
             ),
             Container(
               margin: EdgeInsets.symmetric(vertical: 8.0),
@@ -40,7 +40,7 @@ class AddUserPage extends HookWidget {
             ),
             Container(
               margin: EdgeInsets.symmetric(vertical: 8.0),
-              child: _buildSubmitButton(_nameController, _ratingController, _avatarUrlController),
+              child: _buildSubmitButton(_nameController, _rating.value, _avatarUrlController),
             )
           ],
         )
@@ -59,14 +59,19 @@ class AddUserPage extends HookWidget {
       ),
     );
   }
-  
-  TextField _buildRatingField(TextEditingController _ratingController) {
-    return TextField(
-      controller: _ratingController,
-      keyboardType: TextInputType.number,
-      decoration: InputDecoration(
-          hintText: "rating"
-      ),
+
+  DropdownButton<int> _buildRatingField(ValueNotifier<int> state) {
+    return DropdownButton<int>(
+      value: state.value,
+      icon: Icon(Icons.arrow_downward),
+      onChanged: (int value) => state.value = value,
+      items: <int>[0, 1, 2, 3, 4, 5]
+          .map<DropdownMenuItem<int>>((int value) {
+        return DropdownMenuItem<int>(
+          value: value,
+          child: Text(value.toString()),
+        );
+      }).toList(),
     );
   }
   
@@ -80,14 +85,14 @@ class AddUserPage extends HookWidget {
     );
   }
 
-  RaisedButton _buildSubmitButton(TextEditingController _nameController, TextEditingController _ratingController, TextEditingController _avatarUrlController) {
+  RaisedButton _buildSubmitButton(TextEditingController _nameController, int rating, TextEditingController _avatarUrlController) {
     return RaisedButton(
       child: Text("SUBMIT"),
       onPressed: () {
         userService.createUser(
             User(
               name: _nameController.text,
-              rating: int.parse(_ratingController.text),
+              rating: rating,
               isFriend: false, // initial status
               avatarUrl: _avatarUrlController.text,
             )
