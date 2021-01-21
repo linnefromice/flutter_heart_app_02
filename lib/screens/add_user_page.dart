@@ -46,6 +46,9 @@ class AddUserPage extends HookWidget {
             Container(
               margin: EdgeInsets.symmetric(vertical: 8.0),
               child: ElevatedButton.icon(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Colors.grey)
+                ),
                 icon: Icon(Icons.arrow_back),
                 label: Text("BACK"),
                 onPressed: () => Navigator.of(context).pop(),
