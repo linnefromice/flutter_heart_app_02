@@ -116,9 +116,13 @@ class AddUserPage extends HookWidget {
     );
   }
 
-  RaisedButton _buildSubmitButton(TextEditingController _nameController, int rating, TextEditingController _avatarUrlController) {
-    return RaisedButton(
-      child: Text("SUBMIT"),
+  ElevatedButton _buildSubmitButton(TextEditingController _nameController, int rating, TextEditingController _avatarUrlController) {
+    return ElevatedButton.icon(
+      style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all(Colors.grey)
+      ),
+      icon: Icon(Icons.forward),
+      label: Text("SUBMIT"),
       onPressed: () {
         userService.createUser(
           User(
