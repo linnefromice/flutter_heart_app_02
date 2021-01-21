@@ -80,14 +80,25 @@ class AddUserPage extends HookWidget {
       ],
     );
   }
-  
-  TextField _buildAvatarUrlField(TextEditingController _avatarUrlController) {
-    return TextField(
-      controller: _avatarUrlController,
-      keyboardType: TextInputType.text,
-      decoration: InputDecoration(
-          hintText: "AvatarUrl"
-      ),
+
+  Row _buildAvatarUrlField(TextEditingController _avatarUrlController) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        Expanded(
+          child: TextField(
+            controller: _avatarUrlController,
+            keyboardType: TextInputType.text,
+            decoration: InputDecoration(
+                hintText: "AvatarUrl"
+            ),
+          ),
+        ),
+        IconButton(
+          icon: Icon(Icons.crop_free),
+          onPressed: () => {},
+        ),
+      ],
     );
   }
 
