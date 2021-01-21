@@ -42,7 +42,15 @@ class AddUserPage extends HookWidget {
             Container(
               margin: EdgeInsets.symmetric(vertical: 8.0),
               child: _buildSubmitButton(_nameController, _rating.value, _avatarUrlController),
-            )
+            ),
+            Container(
+              margin: EdgeInsets.symmetric(vertical: 8.0),
+              child: ElevatedButton.icon(
+                icon: Icon(Icons.arrow_back),
+                label: Text("BACK"),
+                onPressed: () => Navigator.of(context).pop(),
+              ),
+            ),
           ],
         )
       ),
@@ -110,12 +118,12 @@ class AddUserPage extends HookWidget {
       child: Text("SUBMIT"),
       onPressed: () {
         userService.createUser(
-            User(
-              name: _nameController.text,
-              rating: rating,
-              isFriend: false, // initial status
-              avatarUrl: _avatarUrlController.text,
-            )
+          User(
+            name: _nameController.text,
+            rating: rating,
+            isFriend: false, // initial status
+            avatarUrl: _avatarUrlController.text,
+          )
         );
       },
     );
