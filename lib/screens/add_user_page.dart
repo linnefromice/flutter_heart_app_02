@@ -124,6 +124,16 @@ class AddUserPage extends HookWidget {
       icon: Icon(Icons.forward),
       label: Text("SUBMIT"),
       onPressed: () {
+        if (_nameController.text == "" || (rating < 0 || rating > 5)) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text("Failure..."),
+              duration: Duration(seconds: 1),
+              backgroundColor: Colors.red[200],
+            )
+          );
+          return;
+        }
         userService.createUser(
           User(
             name: _nameController.text,
