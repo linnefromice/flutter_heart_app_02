@@ -132,6 +132,13 @@ class AddUserPage extends HookWidget {
             avatarUrl: _avatarUrlController.text,
           )
         );
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text("Success!!"),
+            duration: Duration(seconds: 1),
+            backgroundColor: Colors.green[200],
+          )
+        );
         // initialize
         _nameController.clear();
         rating = 0;
