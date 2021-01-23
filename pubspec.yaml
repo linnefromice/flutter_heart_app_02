@@ -31,6 +31,7 @@ dependencies:
   fab_circular_menu: ^1.0.1
   flutter_hooks: ^0.15.0
   connectivity: ^2.0.2
+  clipboard: ^0.1.2+8
 
   # for freezed
   freezed_annotation:
