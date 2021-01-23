@@ -132,7 +132,10 @@ class AddUserPage extends HookWidget {
             avatarUrl: _avatarUrlController.text,
           )
         );
-        Navigator.of(context).pop();
+        // initialize
+        _nameController.clear();
+        rating = 0;
+        _avatarUrlController.clear();
       },
     );
   }
