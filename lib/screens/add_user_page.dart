@@ -41,7 +41,7 @@ class AddUserPage extends HookWidget {
             ),
             Container(
               margin: EdgeInsets.symmetric(vertical: 8.0),
-              child: _buildSubmitButton(_nameController, _rating.value, _avatarUrlController),
+              child: _buildSubmitButton(context, _nameController, _rating.value, _avatarUrlController),
             ),
             Container(
               margin: EdgeInsets.symmetric(vertical: 8.0),
@@ -116,7 +116,7 @@ class AddUserPage extends HookWidget {
     );
   }
 
-  ElevatedButton _buildSubmitButton(TextEditingController _nameController, int rating, TextEditingController _avatarUrlController) {
+  ElevatedButton _buildSubmitButton(BuildContext context, TextEditingController _nameController, int rating, TextEditingController _avatarUrlController) {
     return ElevatedButton.icon(
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all(Colors.grey)
@@ -132,6 +132,7 @@ class AddUserPage extends HookWidget {
             avatarUrl: _avatarUrlController.text,
           )
         );
+        Navigator.of(context).pop();
       },
     );
   }
