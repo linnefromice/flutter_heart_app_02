@@ -116,6 +116,18 @@ class AddUserPage extends HookWidget {
     );
   }
 
+  SnackBar _successSnackBar() => SnackBar(
+    content: Text("Success!!"),
+    duration: Duration(seconds: 1),
+    backgroundColor: Colors.green[200],
+  );
+
+  SnackBar _failureSnackBar() => SnackBar(
+    content: Text("Failure..."),
+    duration: Duration(seconds: 1),
+    backgroundColor: Colors.red[200],
+  );
+
   ElevatedButton _buildSubmitButton(BuildContext context, TextEditingController _nameController, int rating, TextEditingController _avatarUrlController) {
     return ElevatedButton.icon(
       style: ButtonStyle(
@@ -125,13 +137,7 @@ class AddUserPage extends HookWidget {
       label: Text("SUBMIT"),
       onPressed: () {
         if (_nameController.text == "" || (rating < 0 || rating > 5)) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text("Failure..."),
-              duration: Duration(seconds: 1),
-              backgroundColor: Colors.red[200],
-            )
-          );
+          ScaffoldMessenger.of(context).showSnackBar(_successSnackBar());
           return;
         }
         userService.createUser(
@@ -142,13 +148,7 @@ class AddUserPage extends HookWidget {
             avatarUrl: _avatarUrlController.text,
           )
         );
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text("Success!!"),
-            duration: Duration(seconds: 1),
-            backgroundColor: Colors.green[200],
-          )
-        );
+        ScaffoldMessenger.of(context).showSnackBar(_failureSnackBar());
         // initialize
         _nameController.clear();
         rating = 0;
