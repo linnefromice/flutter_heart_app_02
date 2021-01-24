@@ -23,6 +23,11 @@ class DeleteUserPage extends StatelessWidget {
           },
         )
       ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.deepOrange.withOpacity(0.5),
+        child: Icon(Icons.arrow_back, color: Colors.white),
+        onPressed: () => Navigator.of(context).pop(),
+      ),
     );
   }
 
