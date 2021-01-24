@@ -36,7 +36,10 @@ class DeleteUserPage extends StatelessWidget {
           child: ListTile(
             leading: IconButton(
               icon: Icon(Icons.close, color: Colors.white),
-              onPressed: () {},
+              onPressed: () async {
+                await userService.deleteUser(item.id);
+                Navigator.of(context).pop();
+              },
             ),
             title: Text(item.name, style: TextStyle(color: Colors.white)),
             trailing: Text(
