@@ -6,6 +6,7 @@ class UserService {
   final _collectionName = "users";
 
   User _generateUserFromQueryDocumentSnapshot(QueryDocumentSnapshot snapshot) => User(
+    id: snapshot.id,
     name: snapshot.data()["name"],
     rating: snapshot.data()["rating"],
     isFriend: snapshot.data()["isFriend"],
@@ -21,6 +22,7 @@ class UserService {
   }
 
   User _generateUserFromDocumentSnapshot(DocumentSnapshot snapshot) => User(
+    id: snapshot.id,
     name: snapshot.data()["name"],
     rating: snapshot.data()["rating"],
     isFriend: snapshot.data()["isFriend"],
@@ -36,5 +38,9 @@ class UserService {
   
   Future<void> createUser(final User user) async {
     _instance.collection(_collectionName).add(user.toJson());
+  }
+
+  Future<void> deleteUser(final String id) async {
+    _instance.collection(_collectionName).doc(id).delete();
   }
 }
