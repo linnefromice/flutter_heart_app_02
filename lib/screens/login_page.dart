@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:linnefromice/components/wrapper_common_background.dart';
 import 'package:linnefromice/screens/add_user_page.dart';
+import 'package:linnefromice/screens/delete_user_page.dart';
 import 'package:linnefromice/screens/home_page.dart';
 
 final List<String> domainList = [
@@ -151,8 +152,12 @@ class LoginPage extends HookWidget {
               child: _buildLoginButton(context, _emailController, _selectedDomain, _passwordController),
             ),
             Container(
-              margin: EdgeInsets.symmetric(vertical: 16.0),
+              margin: EdgeInsets.symmetric(vertical: 4.0),
               child: _buildAddUserButton(context),
+            ),
+            Container(
+              margin: EdgeInsets.symmetric(vertical: 4.0),
+              child: _buildDeleteUserButton(context),
             )
           ],
         )
@@ -186,6 +191,35 @@ class LoginPage extends HookWidget {
           builder: (context) => AddUserPage()
         )
       )
+    );
+  }
+
+  ElevatedButton _buildDeleteUserButton(BuildContext context) {
+    return ElevatedButton.icon(
+        icon: Icon(
+          Icons.build,
+          size: 24,
+          color: Colors.white,
+        ),
+        label: Text(
+          "DEBUG\ndelete user",
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 12,
+          ),
+        ),
+        style: ElevatedButton.styleFrom(
+          primary: Colors.transparent,
+          onPrimary: Colors.black,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(10))
+          ),
+        ),
+        onPressed: () => Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => DeleteUserPage()
+          )
+        )
     );
   }
 
