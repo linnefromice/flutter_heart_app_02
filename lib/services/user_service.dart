@@ -39,4 +39,8 @@ class UserService {
   Future<void> createUser(final User user) async {
     _instance.collection(_collectionName).add(user.toJson());
   }
+
+  Future<void> deleteUser(final String id) async {
+    _instance.collection(_collectionName).doc(id).delete();
+  }
 }
