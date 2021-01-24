@@ -32,10 +32,20 @@ class DeleteUserPage extends StatelessWidget {
       itemBuilder: (context, index) {
         final item = snapshot.data[index];
         return Card(
+          color: Colors.deepOrange[200].withOpacity(0.5),
           child: ListTile(
-            leading: Icon(Icons.close),
-            title: Text(item.name),
-            trailing: Text(item.rating.toString()),
+            leading: IconButton(
+              icon: Icon(Icons.close, color: Colors.white),
+              onPressed: () {},
+            ),
+            title: Text(item.name, style: TextStyle(color: Colors.white)),
+            trailing: Text(
+              item.rating.toString(),
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 18.0
+              )
+            ),
           ),
         );
       },
