@@ -19,22 +19,26 @@ class DeleteUserPage extends StatelessWidget {
             if (snapshot.data == null) {
               return Center(child: Text("NO DATA"));
             }
-            return ListView.builder(
-              itemCount: snapshot.data.length,
-              itemBuilder: (context, index) {
-                final item = snapshot.data[index];
-                return Card(
-                  child: ListTile(
-                    leading: Icon(Icons.close),
-                    title: Text(item.name),
-                    trailing: Text(item.rating.toString()),
-                  ),
-                );
-              },
-            );
+            return _buildContents(snapshot);
           },
         )
       ),
+    );
+  }
+
+  ListView _buildContents(AsyncSnapshot<List<User>> snapshot) {
+    return ListView.builder(
+      itemCount: snapshot.data.length,
+      itemBuilder: (context, index) {
+        final item = snapshot.data[index];
+        return Card(
+          child: ListTile(
+            leading: Icon(Icons.close),
+            title: Text(item.name),
+            trailing: Text(item.rating.toString()),
+          ),
+        );
+      },
     );
   }
 }
