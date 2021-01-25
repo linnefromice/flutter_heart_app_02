@@ -11,16 +11,13 @@ class RatedHeart extends StatelessWidget {
   final double rate;
   final Color leftColor;
   final Color rightColor;
-  double size;
+  final double size;
 
   @override
   Widget build(BuildContext context) {
-    if (size == null) {
-      size = IconTheme.of(context).size;
-    }
     return _RatedIcon(
       iconData: Icons.favorite,
-      size: size,
+      size: size != null ? size : IconTheme.of(context).size,
       rate: rate,
       leftColor: leftColor,
       rightColor: rightColor,
