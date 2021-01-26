@@ -9,7 +9,7 @@ abstract class User with _$User {
   const factory User({
     String id,
     String name,
-    int rating,
+    double rating,
     bool isFriend,
     String avatarUrl
   }) = _User;

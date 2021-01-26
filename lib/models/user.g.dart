@@ -10,7 +10,7 @@ _$_User _$_$_UserFromJson(Map<String, dynamic> json) {
   return _$_User(
     id: json['id'] as String,
     name: json['name'] as String,
-    rating: json['rating'] as int,
+    rating: (json['rating'] as num)?.toDouble(),
     isFriend: json['isFriend'] as bool,
     avatarUrl: json['avatarUrl'] as String,
   );
