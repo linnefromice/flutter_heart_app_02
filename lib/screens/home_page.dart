@@ -106,8 +106,7 @@ class _Content extends HookWidget {
         PageView(
           controller: _pageController,
           children: users.map((User user) => _ContentAvatar(
-            name: user.name,
-            avatarUrl: user.avatarUrl
+            user: user,
           )).toList(),
         ),
         Positioned(
@@ -185,19 +184,17 @@ class _Content extends HookWidget {
 class _ContentAvatar extends StatelessWidget {
   _ContentAvatar({
     Key key,
-    this.name,
-    this.avatarUrl,
+    this.user,
   }) : super(key: key);
 
-  final String name;
-  final String avatarUrl;
+  final User user;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (context) => EvaluatePage()
+          builder: (context) => EvaluatePage(user: user)
         )
       ),
       child: Container(
@@ -219,13 +216,12 @@ class _ContentAvatar extends StatelessWidget {
           widthFactor: 0.7,
           child: CircleAvatar(
             maxRadius: 30,
-            child: !(avatarUrl == null || avatarUrl == "") ? null : Text(name, style: TextStyle(color: Colors.red)),
-            backgroundColor: avatarUrl == null || avatarUrl == "" ? Colors.white : null,
-            backgroundImage: !(avatarUrl == null || avatarUrl == "") ? NetworkImage(avatarUrl) : null,
+            child: !(user.avatarUrl == null || user.avatarUrl == "") ? null : Text(user.name, style: TextStyle(color: Colors.red)),
+            backgroundColor: user.avatarUrl == null || user.avatarUrl == "" ? Colors.white : null,
+            backgroundImage: !(user.avatarUrl == null || user.avatarUrl == "") ? NetworkImage(user.avatarUrl) : null,
           )
         ),
       ),
     );
   }
-
 }
