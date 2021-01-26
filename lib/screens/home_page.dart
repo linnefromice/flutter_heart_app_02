@@ -7,6 +7,7 @@ import 'package:linnefromice/components/rated_heart.dart';
 import 'package:linnefromice/components/wrapper_fab_circle_menu.dart';
 import 'package:linnefromice/components/wrapper_common_background.dart';
 import 'package:linnefromice/models/user.dart';
+import 'package:linnefromice/screens/evaluate_page.dart';
 import 'package:linnefromice/services/user_service.dart';
 
 final List datas = [
@@ -193,29 +194,36 @@ class _ContentAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: MediaQuery.of(context).size.width,
-      width: MediaQuery.of(context).size.width,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            Colors.red[100],
-            Colors.deepOrange[100],
-          ],
-        ),
-      ),
-      child: FractionallySizedBox(
-        alignment: Alignment.topCenter,
-        widthFactor: 0.7,
-        child: CircleAvatar(
-          maxRadius: 30,
-          child: !(avatarUrl == null || avatarUrl == "") ? null : Text(name, style: TextStyle(color: Colors.red)),
-          backgroundColor: avatarUrl == null || avatarUrl == "" ? Colors.white : null,
-          backgroundImage: !(avatarUrl == null || avatarUrl == "") ? NetworkImage(avatarUrl) : null,
+    return GestureDetector(
+      onTap: () => Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => EvaluatePage()
         )
+      ),
+      child: Container(
+        height: MediaQuery.of(context).size.width,
+        width: MediaQuery.of(context).size.width,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              Colors.red[100],
+              Colors.deepOrange[100],
+            ],
+          ),
+        ),
+        child: FractionallySizedBox(
+          alignment: Alignment.topCenter,
+          widthFactor: 0.7,
+          child: CircleAvatar(
+            maxRadius: 30,
+            child: !(avatarUrl == null || avatarUrl == "") ? null : Text(name, style: TextStyle(color: Colors.red)),
+            backgroundColor: avatarUrl == null || avatarUrl == "" ? Colors.white : null,
+            backgroundImage: !(avatarUrl == null || avatarUrl == "") ? NetworkImage(avatarUrl) : null,
+          )
+        ),
       ),
     );
   }
