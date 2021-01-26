@@ -96,7 +96,7 @@ class _UserListTile extends StatelessWidget {
     this.avatarUrl,
   }) : super(key: key);
   final String name;
-  final int rating;
+  final double rating;
   final bool isFriend;
   final String avatarUrl;
 
@@ -124,11 +124,11 @@ class _UserListTile extends StatelessWidget {
       ),
       subtitle: Row(
         children: [
-          RatedHeart(rate: min(1, max(0, rating.toDouble() - 0)), size: 30), // origin -> Icon(Icons.favorite, size: 30, color: rating >= 1 ? Colors.pink.withOpacity(0.5) : Colors.white)
-          RatedHeart(rate: min(1, max(0, rating.toDouble() - 1)), size: 30),
-          RatedHeart(rate: min(1, max(0, rating.toDouble() - 2)), size: 30),
-          RatedHeart(rate: min(1, max(0, rating.toDouble() - 3)), size: 30),
-          RatedHeart(rate: min(1, max(0, rating.toDouble() - 4)), size: 30),
+          RatedHeart(rate: min(1, max(0, rating - 0)), size: 30), // origin -> Icon(Icons.favorite, size: 30, color: rating >= 1 ? Colors.pink.withOpacity(0.5) : Colors.white)
+          RatedHeart(rate: min(1, max(0, rating - 1)), size: 30),
+          RatedHeart(rate: min(1, max(0, rating - 2)), size: 30),
+          RatedHeart(rate: min(1, max(0, rating - 3)), size: 30),
+          RatedHeart(rate: min(1, max(0, rating - 4)), size: 30),
         ],
       ),
       trailing: isFriend ? RaisedButton(

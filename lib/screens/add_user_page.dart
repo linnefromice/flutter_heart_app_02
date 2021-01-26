@@ -11,7 +11,7 @@ class AddUserPage extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final _nameController = useTextEditingController();
-    final _rating = useState(0);
+    final _rating = useState<double>(0);
     final _avatarUrlController = useTextEditingController();
 
     return Scaffold(
@@ -72,18 +72,18 @@ class AddUserPage extends HookWidget {
     );
   }
 
-  Row _buildRatingField(ValueNotifier<int> state) {
+  Row _buildRatingField(ValueNotifier<double> state) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         Text("Rating"),
-        DropdownButton<int>(
+        DropdownButton<double>(
           value: state.value,
           icon: Icon(Icons.arrow_downward),
-          onChanged: (int value) => state.value = value,
-          items: <int>[0, 1, 2, 3, 4, 5]
-              .map<DropdownMenuItem<int>>((int value) {
-            return DropdownMenuItem<int>(
+          onChanged: (double value) => state.value = value,
+          items: <double>[0, 1, 2, 3, 4, 5]
+              .map<DropdownMenuItem<double>>((double value) {
+            return DropdownMenuItem<double>(
               value: value,
               child: Text(value.toString()),
             );
@@ -128,7 +128,7 @@ class AddUserPage extends HookWidget {
     backgroundColor: Colors.red[200],
   );
 
-  ElevatedButton _buildSubmitButton(BuildContext context, TextEditingController _nameController, int rating, TextEditingController _avatarUrlController) {
+  ElevatedButton _buildSubmitButton(BuildContext context, TextEditingController _nameController, double rating, TextEditingController _avatarUrlController) {
     return ElevatedButton.icon(
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all(Colors.grey)
