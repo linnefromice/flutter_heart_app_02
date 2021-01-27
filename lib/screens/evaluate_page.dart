@@ -1,9 +1,11 @@
 import 'dart:math';
 
+import 'package:fab_circular_menu/fab_circular_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:linnefromice/components/avatar_area.dart';
 import 'package:linnefromice/components/rated_heart.dart';
 import 'package:linnefromice/components/wrapper_common_background.dart';
+import 'package:linnefromice/components/wrapper_fab_circle_menu.dart';
 import 'package:linnefromice/models/user.dart';
 
 class EvaluatePage extends StatelessWidget {
@@ -13,6 +15,7 @@ class EvaluatePage extends StatelessWidget {
   }) : super(key: key);
 
   final User user;
+  final GlobalKey<FabCircularMenuState> fabKey = GlobalKey();
 
   AvatarArea _buildAvatarArea({final double diameter}) {
     return AvatarArea(
@@ -78,6 +81,9 @@ class EvaluatePage extends StatelessWidget {
             )
           ],
         )
+      ),
+      floatingActionButton: Builder(
+        builder: (context) => WrapperFabCircularMenu(fabKey: fabKey)
       ),
     );
   }
