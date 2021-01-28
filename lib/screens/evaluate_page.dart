@@ -51,7 +51,19 @@ class EvaluatePage extends HookWidget {
     ],
   );
 
-  Row _buildRatingPickerField(ValueNotifier<int> integerState, ValueNotifier<int> decimalState) {
+  SnackBar _successSnackBar() => SnackBar(
+    content: Text("Success!!"),
+    duration: Duration(seconds: 1),
+    backgroundColor: Colors.green[200],
+  );
+
+  SnackBar _failureSnackBar() => SnackBar(
+    content: Text("Failure..."),
+    duration: Duration(seconds: 1),
+    backgroundColor: Colors.red[200],
+  );
+
+  Row _buildRatingPickerField(BuildContext context, ValueNotifier<int> integerState, ValueNotifier<int> decimalState) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -92,12 +104,17 @@ class EvaluatePage extends HookWidget {
           onPressed: () {
             final double value = integerState.value.toDouble() + decimalState.value.toDouble() * 0.1;
             final DateTime now = DateTime.now();
+            if (value < 0 || value > 5) {
+              ScaffoldMessenger.of(context).showSnackBar(_failureSnackBar());
+              return;
+            }
             evaluationService.createEvaluation(Evaluation(
               userId: user.id,
               rating: value,
               createdDate: now.year.toString().padLeft(4,"0") + now.month.toString().padLeft(2,"0") + now.day.toString().padLeft(2,"0"),
               createdAt: now
             ));
+            ScaffoldMessenger.of(context).showSnackBar(_successSnackBar());
           }
         )
       ],
@@ -144,7 +161,7 @@ class EvaluatePage extends HookWidget {
               top: MediaQuery.of(context).size.height * 0.80,
               left: 0,
               right: 0,
-              child: _buildRatingPickerField(integerState, decimalState),
+              child: _buildRatingPickerField(context, integerState, decimalState),
             )
           ],
         )
