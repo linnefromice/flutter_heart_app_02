@@ -140,8 +140,6 @@ class EvaluatePage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final integerState = useState(0);
-    final decimalState = useState(0);
     final ratingState = useState(user.rating);
 
     return Scaffold(
@@ -184,14 +182,47 @@ class EvaluatePage extends HookWidget {
                 ratingState
               ),
             ),
-            /*
             Positioned(
               top: MediaQuery.of(context).size.height * 0.80,
               left: 0,
               right: 0,
-              child: _buildRatingPickerField(context, integerState, decimalState),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  ElevatedButton.icon(
+                    style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(Colors.transparent)
+                    ),
+                    icon: Icon(Icons.refresh),
+                    label: Text("RESET"),
+                    onPressed: () => ratingState.value = user.rating,
+                  ),
+                  ElevatedButton.icon(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.transparent)
+                    ),
+                    icon: Icon(Icons.favorite),
+                    label: Text("SEND"),
+                    onPressed: () {
+                      if (ratingState.value < 0 || ratingState.value > 5) {
+                        ScaffoldMessenger.of(context).showSnackBar(_failureSnackBar());
+                        return;
+                      }
+                      final DateTime now = DateTime.now();
+                      final String nowDate = now.year.toString().padLeft(4,"0") + now.month.toString().padLeft(2,"0") + now.day.toString().padLeft(2,"0");
+                      evaluationService.createEvaluation(Evaluation(
+                        userId: user.id,
+                        rating: ratingState.value,
+                        createdDate: nowDate,
+                        createdAt: now
+                      ));
+                      ScaffoldMessenger.of(context).showSnackBar(_successSnackBar());
+                      Navigator.of(context).pop();
+                    }
+                  )
+                ],
+              ),
             )
-             */
           ],
         )
       ),
