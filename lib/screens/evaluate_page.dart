@@ -2,13 +2,14 @@ import 'dart:math';
 
 import 'package:fab_circular_menu/fab_circular_menu.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:linnefromice/components/avatar_area.dart';
 import 'package:linnefromice/components/rated_heart.dart';
 import 'package:linnefromice/components/wrapper_common_background.dart';
 import 'package:linnefromice/components/wrapper_fab_circle_menu.dart';
 import 'package:linnefromice/models/user.dart';
 
-class EvaluatePage extends StatelessWidget {
+class EvaluatePage extends HookWidget {
   EvaluatePage({
     Key key,
     @required this.user
@@ -47,8 +48,59 @@ class EvaluatePage extends StatelessWidget {
     ],
   );
 
+  Row _buildRatingPickerField(ValueNotifier<int> integerState, ValueNotifier<int> decimalState) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text("for DEBUG"),
+        SizedBox(width: 5),
+        DropdownButton<int>(
+          value: integerState.value,
+          onChanged: (int value) {
+            integerState.value = value;
+            if (value == 5) decimalState.value = 0;
+          },
+          items: <int>[0, 1, 2, 3, 4, 5]
+              .map<DropdownMenuItem<int>>((int value) {
+            return DropdownMenuItem<int>(
+              value: value,
+              child: Text(value.toString()),
+            );
+          }).toList(),
+        ),
+        Text("."),
+        DropdownButton<int>(
+          value: decimalState.value,
+          onChanged: integerState.value == 5 ? null : (int value) => decimalState.value = value,
+          items: <int>[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+              .map<DropdownMenuItem<int>>((int value) {
+            return DropdownMenuItem<int>(
+              value: value,
+              child: Text(value.toString()),
+            );
+          }).toList(),
+        ),
+        ElevatedButton.icon(
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all(Colors.grey)
+          ),
+          icon: Icon(Icons.favorite),
+          label: Text("Thank you"),
+          onPressed: () {
+            final double value = integerState.value.toDouble() + decimalState.value.toDouble() * 0.1;
+            print("exec evaluation: ${value.toString()}");
+          }
+        )
+      ],
+    );
+  }
+
+
   @override
   Widget build(BuildContext context) {
+    final integerState = useState(0);
+    final decimalState = useState(0);
+
     return Scaffold(
       body: WrapperCommonBackground(
         child: Stack(
@@ -78,6 +130,12 @@ class EvaluatePage extends StatelessWidget {
               left: 0,
               right: 0,
               child: _buildRatingArea(),
+            ),
+            Positioned(
+              top: MediaQuery.of(context).size.height * 0.80,
+              left: 0,
+              right: 0,
+              child: _buildRatingPickerField(integerState, decimalState),
             )
           ],
         )
