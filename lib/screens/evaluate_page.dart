@@ -33,9 +33,9 @@ class EvaluatePage extends HookWidget {
     user.name,
     textAlign: TextAlign.center,
     style: TextStyle(
-        fontWeight: FontWeight.w400,
-        fontSize: 30.0,
-        color: Colors.white
+      fontWeight: FontWeight.w400,
+      fontSize: 30.0,
+      color: Colors.white
     ),
   );
 
@@ -51,76 +51,6 @@ class EvaluatePage extends HookWidget {
     ],
   );
 
-  SnackBar _successSnackBar() => SnackBar(
-    content: Text("Success!!"),
-    duration: Duration(seconds: 1),
-    backgroundColor: Colors.green[200],
-  );
-
-  SnackBar _failureSnackBar() => SnackBar(
-    content: Text("Failure..."),
-    duration: Duration(seconds: 1),
-    backgroundColor: Colors.red[200],
-  );
-
-  Row _buildRatingPickerField(BuildContext context, ValueNotifier<int> integerState, ValueNotifier<int> decimalState) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text("for DEBUG"),
-        SizedBox(width: 5),
-        DropdownButton<int>(
-          value: integerState.value,
-          onChanged: (int value) {
-            integerState.value = value;
-            if (value == 5) decimalState.value = 0;
-          },
-          items: <int>[0, 1, 2, 3, 4, 5]
-              .map<DropdownMenuItem<int>>((int value) {
-            return DropdownMenuItem<int>(
-              value: value,
-              child: Text(value.toString()),
-            );
-          }).toList(),
-        ),
-        Text("."),
-        DropdownButton<int>(
-          value: decimalState.value,
-          onChanged: integerState.value == 5 ? null : (int value) => decimalState.value = value,
-          items: <int>[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-              .map<DropdownMenuItem<int>>((int value) {
-            return DropdownMenuItem<int>(
-              value: value,
-              child: Text(value.toString()),
-            );
-          }).toList(),
-        ),
-        ElevatedButton.icon(
-          style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(Colors.grey)
-          ),
-          icon: Icon(Icons.favorite),
-          label: Text("Thank you"),
-          onPressed: () {
-            final double value = integerState.value.toDouble() + decimalState.value.toDouble() * 0.1;
-            final DateTime now = DateTime.now();
-            if (value < 0 || value > 5) {
-              ScaffoldMessenger.of(context).showSnackBar(_failureSnackBar());
-              return;
-            }
-            evaluationService.createEvaluation(Evaluation(
-              userId: user.id,
-              rating: value,
-              createdDate: now.year.toString().padLeft(4,"0") + now.month.toString().padLeft(2,"0") + now.day.toString().padLeft(2,"0"),
-              createdAt: now
-            ));
-            ScaffoldMessenger.of(context).showSnackBar(_successSnackBar());
-          }
-        )
-      ],
-    );
-  }
-
   // provide gesture area for rating & start animation (override heart widgets)
   Widget _buildGestureDetectorWidgetOnHearts(final double wrappedWidgetWidth, final ValueNotifier<double> ratingState) {
     return GestureDetector(
@@ -132,11 +62,21 @@ class EvaluatePage extends HookWidget {
         if (sumRating > 5) sumRating = 5;
         if (sumRating < 0) sumRating = 0;
         ratingState.value = sumRating;
-        print(ratingState.value);
       },
     );
   }
 
+  SnackBar _successSnackBar() => SnackBar(
+    content: Text("Success!!"),
+    duration: Duration(seconds: 1),
+    backgroundColor: Colors.green[200],
+  );
+
+  SnackBar _failureSnackBar() => SnackBar(
+    content: Text("Failure..."),
+    duration: Duration(seconds: 1),
+    backgroundColor: Colors.red[200],
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -178,7 +118,7 @@ class EvaluatePage extends HookWidget {
               width: MediaQuery.of(context).size.width * 0.60,
               height: MediaQuery.of(context).size.height * 0.05,
               child: _buildGestureDetectorWidgetOnHearts(
-                MediaQuery.of(context).size.width * 0.50,
+                MediaQuery.of(context).size.width * 0.60,
                 ratingState
               ),
             ),
