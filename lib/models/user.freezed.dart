@@ -18,7 +18,11 @@ class _$UserTearOff {
 
 // ignore: unused_element
   _User call(
-      {String id, String name, int rating, bool isFriend, String avatarUrl}) {
+      {String id,
+      String name,
+      double rating,
+      bool isFriend,
+      String avatarUrl}) {
     return _User(
       id: id,
       name: name,
@@ -42,7 +46,7 @@ const $User = _$UserTearOff();
 mixin _$User {
   String get id;
   String get name;
-  int get rating;
+  double get rating;
   bool get isFriend;
   String get avatarUrl;
 
@@ -56,7 +60,7 @@ abstract class $UserCopyWith<$Res> {
   factory $UserCopyWith(User value, $Res Function(User) then) =
       _$UserCopyWithImpl<$Res>;
   $Res call(
-      {String id, String name, int rating, bool isFriend, String avatarUrl});
+      {String id, String name, double rating, bool isFriend, String avatarUrl});
 }
 
 /// @nodoc
@@ -78,7 +82,7 @@ class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
     return _then(_value.copyWith(
       id: id == freezed ? _value.id : id as String,
       name: name == freezed ? _value.name : name as String,
-      rating: rating == freezed ? _value.rating : rating as int,
+      rating: rating == freezed ? _value.rating : rating as double,
       isFriend: isFriend == freezed ? _value.isFriend : isFriend as bool,
       avatarUrl: avatarUrl == freezed ? _value.avatarUrl : avatarUrl as String,
     ));
@@ -91,7 +95,7 @@ abstract class _$UserCopyWith<$Res> implements $UserCopyWith<$Res> {
       __$UserCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String id, String name, int rating, bool isFriend, String avatarUrl});
+      {String id, String name, double rating, bool isFriend, String avatarUrl});
 }
 
 /// @nodoc
@@ -114,7 +118,7 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
     return _then(_User(
       id: id == freezed ? _value.id : id as String,
       name: name == freezed ? _value.name : name as String,
-      rating: rating == freezed ? _value.rating : rating as int,
+      rating: rating == freezed ? _value.rating : rating as double,
       isFriend: isFriend == freezed ? _value.isFriend : isFriend as bool,
       avatarUrl: avatarUrl == freezed ? _value.avatarUrl : avatarUrl as String,
     ));
@@ -136,7 +140,7 @@ class _$_User with DiagnosticableTreeMixin implements _User {
   @override
   final String name;
   @override
-  final int rating;
+  final double rating;
   @override
   final bool isFriend;
   @override
@@ -201,7 +205,7 @@ abstract class _User implements User {
   const factory _User(
       {String id,
       String name,
-      int rating,
+      double rating,
       bool isFriend,
       String avatarUrl}) = _$_User;
 
@@ -212,7 +216,7 @@ abstract class _User implements User {
   @override
   String get name;
   @override
-  int get rating;
+  double get rating;
   @override
   bool get isFriend;
   @override

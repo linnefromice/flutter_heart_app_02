@@ -1,7 +1,10 @@
+import 'dart:math';
+
 import 'package:fab_circular_menu/fab_circular_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:linnefromice/components/avatar_area.dart';
+import 'package:linnefromice/components/rated_heart.dart';
 import 'package:linnefromice/components/wrapper_common_background.dart';
 import 'package:linnefromice/components/wrapper_fab_circle_menu.dart';
 import 'package:linnefromice/models/user.dart';
@@ -37,11 +40,11 @@ class UserDetailPage extends HookWidget {
     mainAxisAlignment: MainAxisAlignment.center,
     crossAxisAlignment: CrossAxisAlignment.center,
     children: [
-      Icon(Icons.favorite, size: 50, color: user.rating >= 1 ? Colors.pink.withOpacity(0.5) : Colors.white),
-      Icon(Icons.favorite, size: 50, color: user.rating >= 2 ? Colors.pink.withOpacity(0.5) : Colors.white),
-      Icon(Icons.favorite, size: 50, color: user.rating >= 3 ? Colors.pink.withOpacity(0.5) : Colors.white),
-      Icon(Icons.favorite, size: 50, color: user.rating >= 4 ? Colors.pink.withOpacity(0.5) : Colors.white),
-      Icon(Icons.favorite, size: 50, color: user.rating >= 5 ? Colors.pink.withOpacity(0.5) : Colors.white),
+      RatedHeart(rate: min(1, max(0, user.rating - 0)), size: 50), // origin -> Icon(Icons.favorite, size: 50, color: user.rating >= 1 ? Colors.pink.withOpacity(0.5) : Colors.white),
+      RatedHeart(rate: min(1, max(0, user.rating - 1)), size: 50),
+      RatedHeart(rate: min(1, max(0, user.rating - 2)), size: 50),
+      RatedHeart(rate: min(1, max(0, user.rating - 3)), size: 50),
+      RatedHeart(rate: min(1, max(0, user.rating - 4)), size: 50),
     ],
   );
 
