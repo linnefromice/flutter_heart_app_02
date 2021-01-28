@@ -7,7 +7,9 @@ import 'package:linnefromice/components/avatar_area.dart';
 import 'package:linnefromice/components/rated_heart.dart';
 import 'package:linnefromice/components/wrapper_common_background.dart';
 import 'package:linnefromice/components/wrapper_fab_circle_menu.dart';
+import 'package:linnefromice/models/evaluation.dart';
 import 'package:linnefromice/models/user.dart';
+import 'package:linnefromice/services/evaluation_service.dart';
 
 class EvaluatePage extends HookWidget {
   EvaluatePage({
@@ -17,6 +19,7 @@ class EvaluatePage extends HookWidget {
 
   final User user;
   final GlobalKey<FabCircularMenuState> fabKey = GlobalKey();
+  final EvaluationService evaluationService = EvaluationService();
 
   AvatarArea _buildAvatarArea({final double diameter}) {
     return AvatarArea(
@@ -88,7 +91,13 @@ class EvaluatePage extends HookWidget {
           label: Text("Thank you"),
           onPressed: () {
             final double value = integerState.value.toDouble() + decimalState.value.toDouble() * 0.1;
-            print("exec evaluation: ${value.toString()}");
+            final DateTime now = DateTime.now();
+            evaluationService.createEvaluation(Evaluation(
+              userId: user.id,
+              rating: value,
+              createdDate: now.year.toString().padLeft(4,"0") + now.month.toString().padLeft(2,"0") + now.day.toString().padLeft(2,"0"),
+              createdAt: now
+            ));
           }
         )
       ],
