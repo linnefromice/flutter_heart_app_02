@@ -137,7 +137,7 @@ class AddUserPage extends HookWidget {
       label: Text("SUBMIT"),
       onPressed: () {
         if (_nameController.text == "" || (rating < 0 || rating > 5)) {
-          ScaffoldMessenger.of(context).showSnackBar(_successSnackBar());
+          ScaffoldMessenger.of(context).showSnackBar(_failureSnackBar());
           return;
         }
         userService.createUser(
@@ -148,7 +148,7 @@ class AddUserPage extends HookWidget {
             avatarUrl: _avatarUrlController.text,
           )
         );
-        ScaffoldMessenger.of(context).showSnackBar(_failureSnackBar());
+        ScaffoldMessenger.of(context).showSnackBar(_successSnackBar());
         // initialize
         _nameController.clear();
         rating = 0;
