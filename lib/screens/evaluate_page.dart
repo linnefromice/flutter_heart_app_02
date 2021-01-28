@@ -39,15 +39,15 @@ class EvaluatePage extends HookWidget {
     ),
   );
 
-  Row _buildRatingArea() => Row(
+  Row _buildRatingArea(final double _rating) => Row(
     mainAxisAlignment: MainAxisAlignment.center,
     crossAxisAlignment: CrossAxisAlignment.center,
     children: [
-      RatedHeart(rate: min(1, max(0, user.rating - 0)), size: 50), // origin -> Icon(Icons.favorite, size: 50, color: user.rating >= 1 ? Colors.pink.withOpacity(0.5) : Colors.white),
-      RatedHeart(rate: min(1, max(0, user.rating - 1)), size: 50),
-      RatedHeart(rate: min(1, max(0, user.rating - 2)), size: 50),
-      RatedHeart(rate: min(1, max(0, user.rating - 3)), size: 50),
-      RatedHeart(rate: min(1, max(0, user.rating - 4)), size: 50),
+      RatedHeart(rate: min(1, max(0, _rating - 0)), size: 50), // origin -> Icon(Icons.favorite, size: 50, color: user.rating >= 1 ? Colors.pink.withOpacity(0.5) : Colors.white),
+      RatedHeart(rate: min(1, max(0, _rating - 1)), size: 50),
+      RatedHeart(rate: min(1, max(0, _rating - 2)), size: 50),
+      RatedHeart(rate: min(1, max(0, _rating - 3)), size: 50),
+      RatedHeart(rate: min(1, max(0, _rating - 4)), size: 50),
     ],
   );
 
@@ -121,11 +121,28 @@ class EvaluatePage extends HookWidget {
     );
   }
 
+  // provide gesture area for rating & start animation (override heart widgets)
+  Widget _buildGestureDetectorWidgetOnHearts(final double wrappedWidgetWidth, final ValueNotifier<double> ratingState) {
+    return GestureDetector(
+      onVerticalDragEnd: (details) async {
+        // TODO: exec evaluation
+      },
+      onHorizontalDragUpdate: (details) {
+        double sumRating = details.localPosition.dx/wrappedWidgetWidth * 5;
+        if (sumRating > 5) sumRating = 5;
+        if (sumRating < 0) sumRating = 0;
+        ratingState.value = sumRating;
+        print(ratingState.value);
+      },
+    );
+  }
+
 
   @override
   Widget build(BuildContext context) {
     final integerState = useState(0);
     final decimalState = useState(0);
+    final ratingState = useState(user.rating);
 
     return Scaffold(
       body: WrapperCommonBackground(
@@ -155,14 +172,26 @@ class EvaluatePage extends HookWidget {
               top: MediaQuery.of(context).size.height * 0.75,
               left: 0,
               right: 0,
-              child: _buildRatingArea(),
+              child: _buildRatingArea(ratingState.value),
             ),
+            Positioned(
+              top: MediaQuery.of(context).size.height * 0.75,
+              left: MediaQuery.of(context).size.width * 0.20,
+              width: MediaQuery.of(context).size.width * 0.60,
+              height: MediaQuery.of(context).size.height * 0.05,
+              child: _buildGestureDetectorWidgetOnHearts(
+                MediaQuery.of(context).size.width * 0.50,
+                ratingState
+              ),
+            ),
+            /*
             Positioned(
               top: MediaQuery.of(context).size.height * 0.80,
               left: 0,
               right: 0,
               child: _buildRatingPickerField(context, integerState, decimalState),
             )
+             */
           ],
         )
       ),
