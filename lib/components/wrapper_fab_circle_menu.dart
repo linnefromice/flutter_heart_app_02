@@ -1,5 +1,6 @@
 import 'package:fab_circular_menu/fab_circular_menu.dart';
 import 'package:flutter/material.dart';
+import 'package:linnefromice/screens/evaluations_page.dart';
 import 'package:linnefromice/screens/home_page.dart';
 import 'package:linnefromice/screens/users_page.dart';
 
@@ -44,7 +45,9 @@ class WrapperFabCircularMenu extends StatelessWidget {
         ),
         _buildRawMaterialButton(
           icon: Icon(Icons.save, color: Colors.white),
-          onPressed: () => print("Unimplemented"),
+          onPressed: () => Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => EvaluationsPage()),
+          ),
         ),
         _buildRawMaterialButton(
           icon: Icon(Icons.settings, color: Colors.white),
