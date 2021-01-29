@@ -22,7 +22,7 @@ class _$EvaluationTearOff {
       String userId,
       double rating,
       String createdDate,
-      DateTime createdAt}) {
+      String createdAt}) {
     return _Evaluation(
       id: id,
       userId: userId,
@@ -48,7 +48,7 @@ mixin _$Evaluation {
   String get userId;
   double get rating;
   String get createdDate;
-  DateTime get createdAt;
+  String get createdAt;
 
   Map<String, dynamic> toJson();
   @JsonKey(ignore: true)
@@ -65,7 +65,7 @@ abstract class $EvaluationCopyWith<$Res> {
       String userId,
       double rating,
       String createdDate,
-      DateTime createdAt});
+      String createdAt});
 }
 
 /// @nodoc
@@ -90,8 +90,7 @@ class _$EvaluationCopyWithImpl<$Res> implements $EvaluationCopyWith<$Res> {
       rating: rating == freezed ? _value.rating : rating as double,
       createdDate:
           createdDate == freezed ? _value.createdDate : createdDate as String,
-      createdAt:
-          createdAt == freezed ? _value.createdAt : createdAt as DateTime,
+      createdAt: createdAt == freezed ? _value.createdAt : createdAt as String,
     ));
   }
 }
@@ -107,7 +106,7 @@ abstract class _$EvaluationCopyWith<$Res> implements $EvaluationCopyWith<$Res> {
       String userId,
       double rating,
       String createdDate,
-      DateTime createdAt});
+      String createdAt});
 }
 
 /// @nodoc
@@ -134,8 +133,7 @@ class __$EvaluationCopyWithImpl<$Res> extends _$EvaluationCopyWithImpl<$Res>
       rating: rating == freezed ? _value.rating : rating as double,
       createdDate:
           createdDate == freezed ? _value.createdDate : createdDate as String,
-      createdAt:
-          createdAt == freezed ? _value.createdAt : createdAt as DateTime,
+      createdAt: createdAt == freezed ? _value.createdAt : createdAt as String,
     ));
   }
 }
@@ -159,7 +157,7 @@ class _$_Evaluation with DiagnosticableTreeMixin implements _Evaluation {
   @override
   final String createdDate;
   @override
-  final DateTime createdAt;
+  final String createdAt;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
@@ -222,7 +220,7 @@ abstract class _Evaluation implements Evaluation {
       String userId,
       double rating,
       String createdDate,
-      DateTime createdAt}) = _$_Evaluation;
+      String createdAt}) = _$_Evaluation;
 
   factory _Evaluation.fromJson(Map<String, dynamic> json) =
       _$_Evaluation.fromJson;
@@ -236,7 +234,7 @@ abstract class _Evaluation implements Evaluation {
   @override
   String get createdDate;
   @override
-  DateTime get createdAt;
+  String get createdAt;
   @override
   @JsonKey(ignore: true)
   _$EvaluationCopyWith<_Evaluation> get copyWith;
