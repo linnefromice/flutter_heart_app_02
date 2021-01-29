@@ -11,7 +11,7 @@ abstract class Evaluation with _$Evaluation {
     String userId,
     double rating,
     String createdDate,
-    String createdAt,
+    String createdAt, // temp (instead of DateTime)
   }) = _Evaluation;
 
   factory Evaluation.fromJson(Map<String, dynamic> json) => _$EvaluationFromJson(json);
