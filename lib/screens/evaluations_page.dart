@@ -56,10 +56,11 @@ class EvaluationsPage extends StatelessWidget {
                 itemCount: snapshot.data.length,
                 itemBuilder: (context, index) {
                   final _EvaluationWithUser item = snapshot.data[index];
+                  final String formattedDate = "${item.evaluation.createdDate.substring(0, 4)}/${item.evaluation.createdDate.substring(4, 6)}/${item.evaluation.createdDate.substring(6, 8)}";
                   return Card(
                     color: Colors.deepOrange[200].withOpacity(0.5),
                     child: ListTile(
-                      leading: Text(item.evaluation.createdDate),
+                      leading: Text(formattedDate),
                       title: Text("-> ${item.user.name}"),
                       subtitle: Center(
                         child: Row(
