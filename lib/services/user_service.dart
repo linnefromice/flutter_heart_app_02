@@ -44,8 +44,8 @@ class UserService {
         rating: rating,
         isFriend: isFriend,
         avatarUrl: avatarUrl,
-        createdAt: now.toString(),
-        updatedAt: now.toString(),
+        createdAt: now.toIso8601String(),
+        updatedAt: now.toIso8601String(),
         version: 1
       ).toJson()
     );
