@@ -38,7 +38,7 @@ class UserService {
   }
   
   Future<void> createUser({ final String name, final double rating, final bool isFriend, final String avatarUrl }) async {
-    DateTime now = DateTime.now();
+    final DateTime now = DateTime.now();
     _instance.collection(_collectionName).add(
       User(
         name: name,
