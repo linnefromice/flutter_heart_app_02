@@ -275,7 +275,14 @@ class UsersPage extends HookWidget {
                       }
                     }));
                     return !hasConnectivity.hasData
-                        ? CircularProgressIndicator()
+                        ? Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              CircularProgressIndicator(),
+                              Text("Loading ...")
+                            ],
+                          )
                         : _UserList(hasConnectivity: hasConnectivity.data);
                   }
                 ),

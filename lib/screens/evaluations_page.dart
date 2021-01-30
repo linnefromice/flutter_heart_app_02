@@ -65,7 +65,14 @@ class EvaluationsPage extends StatelessWidget {
               );
             }
             return Center(
-              child: CircularProgressIndicator(),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  CircularProgressIndicator(),
+                  Text("Loading ...")
+                ],
+              ),
             );
           },
         ),
