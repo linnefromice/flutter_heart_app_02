@@ -4,6 +4,7 @@ import 'package:linnefromice/models/evaluation.dart';
 class EvaluationService {
   final _instance = FirebaseFirestore.instance;
   final _collectionName = "evaluation";
+  final _defaultSortKey = "updatedAt";
 
   Evaluation _generateModelFromQueryDocumentSnapshot(QueryDocumentSnapshot snapshot) => Evaluation(
     id: snapshot.id,
@@ -14,10 +15,13 @@ class EvaluationService {
   );
 
   Stream<List<Evaluation>> streamEvaluation() {
-    return _instance.collection(_collectionName).snapshots().map(
-      (QuerySnapshot querySnapshot) => querySnapshot.docs.map(
-        (QueryDocumentSnapshot queryDocumentSnapshot) => _generateModelFromQueryDocumentSnapshot(queryDocumentSnapshot)
-      ).toList()
+    return _instance
+        .collection(_collectionName)
+        .orderBy(_defaultSortKey, descending: true)
+        .snapshots().map(
+          (QuerySnapshot querySnapshot) => querySnapshot.docs.map(
+            (QueryDocumentSnapshot queryDocumentSnapshot) => _generateModelFromQueryDocumentSnapshot(queryDocumentSnapshot)
+          ).toList()
     );
   }
 
@@ -30,14 +34,29 @@ class EvaluationService {
   );
 
   Future<List<Evaluation>> findEvaluations() async {
-    QuerySnapshot querySnapshot = await _instance.collection(_collectionName).get();
+    QuerySnapshot querySnapshot = await _instance
+        .collection(_collectionName)
+        .orderBy(_defaultSortKey, descending: true)
+        .get();
     return querySnapshot.docs.map(
       (DocumentSnapshot documentSnapshot) => _generateModelFromDocumentSnapshot(documentSnapshot)
     ).toList();
   }
   
-  Future<void> createEvaluation(final Evaluation model) async {
-    _instance.collection(_collectionName).add(model.toJson());
+  Future<void> createEvaluation({ final String userId, final double rating}) async {
+    final _roundedRating = double.parse(rating.toStringAsFixed(2)); // format to X.XX
+    final DateTime now = DateTime.now();
+    final String nowDate = now.year.toString().padLeft(4,"0") + now.month.toString().padLeft(2,"0") + now.day.toString().padLeft(2,"0");
+    _instance.collection(_collectionName).add(
+      Evaluation(
+        userId: userId,
+        rating: _roundedRating,
+        createdDate: nowDate,
+        createdAt: now.toIso8601String(),
+        updatedAt: now.toIso8601String(),
+        version: 1
+      ).toJson()
+    );
   }
 
   Future<void> deleteEvaluation(final String id) async {

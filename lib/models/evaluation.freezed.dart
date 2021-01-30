@@ -22,13 +22,17 @@ class _$EvaluationTearOff {
       String userId,
       double rating,
       String createdDate,
-      DateTime createdAt}) {
+      String createdAt,
+      String updatedAt,
+      int version}) {
     return _Evaluation(
       id: id,
       userId: userId,
       rating: rating,
       createdDate: createdDate,
       createdAt: createdAt,
+      updatedAt: updatedAt,
+      version: version,
     );
   }
 
@@ -48,7 +52,9 @@ mixin _$Evaluation {
   String get userId;
   double get rating;
   String get createdDate;
-  DateTime get createdAt;
+  String get createdAt; // temp (instead of DateTime)
+  String get updatedAt; // temp (instead of DateTime)
+  int get version;
 
   Map<String, dynamic> toJson();
   @JsonKey(ignore: true)
@@ -65,7 +71,9 @@ abstract class $EvaluationCopyWith<$Res> {
       String userId,
       double rating,
       String createdDate,
-      DateTime createdAt});
+      String createdAt,
+      String updatedAt,
+      int version});
 }
 
 /// @nodoc
@@ -83,6 +91,8 @@ class _$EvaluationCopyWithImpl<$Res> implements $EvaluationCopyWith<$Res> {
     Object rating = freezed,
     Object createdDate = freezed,
     Object createdAt = freezed,
+    Object updatedAt = freezed,
+    Object version = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed ? _value.id : id as String,
@@ -90,8 +100,9 @@ class _$EvaluationCopyWithImpl<$Res> implements $EvaluationCopyWith<$Res> {
       rating: rating == freezed ? _value.rating : rating as double,
       createdDate:
           createdDate == freezed ? _value.createdDate : createdDate as String,
-      createdAt:
-          createdAt == freezed ? _value.createdAt : createdAt as DateTime,
+      createdAt: createdAt == freezed ? _value.createdAt : createdAt as String,
+      updatedAt: updatedAt == freezed ? _value.updatedAt : updatedAt as String,
+      version: version == freezed ? _value.version : version as int,
     ));
   }
 }
@@ -107,7 +118,9 @@ abstract class _$EvaluationCopyWith<$Res> implements $EvaluationCopyWith<$Res> {
       String userId,
       double rating,
       String createdDate,
-      DateTime createdAt});
+      String createdAt,
+      String updatedAt,
+      int version});
 }
 
 /// @nodoc
@@ -127,6 +140,8 @@ class __$EvaluationCopyWithImpl<$Res> extends _$EvaluationCopyWithImpl<$Res>
     Object rating = freezed,
     Object createdDate = freezed,
     Object createdAt = freezed,
+    Object updatedAt = freezed,
+    Object version = freezed,
   }) {
     return _then(_Evaluation(
       id: id == freezed ? _value.id : id as String,
@@ -134,8 +149,9 @@ class __$EvaluationCopyWithImpl<$Res> extends _$EvaluationCopyWithImpl<$Res>
       rating: rating == freezed ? _value.rating : rating as double,
       createdDate:
           createdDate == freezed ? _value.createdDate : createdDate as String,
-      createdAt:
-          createdAt == freezed ? _value.createdAt : createdAt as DateTime,
+      createdAt: createdAt == freezed ? _value.createdAt : createdAt as String,
+      updatedAt: updatedAt == freezed ? _value.updatedAt : updatedAt as String,
+      version: version == freezed ? _value.version : version as int,
     ));
   }
 }
@@ -145,7 +161,13 @@ class __$EvaluationCopyWithImpl<$Res> extends _$EvaluationCopyWithImpl<$Res>
 /// @nodoc
 class _$_Evaluation with DiagnosticableTreeMixin implements _Evaluation {
   const _$_Evaluation(
-      {this.id, this.userId, this.rating, this.createdDate, this.createdAt});
+      {this.id,
+      this.userId,
+      this.rating,
+      this.createdDate,
+      this.createdAt,
+      this.updatedAt,
+      this.version});
 
   factory _$_Evaluation.fromJson(Map<String, dynamic> json) =>
       _$_$_EvaluationFromJson(json);
@@ -159,11 +181,15 @@ class _$_Evaluation with DiagnosticableTreeMixin implements _Evaluation {
   @override
   final String createdDate;
   @override
-  final DateTime createdAt;
+  final String createdAt;
+  @override // temp (instead of DateTime)
+  final String updatedAt;
+  @override // temp (instead of DateTime)
+  final int version;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Evaluation(id: $id, userId: $userId, rating: $rating, createdDate: $createdDate, createdAt: $createdAt)';
+    return 'Evaluation(id: $id, userId: $userId, rating: $rating, createdDate: $createdDate, createdAt: $createdAt, updatedAt: $updatedAt, version: $version)';
   }
 
   @override
@@ -175,7 +201,9 @@ class _$_Evaluation with DiagnosticableTreeMixin implements _Evaluation {
       ..add(DiagnosticsProperty('userId', userId))
       ..add(DiagnosticsProperty('rating', rating))
       ..add(DiagnosticsProperty('createdDate', createdDate))
-      ..add(DiagnosticsProperty('createdAt', createdAt));
+      ..add(DiagnosticsProperty('createdAt', createdAt))
+      ..add(DiagnosticsProperty('updatedAt', updatedAt))
+      ..add(DiagnosticsProperty('version', version));
   }
 
   @override
@@ -193,7 +221,12 @@ class _$_Evaluation with DiagnosticableTreeMixin implements _Evaluation {
                     .equals(other.createdDate, createdDate)) &&
             (identical(other.createdAt, createdAt) ||
                 const DeepCollectionEquality()
-                    .equals(other.createdAt, createdAt)));
+                    .equals(other.createdAt, createdAt)) &&
+            (identical(other.updatedAt, updatedAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.updatedAt, updatedAt)) &&
+            (identical(other.version, version) ||
+                const DeepCollectionEquality().equals(other.version, version)));
   }
 
   @override
@@ -203,7 +236,9 @@ class _$_Evaluation with DiagnosticableTreeMixin implements _Evaluation {
       const DeepCollectionEquality().hash(userId) ^
       const DeepCollectionEquality().hash(rating) ^
       const DeepCollectionEquality().hash(createdDate) ^
-      const DeepCollectionEquality().hash(createdAt);
+      const DeepCollectionEquality().hash(createdAt) ^
+      const DeepCollectionEquality().hash(updatedAt) ^
+      const DeepCollectionEquality().hash(version);
 
   @JsonKey(ignore: true)
   @override
@@ -222,7 +257,9 @@ abstract class _Evaluation implements Evaluation {
       String userId,
       double rating,
       String createdDate,
-      DateTime createdAt}) = _$_Evaluation;
+      String createdAt,
+      String updatedAt,
+      int version}) = _$_Evaluation;
 
   factory _Evaluation.fromJson(Map<String, dynamic> json) =
       _$_Evaluation.fromJson;
@@ -236,7 +273,11 @@ abstract class _Evaluation implements Evaluation {
   @override
   String get createdDate;
   @override
-  DateTime get createdAt;
+  String get createdAt;
+  @override // temp (instead of DateTime)
+  String get updatedAt;
+  @override // temp (instead of DateTime)
+  int get version;
   @override
   @JsonKey(ignore: true)
   _$EvaluationCopyWith<_Evaluation> get copyWith;

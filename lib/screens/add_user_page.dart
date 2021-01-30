@@ -141,12 +141,10 @@ class AddUserPage extends HookWidget {
           return;
         }
         userService.createUser(
-          User(
-            name: _nameController.text,
-            rating: rating,
-            isFriend: false, // initial status
-            avatarUrl: _avatarUrlController.text,
-          )
+          name: _nameController.text,
+          rating: rating,
+          isFriend: false, // initial status
+          avatarUrl: _avatarUrlController.text,
         );
         ScaffoldMessenger.of(context).showSnackBar(_successSnackBar());
         // initialize

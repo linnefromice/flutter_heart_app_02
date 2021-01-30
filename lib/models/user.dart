@@ -11,7 +11,10 @@ abstract class User with _$User {
     String name,
     double rating,
     bool isFriend,
-    String avatarUrl
+    String avatarUrl,
+    String createdAt, // temp (instead of DateTime)
+    String updatedAt, // temp (instead of DateTime)
+    int version
   }) = _User;
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
