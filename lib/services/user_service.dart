@@ -4,6 +4,7 @@ import 'package:linnefromice/models/user.dart';
 class UserService {
   final _instance = FirebaseFirestore.instance;
   final _collectionName = "users";
+  final _defaultSortKey = "createdAt";
 
   User _generateUserFromQueryDocumentSnapshot(QueryDocumentSnapshot snapshot) => User(
     id: snapshot.id,
@@ -14,7 +15,7 @@ class UserService {
   );
 
   Stream<List<User>> streamUsers() {
-    return _instance.collection(_collectionName).snapshots().map(
+    return _instance.collection(_collectionName).orderBy(_defaultSortKey).snapshots().map(
       (QuerySnapshot querySnapshot) => querySnapshot.docs.map(
         (QueryDocumentSnapshot queryDocumentSnapshot) => _generateUserFromQueryDocumentSnapshot(queryDocumentSnapshot)
       ).toList()
@@ -30,7 +31,7 @@ class UserService {
   );
 
   Future<List<User>> findUsers() async {
-    QuerySnapshot querySnapshot = await _instance.collection(_collectionName).get();
+    QuerySnapshot querySnapshot = await _instance.collection(_collectionName).orderBy(_defaultSortKey).get();
     return querySnapshot.docs.map(
       (DocumentSnapshot documentSnapshot) => _generateUserFromDocumentSnapshot(documentSnapshot)
     ).toList();
