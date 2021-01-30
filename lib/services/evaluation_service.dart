@@ -4,6 +4,7 @@ import 'package:linnefromice/models/evaluation.dart';
 class EvaluationService {
   final _instance = FirebaseFirestore.instance;
   final _collectionName = "evaluation";
+  final _defaultSortKey = "updatedAt";
 
   Evaluation _generateModelFromQueryDocumentSnapshot(QueryDocumentSnapshot snapshot) => Evaluation(
     id: snapshot.id,
@@ -14,10 +15,13 @@ class EvaluationService {
   );
 
   Stream<List<Evaluation>> streamEvaluation() {
-    return _instance.collection(_collectionName).snapshots().map(
-      (QuerySnapshot querySnapshot) => querySnapshot.docs.map(
-        (QueryDocumentSnapshot queryDocumentSnapshot) => _generateModelFromQueryDocumentSnapshot(queryDocumentSnapshot)
-      ).toList()
+    return _instance
+        .collection(_collectionName)
+        .orderBy(_defaultSortKey, descending: true)
+        .snapshots().map(
+          (QuerySnapshot querySnapshot) => querySnapshot.docs.map(
+            (QueryDocumentSnapshot queryDocumentSnapshot) => _generateModelFromQueryDocumentSnapshot(queryDocumentSnapshot)
+          ).toList()
     );
   }
 
@@ -30,7 +34,10 @@ class EvaluationService {
   );
 
   Future<List<Evaluation>> findEvaluations() async {
-    QuerySnapshot querySnapshot = await _instance.collection(_collectionName).get();
+    QuerySnapshot querySnapshot = await _instance
+        .collection(_collectionName)
+        .orderBy(_defaultSortKey, descending: true)
+        .get();
     return querySnapshot.docs.map(
       (DocumentSnapshot documentSnapshot) => _generateModelFromDocumentSnapshot(documentSnapshot)
     ).toList();

@@ -4,7 +4,7 @@ import 'package:linnefromice/models/user.dart';
 class UserService {
   final _instance = FirebaseFirestore.instance;
   final _collectionName = "users";
-  final _defaultSortKey = "createdAt";
+  final _defaultSortKey = "updatedAt";
 
   User _generateUserFromQueryDocumentSnapshot(QueryDocumentSnapshot snapshot) => User(
     id: snapshot.id,
