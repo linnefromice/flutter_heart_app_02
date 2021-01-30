@@ -60,8 +60,18 @@ class EvaluationsPage extends StatelessWidget {
                   return Card(
                     color: Colors.deepOrange[200].withOpacity(0.5),
                     child: ListTile(
-                      leading: Text(formattedDate),
-                      title: Text("-> ${item.user.name}"),
+                      leading: Text(
+                        formattedDate,
+                        style: TextStyle(
+                          color: Colors.white
+                        ),
+                      ),
+                      title: Text(
+                        "-> ${item.user.name}",
+                        style: TextStyle(
+                          color: Colors.white
+                        ),
+                      ),
                       subtitle: Center(
                         child: Row(
                           children: [
@@ -73,7 +83,12 @@ class EvaluationsPage extends StatelessWidget {
                           ],
                         ),
                       ),
-                      trailing: Text(item.evaluation.rating.toString()),
+                      trailing: Text(
+                        item.evaluation.rating.toString(),
+                        style: TextStyle(
+                          color: Colors.white
+                        ),
+                      ),
                     ),
                   );
                 },
