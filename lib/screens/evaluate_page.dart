@@ -144,13 +144,14 @@ class EvaluatePage extends HookWidget {
                     icon: Icon(Icons.favorite),
                     label: Text("SEND"),
                     onPressed: () {
-                      if (ratingState.value < 0 || ratingState.value > 5) {
+                      final _roundedRating = double.parse(ratingState.value.toStringAsFixed(2));
+                      if (_roundedRating < 0 || _roundedRating > 5) {
                         ScaffoldMessenger.of(context).showSnackBar(_failureSnackBar());
                         return;
                       }
                       evaluationService.createEvaluation(
                         userId: user.id,
-                        rating: ratingState.value,
+                        rating: _roundedRating,
                       );
                       ScaffoldMessenger.of(context).showSnackBar(_successSnackBar());
                       Navigator.of(context).pop();
