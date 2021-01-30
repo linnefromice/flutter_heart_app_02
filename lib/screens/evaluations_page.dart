@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:fab_circular_menu/fab_circular_menu.dart';
 import 'package:flutter/material.dart';
+import 'package:linnefromice/components/rated_heart.dart';
 import 'package:linnefromice/components/wrapper_common_background.dart';
 import 'package:linnefromice/components/wrapper_fab_circle_menu.dart';
 import 'package:linnefromice/models/evaluation.dart';
@@ -58,6 +61,15 @@ class EvaluationsPage extends StatelessWidget {
                     child: ListTile(
                       leading: Text(item.evaluation.createdDate),
                       title: Text("-> ${item.user.name}"),
+                      subtitle: Row(
+                        children: [
+                          RatedHeart(rate: min(1, max(0, item.evaluation.rating - 0)), size: 30), // origin -> Icon(Icons.favorite, size: 30, color: rating >= 1 ? Colors.pink.withOpacity(0.5) : Colors.white)
+                          RatedHeart(rate: min(1, max(0, item.evaluation.rating - 1)), size: 30),
+                          RatedHeart(rate: min(1, max(0, item.evaluation.rating - 2)), size: 30),
+                          RatedHeart(rate: min(1, max(0, item.evaluation.rating - 3)), size: 30),
+                          RatedHeart(rate: min(1, max(0, item.evaluation.rating - 4)), size: 30),
+                        ],
+                      ),
                       trailing: Text(item.evaluation.rating.toString()),
                     ),
                   );
