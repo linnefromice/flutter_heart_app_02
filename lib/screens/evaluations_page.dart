@@ -61,14 +61,16 @@ class EvaluationsPage extends StatelessWidget {
                     child: ListTile(
                       leading: Text(item.evaluation.createdDate),
                       title: Text("-> ${item.user.name}"),
-                      subtitle: Row(
-                        children: [
-                          RatedHeart(rate: min(1, max(0, item.evaluation.rating - 0)), size: 30), // origin -> Icon(Icons.favorite, size: 30, color: rating >= 1 ? Colors.pink.withOpacity(0.5) : Colors.white)
-                          RatedHeart(rate: min(1, max(0, item.evaluation.rating - 1)), size: 30),
-                          RatedHeart(rate: min(1, max(0, item.evaluation.rating - 2)), size: 30),
-                          RatedHeart(rate: min(1, max(0, item.evaluation.rating - 3)), size: 30),
-                          RatedHeart(rate: min(1, max(0, item.evaluation.rating - 4)), size: 30),
-                        ],
+                      subtitle: Center(
+                        child: Row(
+                          children: [
+                            RatedHeart(rate: min(1, max(0, item.evaluation.rating - 0)), size: 30), // origin -> Icon(Icons.favorite, size: 30, color: rating >= 1 ? Colors.pink.withOpacity(0.5) : Colors.white)
+                            RatedHeart(rate: min(1, max(0, item.evaluation.rating - 1)), size: 30),
+                            RatedHeart(rate: min(1, max(0, item.evaluation.rating - 2)), size: 30),
+                            RatedHeart(rate: min(1, max(0, item.evaluation.rating - 3)), size: 30),
+                            RatedHeart(rate: min(1, max(0, item.evaluation.rating - 4)), size: 30),
+                          ],
+                        ),
                       ),
                       trailing: Text(item.evaluation.rating.toString()),
                     ),
