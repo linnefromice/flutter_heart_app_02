@@ -13,6 +13,8 @@ _$_Evaluation _$_$_EvaluationFromJson(Map<String, dynamic> json) {
     rating: (json['rating'] as num)?.toDouble(),
     createdDate: json['createdDate'] as String,
     createdAt: json['createdAt'] as String,
+    updatedAt: json['updatedAt'] as String,
+    version: json['version'] as int,
   );
 }
 
@@ -23,4 +25,6 @@ Map<String, dynamic> _$_$_EvaluationToJson(_$_Evaluation instance) =>
       'rating': instance.rating,
       'createdDate': instance.createdDate,
       'createdAt': instance.createdAt,
+      'updatedAt': instance.updatedAt,
+      'version': instance.version,
     };

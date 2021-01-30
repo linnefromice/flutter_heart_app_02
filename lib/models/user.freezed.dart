@@ -22,13 +22,19 @@ class _$UserTearOff {
       String name,
       double rating,
       bool isFriend,
-      String avatarUrl}) {
+      String avatarUrl,
+      String createdAt,
+      String updatedAt,
+      int version}) {
     return _User(
       id: id,
       name: name,
       rating: rating,
       isFriend: isFriend,
       avatarUrl: avatarUrl,
+      createdAt: createdAt,
+      updatedAt: updatedAt,
+      version: version,
     );
   }
 
@@ -49,6 +55,9 @@ mixin _$User {
   double get rating;
   bool get isFriend;
   String get avatarUrl;
+  String get createdAt; // temp (instead of DateTime)
+  String get updatedAt; // temp (instead of DateTime)
+  int get version;
 
   Map<String, dynamic> toJson();
   @JsonKey(ignore: true)
@@ -60,7 +69,14 @@ abstract class $UserCopyWith<$Res> {
   factory $UserCopyWith(User value, $Res Function(User) then) =
       _$UserCopyWithImpl<$Res>;
   $Res call(
-      {String id, String name, double rating, bool isFriend, String avatarUrl});
+      {String id,
+      String name,
+      double rating,
+      bool isFriend,
+      String avatarUrl,
+      String createdAt,
+      String updatedAt,
+      int version});
 }
 
 /// @nodoc
@@ -78,6 +94,9 @@ class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
     Object rating = freezed,
     Object isFriend = freezed,
     Object avatarUrl = freezed,
+    Object createdAt = freezed,
+    Object updatedAt = freezed,
+    Object version = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed ? _value.id : id as String,
@@ -85,6 +104,9 @@ class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
       rating: rating == freezed ? _value.rating : rating as double,
       isFriend: isFriend == freezed ? _value.isFriend : isFriend as bool,
       avatarUrl: avatarUrl == freezed ? _value.avatarUrl : avatarUrl as String,
+      createdAt: createdAt == freezed ? _value.createdAt : createdAt as String,
+      updatedAt: updatedAt == freezed ? _value.updatedAt : updatedAt as String,
+      version: version == freezed ? _value.version : version as int,
     ));
   }
 }
@@ -95,7 +117,14 @@ abstract class _$UserCopyWith<$Res> implements $UserCopyWith<$Res> {
       __$UserCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String id, String name, double rating, bool isFriend, String avatarUrl});
+      {String id,
+      String name,
+      double rating,
+      bool isFriend,
+      String avatarUrl,
+      String createdAt,
+      String updatedAt,
+      int version});
 }
 
 /// @nodoc
@@ -114,6 +143,9 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
     Object rating = freezed,
     Object isFriend = freezed,
     Object avatarUrl = freezed,
+    Object createdAt = freezed,
+    Object updatedAt = freezed,
+    Object version = freezed,
   }) {
     return _then(_User(
       id: id == freezed ? _value.id : id as String,
@@ -121,6 +153,9 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
       rating: rating == freezed ? _value.rating : rating as double,
       isFriend: isFriend == freezed ? _value.isFriend : isFriend as bool,
       avatarUrl: avatarUrl == freezed ? _value.avatarUrl : avatarUrl as String,
+      createdAt: createdAt == freezed ? _value.createdAt : createdAt as String,
+      updatedAt: updatedAt == freezed ? _value.updatedAt : updatedAt as String,
+      version: version == freezed ? _value.version : version as int,
     ));
   }
 }
@@ -130,7 +165,14 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
 /// @nodoc
 class _$_User with DiagnosticableTreeMixin implements _User {
   const _$_User(
-      {this.id, this.name, this.rating, this.isFriend, this.avatarUrl});
+      {this.id,
+      this.name,
+      this.rating,
+      this.isFriend,
+      this.avatarUrl,
+      this.createdAt,
+      this.updatedAt,
+      this.version});
 
   factory _$_User.fromJson(Map<String, dynamic> json) =>
       _$_$_UserFromJson(json);
@@ -145,10 +187,16 @@ class _$_User with DiagnosticableTreeMixin implements _User {
   final bool isFriend;
   @override
   final String avatarUrl;
+  @override
+  final String createdAt;
+  @override // temp (instead of DateTime)
+  final String updatedAt;
+  @override // temp (instead of DateTime)
+  final int version;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'User(id: $id, name: $name, rating: $rating, isFriend: $isFriend, avatarUrl: $avatarUrl)';
+    return 'User(id: $id, name: $name, rating: $rating, isFriend: $isFriend, avatarUrl: $avatarUrl, createdAt: $createdAt, updatedAt: $updatedAt, version: $version)';
   }
 
   @override
@@ -160,7 +208,10 @@ class _$_User with DiagnosticableTreeMixin implements _User {
       ..add(DiagnosticsProperty('name', name))
       ..add(DiagnosticsProperty('rating', rating))
       ..add(DiagnosticsProperty('isFriend', isFriend))
-      ..add(DiagnosticsProperty('avatarUrl', avatarUrl));
+      ..add(DiagnosticsProperty('avatarUrl', avatarUrl))
+      ..add(DiagnosticsProperty('createdAt', createdAt))
+      ..add(DiagnosticsProperty('updatedAt', updatedAt))
+      ..add(DiagnosticsProperty('version', version));
   }
 
   @override
@@ -178,7 +229,15 @@ class _$_User with DiagnosticableTreeMixin implements _User {
                     .equals(other.isFriend, isFriend)) &&
             (identical(other.avatarUrl, avatarUrl) ||
                 const DeepCollectionEquality()
-                    .equals(other.avatarUrl, avatarUrl)));
+                    .equals(other.avatarUrl, avatarUrl)) &&
+            (identical(other.createdAt, createdAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.createdAt, createdAt)) &&
+            (identical(other.updatedAt, updatedAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.updatedAt, updatedAt)) &&
+            (identical(other.version, version) ||
+                const DeepCollectionEquality().equals(other.version, version)));
   }
 
   @override
@@ -188,7 +247,10 @@ class _$_User with DiagnosticableTreeMixin implements _User {
       const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(rating) ^
       const DeepCollectionEquality().hash(isFriend) ^
-      const DeepCollectionEquality().hash(avatarUrl);
+      const DeepCollectionEquality().hash(avatarUrl) ^
+      const DeepCollectionEquality().hash(createdAt) ^
+      const DeepCollectionEquality().hash(updatedAt) ^
+      const DeepCollectionEquality().hash(version);
 
   @JsonKey(ignore: true)
   @override
@@ -207,7 +269,10 @@ abstract class _User implements User {
       String name,
       double rating,
       bool isFriend,
-      String avatarUrl}) = _$_User;
+      String avatarUrl,
+      String createdAt,
+      String updatedAt,
+      int version}) = _$_User;
 
   factory _User.fromJson(Map<String, dynamic> json) = _$_User.fromJson;
 
@@ -221,6 +286,12 @@ abstract class _User implements User {
   bool get isFriend;
   @override
   String get avatarUrl;
+  @override
+  String get createdAt;
+  @override // temp (instead of DateTime)
+  String get updatedAt;
+  @override // temp (instead of DateTime)
+  int get version;
   @override
   @JsonKey(ignore: true)
   _$UserCopyWith<_User> get copyWith;
