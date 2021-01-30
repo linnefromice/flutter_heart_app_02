@@ -37,12 +37,13 @@ class EvaluationService {
   }
   
   Future<void> createEvaluation({ final String userId, final double rating}) async {
+    final _roundedRating = double.parse(rating.toStringAsFixed(2)); // format to X.XX
     final DateTime now = DateTime.now();
     final String nowDate = now.year.toString().padLeft(4,"0") + now.month.toString().padLeft(2,"0") + now.day.toString().padLeft(2,"0");
     _instance.collection(_collectionName).add(
       Evaluation(
         userId: userId,
-        rating: rating,
+        rating: _roundedRating,
         createdDate: nowDate,
         createdAt: now.toIso8601String(),
         updatedAt: now.toIso8601String(),
