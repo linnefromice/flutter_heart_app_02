@@ -148,14 +148,10 @@ class EvaluatePage extends HookWidget {
                         ScaffoldMessenger.of(context).showSnackBar(_failureSnackBar());
                         return;
                       }
-                      final DateTime now = DateTime.now();
-                      final String nowDate = now.year.toString().padLeft(4,"0") + now.month.toString().padLeft(2,"0") + now.day.toString().padLeft(2,"0");
-                      evaluationService.createEvaluation(Evaluation(
+                      evaluationService.createEvaluation(
                         userId: user.id,
                         rating: ratingState.value,
-                        createdDate: nowDate,
-                        createdAt: now.toIso8601String() // temp
-                      ));
+                      );
                       ScaffoldMessenger.of(context).showSnackBar(_successSnackBar());
                       Navigator.of(context).pop();
                     }
