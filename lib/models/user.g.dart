@@ -10,6 +10,7 @@ _$_User _$_$_UserFromJson(Map<String, dynamic> json) {
   return _$_User(
     id: json['id'] as String,
     name: json['name'] as String,
+    description: json['description'] as String,
     rating: (json['rating'] as num)?.toDouble(),
     isFriend: json['isFriend'] as bool,
     avatarUrl: json['avatarUrl'] as String,
@@ -22,6 +23,7 @@ _$_User _$_$_UserFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$_$_UserToJson(_$_User instance) => <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
+      'description': instance.description,
       'rating': instance.rating,
       'isFriend': instance.isFriend,
       'avatarUrl': instance.avatarUrl,

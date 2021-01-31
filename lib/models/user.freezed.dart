@@ -20,6 +20,7 @@ class _$UserTearOff {
   _User call(
       {String id,
       String name,
+      String description,
       double rating,
       bool isFriend,
       String avatarUrl,
@@ -29,6 +30,7 @@ class _$UserTearOff {
     return _User(
       id: id,
       name: name,
+      description: description,
       rating: rating,
       isFriend: isFriend,
       avatarUrl: avatarUrl,
@@ -52,6 +54,7 @@ const $User = _$UserTearOff();
 mixin _$User {
   String get id;
   String get name;
+  String get description;
   double get rating;
   bool get isFriend;
   String get avatarUrl;
@@ -71,6 +74,7 @@ abstract class $UserCopyWith<$Res> {
   $Res call(
       {String id,
       String name,
+      String description,
       double rating,
       bool isFriend,
       String avatarUrl,
@@ -91,6 +95,7 @@ class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
   $Res call({
     Object id = freezed,
     Object name = freezed,
+    Object description = freezed,
     Object rating = freezed,
     Object isFriend = freezed,
     Object avatarUrl = freezed,
@@ -101,6 +106,8 @@ class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
     return _then(_value.copyWith(
       id: id == freezed ? _value.id : id as String,
       name: name == freezed ? _value.name : name as String,
+      description:
+          description == freezed ? _value.description : description as String,
       rating: rating == freezed ? _value.rating : rating as double,
       isFriend: isFriend == freezed ? _value.isFriend : isFriend as bool,
       avatarUrl: avatarUrl == freezed ? _value.avatarUrl : avatarUrl as String,
@@ -119,6 +126,7 @@ abstract class _$UserCopyWith<$Res> implements $UserCopyWith<$Res> {
   $Res call(
       {String id,
       String name,
+      String description,
       double rating,
       bool isFriend,
       String avatarUrl,
@@ -140,6 +148,7 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
   $Res call({
     Object id = freezed,
     Object name = freezed,
+    Object description = freezed,
     Object rating = freezed,
     Object isFriend = freezed,
     Object avatarUrl = freezed,
@@ -150,6 +159,8 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
     return _then(_User(
       id: id == freezed ? _value.id : id as String,
       name: name == freezed ? _value.name : name as String,
+      description:
+          description == freezed ? _value.description : description as String,
       rating: rating == freezed ? _value.rating : rating as double,
       isFriend: isFriend == freezed ? _value.isFriend : isFriend as bool,
       avatarUrl: avatarUrl == freezed ? _value.avatarUrl : avatarUrl as String,
@@ -167,6 +178,7 @@ class _$_User with DiagnosticableTreeMixin implements _User {
   const _$_User(
       {this.id,
       this.name,
+      this.description,
       this.rating,
       this.isFriend,
       this.avatarUrl,
@@ -182,6 +194,8 @@ class _$_User with DiagnosticableTreeMixin implements _User {
   @override
   final String name;
   @override
+  final String description;
+  @override
   final double rating;
   @override
   final bool isFriend;
@@ -196,7 +210,7 @@ class _$_User with DiagnosticableTreeMixin implements _User {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'User(id: $id, name: $name, rating: $rating, isFriend: $isFriend, avatarUrl: $avatarUrl, createdAt: $createdAt, updatedAt: $updatedAt, version: $version)';
+    return 'User(id: $id, name: $name, description: $description, rating: $rating, isFriend: $isFriend, avatarUrl: $avatarUrl, createdAt: $createdAt, updatedAt: $updatedAt, version: $version)';
   }
 
   @override
@@ -206,6 +220,7 @@ class _$_User with DiagnosticableTreeMixin implements _User {
       ..add(DiagnosticsProperty('type', 'User'))
       ..add(DiagnosticsProperty('id', id))
       ..add(DiagnosticsProperty('name', name))
+      ..add(DiagnosticsProperty('description', description))
       ..add(DiagnosticsProperty('rating', rating))
       ..add(DiagnosticsProperty('isFriend', isFriend))
       ..add(DiagnosticsProperty('avatarUrl', avatarUrl))
@@ -222,6 +237,9 @@ class _$_User with DiagnosticableTreeMixin implements _User {
                 const DeepCollectionEquality().equals(other.id, id)) &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.description, description) ||
+                const DeepCollectionEquality()
+                    .equals(other.description, description)) &&
             (identical(other.rating, rating) ||
                 const DeepCollectionEquality().equals(other.rating, rating)) &&
             (identical(other.isFriend, isFriend) ||
@@ -245,6 +263,7 @@ class _$_User with DiagnosticableTreeMixin implements _User {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(description) ^
       const DeepCollectionEquality().hash(rating) ^
       const DeepCollectionEquality().hash(isFriend) ^
       const DeepCollectionEquality().hash(avatarUrl) ^
@@ -267,6 +286,7 @@ abstract class _User implements User {
   const factory _User(
       {String id,
       String name,
+      String description,
       double rating,
       bool isFriend,
       String avatarUrl,
@@ -280,6 +300,8 @@ abstract class _User implements User {
   String get id;
   @override
   String get name;
+  @override
+  String get description;
   @override
   double get rating;
   @override
