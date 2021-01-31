@@ -91,11 +91,13 @@ class _UserListTile extends StatelessWidget {
   _UserListTile({
     Key key,
     this.name,
+    this.description,
     this.rating,
     this.isFriend,
     this.avatarUrl,
   }) : super(key: key);
   final String name;
+  final String description;
   final double rating;
   final bool isFriend;
   final String avatarUrl;
@@ -106,7 +108,7 @@ class _UserListTile extends StatelessWidget {
       onTap: () => Navigator.of(context).push(
         MaterialPageRoute(
           builder: (context) => UserDetailPage(
-            user: User(name: name, rating: rating, avatarUrl: avatarUrl, isFriend: isFriend)
+            user: User(name: name, description: description, rating: rating, avatarUrl: avatarUrl, isFriend: isFriend)
           )
         )
       ),
@@ -162,8 +164,9 @@ class _UserList extends StatelessWidget {
 
   Column _buildContents(AsyncSnapshot<List<User>> snapshot) {
     return Column(
-      children: snapshot.data.map((value) => _UserListTile(
+      children: snapshot.data.map((value) => _UserListTile( // TODO: use User
         name: value.name,
+        description: value.description,
         rating: value.rating,
         isFriend: value.isFriend,
         avatarUrl: hasConnectivity ? value.avatarUrl : null,
