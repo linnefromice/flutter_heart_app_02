@@ -9,6 +9,7 @@ class UserService {
   User _generateUserFromQueryDocumentSnapshot(QueryDocumentSnapshot snapshot) => User(
     id: snapshot.id,
     name: snapshot.data()["name"],
+    description: snapshot.data()["description"],
     rating: snapshot.data()["rating"],
     isFriend: snapshot.data()["isFriend"],
     avatarUrl: snapshot.data()["avatarUrl"],
@@ -25,6 +26,7 @@ class UserService {
   User _generateUserFromDocumentSnapshot(DocumentSnapshot snapshot) => User(
     id: snapshot.id,
     name: snapshot.data()["name"],
+    description: snapshot.data()["description"],
     rating: snapshot.data()["rating"],
     isFriend: snapshot.data()["isFriend"],
     avatarUrl: snapshot.data()["avatarUrl"],
@@ -37,11 +39,12 @@ class UserService {
     ).toList();
   }
   
-  Future<void> createUser({ final String name, final double rating, final bool isFriend, final String avatarUrl }) async {
+  Future<void> createUser({ final String name, final String description, final double rating, final bool isFriend, final String avatarUrl }) async {
     final DateTime now = DateTime.now();
     _instance.collection(_collectionName).add(
       User(
         name: name,
+        description: description,
         rating: rating,
         isFriend: isFriend,
         avatarUrl: avatarUrl,

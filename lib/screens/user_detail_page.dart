@@ -36,6 +36,15 @@ class UserDetailPage extends HookWidget {
     ),
   );
 
+  Text _buildDescriptionArea() => Text(
+    user.description != "" ? user.description : "NO DESCRIPTION",
+    textAlign: TextAlign.center,
+    style: TextStyle(
+      fontSize: 14.0,
+      color: Colors.white
+    ),
+  );
+
   Row _buildRatingArea() => Row(
     mainAxisAlignment: MainAxisAlignment.center,
     crossAxisAlignment: CrossAxisAlignment.center,
@@ -55,7 +64,7 @@ class UserDetailPage extends HookWidget {
         child: Stack(
           children: [
             Positioned(
-              top: MediaQuery.of(context).size.height * 0.25,
+              top: MediaQuery.of(context).size.height * 0.20,
               left: 0,
               right: 0,
               child: _buildAvatarArea(
@@ -63,19 +72,31 @@ class UserDetailPage extends HookWidget {
               ),
             ),
             Positioned(
-              top: MediaQuery.of(context).size.height * 0.65,
+              top: MediaQuery.of(context).size.height * 0.60,
               left: 0,
               right: 0,
               child: _buildNameArea(),
             ),
             Positioned(
-              top: MediaQuery.of(context).size.height * 0.70,
+              top: MediaQuery.of(context).size.height * 0.65,
               left: MediaQuery.of(context).size.width * 0.1,
               right: MediaQuery.of(context).size.width * 0.1,
               child: Divider(height: 40, thickness: 2, color: Colors.white),
             ),
             Positioned(
+              top: MediaQuery.of(context).size.height * 0.70,
+              left: MediaQuery.of(context).size.width * 0.05,
+              right: MediaQuery.of(context).size.width * 0.05,
+              child: _buildDescriptionArea(),
+            ),
+            Positioned(
               top: MediaQuery.of(context).size.height * 0.75,
+              left: MediaQuery.of(context).size.width * 0.1,
+              right: MediaQuery.of(context).size.width * 0.1,
+              child: Divider(height: 40, thickness: 2, color: Colors.white),
+            ),
+            Positioned(
+              top: MediaQuery.of(context).size.height * 0.80,
               left: 0,
               right: 0,
               child: _buildRatingArea(),
