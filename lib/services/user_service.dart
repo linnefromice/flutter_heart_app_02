@@ -9,6 +9,7 @@ class UserService {
   User _generateUserFromQueryDocumentSnapshot(QueryDocumentSnapshot snapshot) => User(
     id: snapshot.id,
     name: snapshot.data()["name"],
+    description: snapshot.data()["description"],
     rating: snapshot.data()["rating"],
     isFriend: snapshot.data()["isFriend"],
     avatarUrl: snapshot.data()["avatarUrl"],
@@ -25,6 +26,7 @@ class UserService {
   User _generateUserFromDocumentSnapshot(DocumentSnapshot snapshot) => User(
     id: snapshot.id,
     name: snapshot.data()["name"],
+    description: snapshot.data()["description"],
     rating: snapshot.data()["rating"],
     isFriend: snapshot.data()["isFriend"],
     avatarUrl: snapshot.data()["avatarUrl"],
