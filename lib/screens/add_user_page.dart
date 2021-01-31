@@ -28,12 +28,12 @@ class AddUserPage extends HookWidget {
             Container(
               margin: EdgeInsets.symmetric(vertical: 8.0),
               padding: EdgeInsets.symmetric(horizontal: 10.0),
-              child: _buildNameField(_nameController),
+              child: _buildTextField(_nameController, "Name"),
             ),
             Container(
               margin: EdgeInsets.symmetric(vertical: 8.0),
               padding: EdgeInsets.symmetric(horizontal: 10.0),
-              child: _buildDescriptionField(_descriptionController),
+              child: _buildTextField(_descriptionController, "Description"),
             ),
             Container(
               margin: EdgeInsets.symmetric(vertical: 8.0),
@@ -73,23 +73,13 @@ class AddUserPage extends HookWidget {
   }
   
   Text _buildPageTitle() => Text("Add User");
-  
-  TextField _buildNameField(TextEditingController _controller) {
-    return TextField(
-      controller: _controller,
-      keyboardType: TextInputType.name,
-      decoration: InputDecoration(
-        hintText: "Name"
-      ),
-    );
-  }
 
-  TextField _buildDescriptionField(TextEditingController _controller) {
+  TextField _buildTextField(final TextEditingController _controller, final String label) {
     return TextField(
       controller: _controller,
       keyboardType: TextInputType.name,
       decoration: InputDecoration(
-          hintText: "Description"
+        hintText: label
       ),
     );
   }
