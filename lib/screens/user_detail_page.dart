@@ -37,7 +37,7 @@ class UserDetailPage extends HookWidget {
   );
 
   Text _buildDescriptionArea() => Text(
-    user.description,
+    user.description != "" ? user.description : "NO DESCRIPTION",
     textAlign: TextAlign.center,
     style: TextStyle(
       fontSize: 14.0,
