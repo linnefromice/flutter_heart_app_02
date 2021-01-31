@@ -39,11 +39,12 @@ class UserService {
     ).toList();
   }
   
-  Future<void> createUser({ final String name, final double rating, final bool isFriend, final String avatarUrl }) async {
+  Future<void> createUser({ final String name, final String description, final double rating, final bool isFriend, final String avatarUrl }) async {
     final DateTime now = DateTime.now();
     _instance.collection(_collectionName).add(
       User(
         name: name,
+        description: description,
         rating: rating,
         isFriend: isFriend,
         avatarUrl: avatarUrl,
