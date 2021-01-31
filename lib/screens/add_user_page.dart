@@ -11,6 +11,7 @@ class AddUserPage extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final _nameController = useTextEditingController();
+    final _descriptionController = useTextEditingController();
     final _rating = useState<double>(0);
     final _avatarUrlController = useTextEditingController();
 
@@ -32,6 +33,11 @@ class AddUserPage extends HookWidget {
             Container(
               margin: EdgeInsets.symmetric(vertical: 8.0),
               padding: EdgeInsets.symmetric(horizontal: 10.0),
+              child: _buildDescriptionField(_descriptionController),
+            ),
+            Container(
+              margin: EdgeInsets.symmetric(vertical: 8.0),
+              padding: EdgeInsets.symmetric(horizontal: 10.0),
               child: _buildRatingField(_rating),
             ),
             Container(
@@ -41,7 +47,13 @@ class AddUserPage extends HookWidget {
             ),
             Container(
               margin: EdgeInsets.symmetric(vertical: 8.0),
-              child: _buildSubmitButton(context, _nameController, _rating.value, _avatarUrlController),
+              child: _buildSubmitButton(
+                context,
+                _nameController,
+                _descriptionController,
+                _rating.value,
+                _avatarUrlController
+              ),
             ),
             Container(
               margin: EdgeInsets.symmetric(vertical: 8.0),
@@ -62,12 +74,22 @@ class AddUserPage extends HookWidget {
   
   Text _buildPageTitle() => Text("Add User");
   
-  TextField _buildNameField(TextEditingController _nameController) {
+  TextField _buildNameField(TextEditingController _controller) {
     return TextField(
-      controller: _nameController,
+      controller: _controller,
       keyboardType: TextInputType.name,
       decoration: InputDecoration(
         hintText: "Name"
+      ),
+    );
+  }
+
+  TextField _buildDescriptionField(TextEditingController _controller) {
+    return TextField(
+      controller: _controller,
+      keyboardType: TextInputType.name,
+      decoration: InputDecoration(
+          hintText: "Description"
       ),
     );
   }
@@ -128,7 +150,7 @@ class AddUserPage extends HookWidget {
     backgroundColor: Colors.red[200],
   );
 
-  ElevatedButton _buildSubmitButton(BuildContext context, TextEditingController _nameController, double rating, TextEditingController _avatarUrlController) {
+  ElevatedButton _buildSubmitButton(BuildContext context, TextEditingController _nameController, TextEditingController _descriptionController, double rating, TextEditingController _avatarUrlController) {
     return ElevatedButton.icon(
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all(Colors.grey)
@@ -142,6 +164,7 @@ class AddUserPage extends HookWidget {
         }
         userService.createUser(
           name: _nameController.text,
+          description: _descriptionController.text,
           rating: rating,
           isFriend: false, // initial status
           avatarUrl: _avatarUrlController.text,
@@ -149,6 +172,7 @@ class AddUserPage extends HookWidget {
         ScaffoldMessenger.of(context).showSnackBar(_successSnackBar());
         // initialize
         _nameController.clear();
+        _descriptionController.clear();
         rating = 0;
         _avatarUrlController.clear();
       },
