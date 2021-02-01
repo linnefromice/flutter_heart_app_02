@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:linnefromice/components/common_snack_bars.dart';
 import 'package:linnefromice/components/wrapper_common_background.dart';
 import 'package:linnefromice/models/user.dart';
 import 'package:linnefromice/services/evaluation_service.dart';
@@ -46,6 +47,7 @@ class DeleteUserPage extends StatelessWidget {
               onPressed: () async {
                 await evaluationService.deleteEvaluationsSelectedUser(item.id);
                 await userService.deleteUser(item.id);
+                ScaffoldMessenger.of(context).showSnackBar(successSnackBar());
                 Navigator.of(context).pop();
               },
             ),
