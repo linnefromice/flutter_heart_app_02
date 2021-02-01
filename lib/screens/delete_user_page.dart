@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:linnefromice/components/wrapper_common_background.dart';
 import 'package:linnefromice/models/user.dart';
+import 'package:linnefromice/services/evaluation_service.dart';
 import 'package:linnefromice/services/user_service.dart';
 
 class DeleteUserPage extends StatelessWidget {
   final userService = UserService();
+  final evaluationService = EvaluationService();
   
   @override
   Widget build(BuildContext context) {
@@ -42,6 +44,7 @@ class DeleteUserPage extends StatelessWidget {
             leading: IconButton(
               icon: Icon(Icons.close, color: Colors.white),
               onPressed: () async {
+                await evaluationService.deleteEvaluationsSelectedUser(item.id);
                 await userService.deleteUser(item.id);
                 Navigator.of(context).pop();
               },
