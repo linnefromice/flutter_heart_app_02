@@ -62,4 +62,12 @@ class EvaluationService {
   Future<void> deleteEvaluation(final String id) async {
     _instance.collection(_collectionName).doc(id).delete();
   }
+
+  Future<void> deleteEvaluationsSelectedUser(final String userId) async {
+    final CollectionReference evaluationsSchema = _instance.collection(_collectionName);
+    QuerySnapshot querySnapshot = await evaluationsSchema.where("userId", isEqualTo: userId).get();
+    return querySnapshot.docs.forEach((element) {
+      evaluationsSchema.doc(element.id).delete();
+    });
+  }
 }
