@@ -1,6 +1,7 @@
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:linnefromice/components/common_snack_bars.dart';
 import 'package:linnefromice/components/wrapper_common_background.dart';
 import 'package:linnefromice/models/user.dart';
 import 'package:linnefromice/services/user_service.dart';
@@ -128,24 +129,6 @@ class AddUserPage extends HookWidget {
     );
   }
 
-  SnackBar _successSnackBar() => SnackBar(
-    content: Text(
-      "Success!!",
-      textAlign: TextAlign.center,
-    ),
-    duration: Duration(seconds: 1),
-    backgroundColor: Colors.green[200],
-  );
-
-  SnackBar _failureSnackBar() => SnackBar(
-    content: Text(
-      "Failure...",
-      textAlign: TextAlign.center,
-    ),
-    duration: Duration(seconds: 1),
-    backgroundColor: Colors.red[200],
-  );
-
   ElevatedButton _buildSubmitButton(BuildContext context, TextEditingController _nameController, TextEditingController _descriptionController, double rating, TextEditingController _avatarUrlController) {
     return ElevatedButton.icon(
       style: ButtonStyle(
@@ -155,7 +138,7 @@ class AddUserPage extends HookWidget {
       label: Text("SUBMIT"),
       onPressed: () {
         if (_nameController.text == "" || (rating < 0 || rating > 5)) {
-          ScaffoldMessenger.of(context).showSnackBar(_failureSnackBar());
+          ScaffoldMessenger.of(context).showSnackBar(failureSnackBar());
           return;
         }
         userService.createUser(
@@ -165,7 +148,7 @@ class AddUserPage extends HookWidget {
           isFriend: false, // initial status
           avatarUrl: _avatarUrlController.text,
         );
-        ScaffoldMessenger.of(context).showSnackBar(_successSnackBar());
+        ScaffoldMessenger.of(context).showSnackBar(successSnackBar());
         // initialize
         _nameController.clear();
         _descriptionController.clear();

@@ -4,6 +4,7 @@ import 'package:fab_circular_menu/fab_circular_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:linnefromice/components/avatar_area.dart';
+import 'package:linnefromice/components/common_snack_bars.dart';
 import 'package:linnefromice/components/rated_heart.dart';
 import 'package:linnefromice/components/wrapper_common_background.dart';
 import 'package:linnefromice/components/wrapper_fab_circle_menu.dart';
@@ -65,24 +66,6 @@ class EvaluatePage extends HookWidget {
       },
     );
   }
-
-  SnackBar _successSnackBar() => SnackBar(
-    content: Text(
-      "Success!!",
-      textAlign: TextAlign.center,
-    ),
-    duration: Duration(seconds: 1),
-    backgroundColor: Colors.green[200],
-  );
-
-  SnackBar _failureSnackBar() => SnackBar(
-    content: Text(
-      "Failure...",
-      textAlign: TextAlign.center,
-    ),
-    duration: Duration(seconds: 1),
-    backgroundColor: Colors.red[200],
-  );
 
   @override
   Widget build(BuildContext context) {
@@ -152,14 +135,14 @@ class EvaluatePage extends HookWidget {
                     onPressed: () {
                       final _roundedRating = double.parse(ratingState.value.toStringAsFixed(2));
                       if (_roundedRating < 0 || _roundedRating > 5) {
-                        ScaffoldMessenger.of(context).showSnackBar(_failureSnackBar());
+                        ScaffoldMessenger.of(context).showSnackBar(failureSnackBar());
                         return;
                       }
                       evaluationService.createEvaluation(
                         userId: user.id,
                         rating: _roundedRating,
                       );
-                      ScaffoldMessenger.of(context).showSnackBar(_successSnackBar());
+                      ScaffoldMessenger.of(context).showSnackBar(successSnackBar());
                       Navigator.of(context).pop();
                     }
                   )
