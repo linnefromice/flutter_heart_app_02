@@ -129,13 +129,19 @@ class AddUserPage extends HookWidget {
   }
 
   SnackBar _successSnackBar() => SnackBar(
-    content: Text("Success!!"),
+    content: Text(
+      "Success!!",
+      textAlign: TextAlign.center,
+    ),
     duration: Duration(seconds: 1),
     backgroundColor: Colors.green[200],
   );
 
   SnackBar _failureSnackBar() => SnackBar(
-    content: Text("Failure..."),
+    content: Text(
+      "Failure...",
+      textAlign: TextAlign.center,
+    ),
     duration: Duration(seconds: 1),
     backgroundColor: Colors.red[200],
   );
