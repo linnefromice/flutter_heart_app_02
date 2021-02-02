@@ -161,6 +161,10 @@ class LoginPage extends HookWidget {
                 ],
               ),
             ),
+            Container(
+              margin: EdgeInsets.symmetric(vertical: 4.0),
+              child: _buildRecalculateRatingButton(context),
+            )
           ],
         )
       ),
@@ -222,6 +226,31 @@ class LoginPage extends HookWidget {
             builder: (context) => DeleteUserPage()
           )
         )
+    );
+  }
+
+  ElevatedButton _buildRecalculateRatingButton(BuildContext context) {
+    return ElevatedButton.icon(
+        icon: Icon(
+          Icons.build,
+          size: 24,
+          color: Colors.white,
+        ),
+        label: Text(
+          "DEBUG\nrecalculate rating",
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 12,
+          ),
+        ),
+        style: ElevatedButton.styleFrom(
+          primary: Colors.transparent,
+          onPrimary: Colors.black,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10))
+          ),
+        ),
+        onPressed: () => {}
     );
   }
 
