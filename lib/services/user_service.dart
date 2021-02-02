@@ -59,7 +59,7 @@ class UserService {
     _instance.collection(_collectionName).doc(id).delete();
   }
 
-  Future<void> updateRating(final String id, final int currentVersion, final double newRating) {
+  Future<void> updateRating(final String id, final int currentVersion, final double newRating) async {
     final DateTime now = DateTime.now();
     _instance.collection(_collectionName).doc(id).update({
       "rating": newRating,
