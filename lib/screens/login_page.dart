@@ -153,12 +153,14 @@ class LoginPage extends HookWidget {
             ),
             Container(
               margin: EdgeInsets.symmetric(vertical: 4.0),
-              child: _buildAddUserButton(context),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  _buildAddUserButton(context),
+                  _buildDeleteUserButton(context)
+                ],
+              ),
             ),
-            Container(
-              margin: EdgeInsets.symmetric(vertical: 4.0),
-              child: _buildDeleteUserButton(context),
-            )
           ],
         )
       ),
