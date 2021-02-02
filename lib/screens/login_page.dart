@@ -5,6 +5,7 @@ import 'package:linnefromice/components/wrapper_common_background.dart';
 import 'package:linnefromice/screens/add_user_page.dart';
 import 'package:linnefromice/screens/delete_user_page.dart';
 import 'package:linnefromice/screens/home_page.dart';
+import 'package:linnefromice/screens/recalculate_rating_page.dart';
 
 final List<String> domainList = [
   "gmail.com",
@@ -247,10 +248,14 @@ class LoginPage extends HookWidget {
           primary: Colors.transparent,
           onPrimary: Colors.black,
           shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(10))
+            borderRadius: BorderRadius.all(Radius.circular(10))
           ),
         ),
-        onPressed: () => {}
+        onPressed: () => Navigator.of(context).push(
+          MaterialPageRoute(
+              builder: (context) => RecalculateRatingPage()
+          )
+        )
     );
   }
 
