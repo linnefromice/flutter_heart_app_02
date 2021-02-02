@@ -58,4 +58,13 @@ class UserService {
   Future<void> deleteUser(final String id) async {
     _instance.collection(_collectionName).doc(id).delete();
   }
+
+  Future<void> updateRating(final String id, final int currentVersion, final double newRating) {
+    final DateTime now = DateTime.now();
+    _instance.collection(_collectionName).doc(id).update({
+      "rating": newRating,
+      "updatedAt": now.toIso8601String(),
+      "version": currentVersion + 1
+    });
+  }
 }
