@@ -29,7 +29,20 @@ const datas = [
   },
 ];
 
+class _RatingInformation {
+  _RatingInformation({
+    @required this.name,
+    @required this.rating,
+    @required this.newRating
+  });
+
+  final String name;
+  final double rating;
+  final double newRating;
+}
+
 class RecalculateRatingPage extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
