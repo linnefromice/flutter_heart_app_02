@@ -4,28 +4,28 @@ import 'package:linnefromice/components/wrapper_common_background.dart';
 const datas = [
   {
     "name": "Zidane Tribal",
-    "rating": 4,
+    "rating": 4.0,
     "newRating": 3.5,
   },
   {
     "name": "Dagger",
-    "rating": 4,
-    "newRating": 5
+    "rating": 4.0,
+    "newRating": 5.0
   },
   {
     "name": "Vivi Orunitia",
-    "rating": 3,
+    "rating": 3.0,
     "newRating": 4.25,
   },
   {
     "name": "Adelbert Steiner",
-    "rating": 2,
+    "rating": 2.0,
     "newRating": 2.75
   },
   {
     "name": "Kuja",
-    "rating": 5,
-    "newRating": 5
+    "rating": 5.0,
+    "newRating": 5.0
   },
 ];
 
@@ -56,6 +56,7 @@ class RecalculateRatingPage extends StatelessWidget {
     return Scaffold(
       body: WrapperCommonBackground(
         child: FutureBuilder<List<_RatingInformation>>(
+          future: _getNewRatingList(),
           builder: (BuildContext context, AsyncSnapshot<List<_RatingInformation>> snapshot) {
             if (snapshot.hasError) {
               return Center(child: Text(snapshot.error.toString()));
