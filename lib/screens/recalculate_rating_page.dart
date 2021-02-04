@@ -20,9 +20,77 @@ class _RatingInformation {
   final double newRating;
 }
 
+class _Contents extends StatelessWidget {
+  _Contents({
+    Key key,
+    @required this.datas
+  }) : super(key: key);
+
+  final List<_RatingInformation> datas;
+  final userService = UserService();
+
+  Future<void> _commitAllRecalcuratedRating(final List<_RatingInformation> datas) async {
+    final List<User> users = await userService.findUsers();
+    datas.forEach((element) => userService.updateRating(
+        element.userId,
+        users.firstWhere((user) => user.id == element.userId).version,
+        element.newRating
+    ));
+  }
+
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        SizedBox(height: 50),
+        ElevatedButton.icon(
+          icon: Icon(
+            Icons.done_all,
+            color: Colors.white,
+          ),
+          label: Text(
+            "EXECUTE",
+            style: TextStyle(color: Colors.white),
+          ),
+          style: ElevatedButton.styleFrom(
+            primary: Colors.transparent,
+            onPrimary: Colors.black,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(10))
+            ),
+          ),
+          onPressed: () async {
+            await _commitAllRecalcuratedRating(datas);
+            ScaffoldMessenger.of(context).showSnackBar(successSnackBar());
+            Navigator.of(context).pop();
+          },
+        ),
+        SingleChildScrollView(
+          child: Column(
+            children: datas.map((e) => Card(
+              child: ListTile(
+                title: Text(e.name, style: TextStyle(fontSize: 12.0)),
+                subtitle: Text("${e.rating} -> ${e.newRating}", style: TextStyle(fontSize: 18.0)),
+              ),
+            )).toList(),
+          ),
+        )
+      ],
+    );
+  }
+}
+
 class RecalculateRatingPage extends StatelessWidget {
   final userService = UserService();
   final evaluationService = EvaluationService();
+
+  Widget _buildProgressing() => Column(
+    mainAxisAlignment: MainAxisAlignment.center,
+    crossAxisAlignment: CrossAxisAlignment.center,
+    children: [
+      CircularProgressIndicator(),
+      Text("Loading ...")
+    ],
+  );
 
   Future<List<_RatingInformation>> _getNewRatingList() async {
     final List<User> users = await userService.findUsers();
@@ -63,54 +131,9 @@ class RecalculateRatingPage extends StatelessWidget {
               return Center(child: Text(snapshot.error.toString()));
             }
             if (snapshot.hasData) {
-              return Column(
-                children: [
-                  SizedBox(height: 50),
-                  ElevatedButton.icon(
-                    icon: Icon(
-                      Icons.done_all,
-                      color: Colors.white,
-                    ),
-                    label: Text(
-                      "EXECUTE",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.transparent,
-                      onPrimary: Colors.black,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10))
-                      ),
-                    ),
-                    onPressed: () async {
-                      await _commitAllRecalcuratedRating(snapshot.data);
-                      ScaffoldMessenger.of(context).showSnackBar(successSnackBar());
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                  SingleChildScrollView(
-                    child: Column(
-                      children: snapshot.data.map((e) => Card(
-                        child: ListTile(
-                          title: Text(e.name, style: TextStyle(fontSize: 12.0)),
-                          subtitle: Text("${e.rating} -> ${e.newRating}", style: TextStyle(fontSize: 18.0)),
-                        ),
-                      )).toList(),
-                    ),
-                  )
-                ],
-              );
+              return _Contents(datas: snapshot.data);
             }
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  CircularProgressIndicator(),
-                  Text("Loading ...")
-                ],
-              ),
-            );
+            return Center(child: _buildProgressing());
           },
         ),
       )
