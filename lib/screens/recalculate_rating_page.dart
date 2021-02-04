@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:linnefromice/components/common_snack_bars.dart';
 import 'package:linnefromice/components/wrapper_common_background.dart';
 import 'package:linnefromice/models/evaluation.dart';
 import 'package:linnefromice/models/user.dart';
@@ -83,6 +84,7 @@ class RecalculateRatingPage extends StatelessWidget {
                     ),
                     onPressed: () async {
                       await _commitAllRecalcuratedRating(snapshot.data);
+                      ScaffoldMessenger.of(context).showSnackBar(successSnackBar());
                       Navigator.of(context).pop();
                     },
                   ),
