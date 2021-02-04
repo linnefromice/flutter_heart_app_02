@@ -13,6 +13,9 @@ class UserService {
     rating: snapshot.data()["rating"],
     isFriend: snapshot.data()["isFriend"],
     avatarUrl: snapshot.data()["avatarUrl"],
+    createdAt: snapshot.data()["createdAt"],
+    updatedAt: snapshot.data()["updatedAt"],
+    version: snapshot.data()["version"],
   );
 
   Stream<List<User>> streamUsers() {
@@ -30,6 +33,9 @@ class UserService {
     rating: snapshot.data()["rating"],
     isFriend: snapshot.data()["isFriend"],
     avatarUrl: snapshot.data()["avatarUrl"],
+    createdAt: snapshot.data()["createdAt"],
+    updatedAt: snapshot.data()["updatedAt"],
+    version: snapshot.data()["version"],
   );
 
   Future<List<User>> findUsers() async {
@@ -57,5 +63,14 @@ class UserService {
 
   Future<void> deleteUser(final String id) async {
     _instance.collection(_collectionName).doc(id).delete();
+  }
+
+  Future<void> updateRating(final String id, final int currentVersion, final double newRating) async {
+    final DateTime now = DateTime.now();
+    _instance.collection(_collectionName).doc(id).update({
+      "rating": newRating,
+      "updatedAt": now.toIso8601String(),
+      "version": currentVersion + 1
+    });
   }
 }

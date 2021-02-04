@@ -12,6 +12,8 @@ class EvaluationService {
     rating: snapshot.data()["rating"],
     createdDate: snapshot.data()["createdDate"],
     createdAt: snapshot.data()["createdAt"],
+    updatedAt: snapshot.data()["updatedAt"],
+    version: snapshot.data()["version"],
   );
 
   Stream<List<Evaluation>> streamEvaluation() {
@@ -31,6 +33,8 @@ class EvaluationService {
     rating: snapshot.data()["rating"],
     createdDate: snapshot.data()["createdDate"],
     createdAt: snapshot.data()["createdAt"],
+    updatedAt: snapshot.data()["updatedAt"],
+    version: snapshot.data()["version"],
   );
 
   Future<List<Evaluation>> findEvaluations() async {
@@ -42,7 +46,31 @@ class EvaluationService {
       (DocumentSnapshot documentSnapshot) => _generateModelFromDocumentSnapshot(documentSnapshot)
     ).toList();
   }
-  
+
+  Future<List<Evaluation>> findEvaluationsOfSelectedUser(final String userId) async {
+    QuerySnapshot querySnapshot = await _instance
+        .collection(_collectionName)
+        .orderBy(_defaultSortKey, descending: true)
+        .where("userId", isEqualTo: userId)
+        .get();
+    return querySnapshot.docs.map(
+      (DocumentSnapshot documentSnapshot) => _generateModelFromDocumentSnapshot(documentSnapshot)
+    ).toList();
+  }
+
+  Future<List<Evaluation>> findEvaluationsOfSelectedPeriod(final String fromCreatedDate, final String toCreatedDate) async {
+    QuerySnapshot querySnapshot = await _instance
+        .collection(_collectionName)
+        .orderBy(_defaultSortKey, descending: true)
+        .where("createdAt", isGreaterThanOrEqualTo: fromCreatedDate, isLessThanOrEqualTo: toCreatedDate)
+        .get();
+    return querySnapshot.docs.map(
+        (DocumentSnapshot documentSnapshot) => _generateModelFromDocumentSnapshot(documentSnapshot)
+    ).toList();
+  }
+
+
+
   Future<void> createEvaluation({ final String userId, final double rating}) async {
     final _roundedRating = double.parse(rating.toStringAsFixed(2)); // format to X.XX
     final DateTime now = DateTime.now();

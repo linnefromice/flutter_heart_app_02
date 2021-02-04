@@ -5,6 +5,7 @@ import 'package:linnefromice/components/wrapper_common_background.dart';
 import 'package:linnefromice/screens/add_user_page.dart';
 import 'package:linnefromice/screens/delete_user_page.dart';
 import 'package:linnefromice/screens/home_page.dart';
+import 'package:linnefromice/screens/recalculate_rating_page.dart';
 
 final List<String> domainList = [
   "gmail.com",
@@ -153,11 +154,17 @@ class LoginPage extends HookWidget {
             ),
             Container(
               margin: EdgeInsets.symmetric(vertical: 4.0),
-              child: _buildAddUserButton(context),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  _buildAddUserButton(context),
+                  _buildDeleteUserButton(context)
+                ],
+              ),
             ),
             Container(
               margin: EdgeInsets.symmetric(vertical: 4.0),
-              child: _buildDeleteUserButton(context),
+              child: _buildRecalculateRatingButton(context),
             )
           ],
         )
@@ -218,6 +225,35 @@ class LoginPage extends HookWidget {
         onPressed: () => Navigator.of(context).push(
           MaterialPageRoute(
             builder: (context) => DeleteUserPage()
+          )
+        )
+    );
+  }
+
+  ElevatedButton _buildRecalculateRatingButton(BuildContext context) {
+    return ElevatedButton.icon(
+        icon: Icon(
+          Icons.build,
+          size: 24,
+          color: Colors.white,
+        ),
+        label: Text(
+          "DEBUG\nrecalculate rating",
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 12,
+          ),
+        ),
+        style: ElevatedButton.styleFrom(
+          primary: Colors.transparent,
+          onPrimary: Colors.black,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(10))
+          ),
+        ),
+        onPressed: () => Navigator.of(context).push(
+          MaterialPageRoute(
+              builder: (context) => RecalculateRatingPage()
           )
         )
     );
