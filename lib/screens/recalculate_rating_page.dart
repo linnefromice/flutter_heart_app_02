@@ -54,8 +54,21 @@ class RecalculateRatingPage extends StatelessWidget {
                 children: [
                   SizedBox(height: 50),
                   ElevatedButton.icon(
-                    icon: Icon(Icons.done_all),
-                    label: Text("EXECUTE"),
+                    icon: Icon(
+                      Icons.done_all,
+                      color: Colors.white,
+                    ),
+                    label: Text(
+                      "EXECUTE",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.transparent,
+                      onPrimary: Colors.black,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10))
+                      ),
+                    ),
                     onPressed: () => {},
                   ),
                   SingleChildScrollView(
