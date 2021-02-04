@@ -52,18 +52,17 @@ class RecalculateRatingPage extends StatelessWidget {
   Future<List<_RatingInformation>> _getNewRatingList() async {
     final List<User> users = await userService.findUsers();
     final List<Evaluation> evaluations = await evaluationService.findEvaluations();
-
-    final Map<String, List<double>> ratingMap = Map.fromIterables(users.map((e) => e.id).toList(), users.map((e) => []));
-    evaluations.forEach((element) => ratingMap[element.userId].add(element.rating));
-    List<_RatingInformation> results = [];
-    ratingMap.forEach((key, value) {
-      final User user = users.firstWhere((element) => element.id == key, orElse: null);
-      if (user != null) results.add(_RatingInformation(
-        name: user.name,
-        rating: user.rating,
-        newRating: value.reduce((curr, next) => curr + next) / value.length
-      ));
-    });
+    final List<_RatingInformation> results = users.map((user) {
+      final List<Evaluation> selectedEvaluations = evaluations.where((el) => el.userId == user.id).toList();
+      if (selectedEvaluations.isNotEmpty) {
+        final List<double> values = selectedEvaluations.map((element) => element.rating).toList();
+        return _RatingInformation(
+          name: user.name,
+          rating: user.rating,
+          newRating: values.reduce((curr, next) => curr + next) / values.length
+        );
+      }
+    }).toList();
     return results;
   }
 
