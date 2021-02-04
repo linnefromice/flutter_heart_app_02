@@ -63,6 +63,7 @@ class RecalculateRatingPage extends StatelessWidget {
         );
       }
     }).toList();
+    results.removeWhere((element) => element == null); // remove user's element of no evaluation
     return results;
   }
 
