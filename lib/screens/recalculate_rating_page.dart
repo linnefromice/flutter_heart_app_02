@@ -38,40 +38,47 @@ class _Contents extends StatelessWidget {
     ));
   }
 
+  Widget _buildExecuteButton(final BuildContext context) => ElevatedButton.icon(
+    icon: Icon(
+      Icons.done_all,
+      color: Colors.white,
+    ),
+    label: Text(
+      "EXECUTE",
+      style: TextStyle(color: Colors.white),
+    ),
+    style: ElevatedButton.styleFrom(
+      primary: Colors.transparent,
+      onPrimary: Colors.black,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(10))
+      ),
+    ),
+    onPressed: () async {
+      await _commitAllRecalcuratedRating(datas);
+      ScaffoldMessenger.of(context).showSnackBar(successSnackBar());
+      Navigator.of(context).pop();
+    },
+  );
+
+  Widget _buildCard(final _RatingInformation info) => Card(
+    child: ListTile(
+      title: Text(info.name, style: TextStyle(fontSize: 12.0)),
+      subtitle: Text(
+        "${info.rating} -> ${info.newRating}",
+        style: TextStyle(fontSize: 18.0)
+      ),
+    ),
+  );
+
   Widget build(BuildContext context) {
     return Column(
       children: [
         SizedBox(height: 50),
-        ElevatedButton.icon(
-          icon: Icon(
-            Icons.done_all,
-            color: Colors.white,
-          ),
-          label: Text(
-            "EXECUTE",
-            style: TextStyle(color: Colors.white),
-          ),
-          style: ElevatedButton.styleFrom(
-            primary: Colors.transparent,
-            onPrimary: Colors.black,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(10))
-            ),
-          ),
-          onPressed: () async {
-            await _commitAllRecalcuratedRating(datas);
-            ScaffoldMessenger.of(context).showSnackBar(successSnackBar());
-            Navigator.of(context).pop();
-          },
-        ),
+        _buildExecuteButton(context),
         SingleChildScrollView(
           child: Column(
-            children: datas.map((e) => Card(
-              child: ListTile(
-                title: Text(e.name, style: TextStyle(fontSize: 12.0)),
-                subtitle: Text("${e.rating} -> ${e.newRating}", style: TextStyle(fontSize: 18.0)),
-              ),
-            )).toList(),
+            children: datas.map((e) => _buildCard(e)).toList(),
           ),
         )
       ],
