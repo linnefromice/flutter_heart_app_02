@@ -42,6 +42,15 @@ class RecalculateRatingPage extends StatelessWidget {
     return results;
   }
 
+  Future<void> _commitAllRecalcuratedRating(final List<_RatingInformation> datas) async {
+    final List<User> users = await userService.findUsers();
+    datas.forEach((element) => userService.updateRating(
+      element.userId,
+      users.firstWhere((user) => user.id == element.userId).version,
+      element.newRating
+    ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,7 +81,10 @@ class RecalculateRatingPage extends StatelessWidget {
                         borderRadius: BorderRadius.all(Radius.circular(10))
                       ),
                     ),
-                    onPressed: () => {},
+                    onPressed: () async {
+                      await _commitAllRecalcuratedRating(snapshot.data);
+                      Navigator.of(context).pop();
+                    },
                   ),
                   SingleChildScrollView(
                     child: Column(
