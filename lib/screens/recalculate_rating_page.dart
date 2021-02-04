@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:linnefromice/components/wrapper_common_background.dart';
+import 'package:linnefromice/models/evaluation.dart';
+import 'package:linnefromice/models/user.dart';
+import 'package:linnefromice/services/evaluation_service.dart';
+import 'package:linnefromice/services/user_service.dart';
 
 const datas = [
   {
@@ -42,12 +46,24 @@ class _RatingInformation {
 }
 
 class RecalculateRatingPage extends StatelessWidget {
+  final userService = UserService();
+  final evaluationService = EvaluationService();
+
   Future<List<_RatingInformation>> _getNewRatingList() async {
-    final List<_RatingInformation> results = datas.map((e) => _RatingInformation(
-      name: e["name"],
-      rating: e["rating"],
-      newRating: e["newRating"]
-    )).toList();
+    final List<User> users = await userService.findUsers();
+    final List<Evaluation> evaluations = await evaluationService.findEvaluations();
+
+    final Map<String, List<double>> ratingMap = Map.fromIterables(users.map((e) => e.id).toList(), users.map((e) => []));
+    evaluations.forEach((element) => ratingMap[element.userId].add(element.rating));
+    List<_RatingInformation> results = [];
+    ratingMap.forEach((key, value) {
+      final User user = users.firstWhere((element) => element.id == key, orElse: null);
+      if (user != null) results.add(_RatingInformation(
+        name: user.name,
+        rating: user.rating,
+        newRating: value.reduce((curr, next) => curr + next) / value.length
+      ));
+    });
     return results;
   }
 
