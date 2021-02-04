@@ -111,15 +111,6 @@ class RecalculateRatingPage extends StatelessWidget {
     return results;
   }
 
-  Future<void> _commitAllRecalcuratedRating(final List<_RatingInformation> datas) async {
-    final List<User> users = await userService.findUsers();
-    datas.forEach((element) => userService.updateRating(
-      element.userId,
-      users.firstWhere((user) => user.id == element.userId).version,
-      element.newRating
-    ));
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -127,12 +118,8 @@ class RecalculateRatingPage extends StatelessWidget {
         child: FutureBuilder<List<_RatingInformation>>(
           future: _getNewRatingList(),
           builder: (BuildContext context, AsyncSnapshot<List<_RatingInformation>> snapshot) {
-            if (snapshot.hasError) {
-              return Center(child: Text(snapshot.error.toString()));
-            }
-            if (snapshot.hasData) {
-              return _Contents(datas: snapshot.data);
-            }
+            if (snapshot.hasError) return Center(child: Text(snapshot.error.toString()));
+            if (snapshot.hasData) return _Contents(datas: snapshot.data);
             return Center(child: _buildProgressing());
           },
         ),
