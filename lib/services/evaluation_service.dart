@@ -42,6 +42,17 @@ class EvaluationService {
       (DocumentSnapshot documentSnapshot) => _generateModelFromDocumentSnapshot(documentSnapshot)
     ).toList();
   }
+
+  Future<List<Evaluation>> findEvaluationsOfSelectedUser(final String userId) async {
+    QuerySnapshot querySnapshot = await _instance
+        .collection(_collectionName)
+        .orderBy(_defaultSortKey, descending: true)
+        .where("userId", isEqualTo: userId)
+        .get();
+    return querySnapshot.docs.map(
+      (DocumentSnapshot documentSnapshot) => _generateModelFromDocumentSnapshot(documentSnapshot)
+    ).toList();
+  }
   
   Future<void> createEvaluation({ final String userId, final double rating}) async {
     final _roundedRating = double.parse(rating.toStringAsFixed(2)); // format to X.XX
