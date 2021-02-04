@@ -5,34 +5,6 @@ import 'package:linnefromice/models/user.dart';
 import 'package:linnefromice/services/evaluation_service.dart';
 import 'package:linnefromice/services/user_service.dart';
 
-const datas = [
-  {
-    "name": "Zidane Tribal",
-    "rating": 4.0,
-    "newRating": 3.5,
-  },
-  {
-    "name": "Dagger",
-    "rating": 4.0,
-    "newRating": 5.0
-  },
-  {
-    "name": "Vivi Orunitia",
-    "rating": 3.0,
-    "newRating": 4.25,
-  },
-  {
-    "name": "Adelbert Steiner",
-    "rating": 2.0,
-    "newRating": 2.75
-  },
-  {
-    "name": "Kuja",
-    "rating": 5.0,
-    "newRating": 5.0
-  },
-];
-
 class _RatingInformation {
   _RatingInformation({
     @required this.name,
@@ -78,17 +50,25 @@ class RecalculateRatingPage extends StatelessWidget {
               return Center(child: Text(snapshot.error.toString()));
             }
             if (snapshot.hasData) {
-              return ListView.builder(
-                itemCount: snapshot.data.length,
-                itemBuilder: (context, index) {
-                  final _RatingInformation data = snapshot.data[index];
-                  return Card(
-                    child: ListTile(
-                      title: Text(data.name, style: TextStyle(fontSize: 12.0)),
-                      subtitle: Text("${data.rating} -> ${data.newRating}", style: TextStyle(fontSize: 18.0)),
+              return Column(
+                children: [
+                  SizedBox(height: 50),
+                  ElevatedButton.icon(
+                    icon: Icon(Icons.done_all),
+                    label: Text("EXECUTE"),
+                    onPressed: () => {},
+                  ),
+                  SingleChildScrollView(
+                    child: Column(
+                      children: snapshot.data.map((e) => Card(
+                        child: ListTile(
+                          title: Text(e.name, style: TextStyle(fontSize: 12.0)),
+                          subtitle: Text("${e.rating} -> ${e.newRating}", style: TextStyle(fontSize: 18.0)),
+                        ),
+                      )).toList(),
                     ),
-                  );
-                },
+                  )
+                ],
               );
             }
             return Center(
