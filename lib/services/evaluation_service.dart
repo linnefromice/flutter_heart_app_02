@@ -12,6 +12,8 @@ class EvaluationService {
     rating: snapshot.data()["rating"],
     createdDate: snapshot.data()["createdDate"],
     createdAt: snapshot.data()["createdAt"],
+    updatedAt: snapshot.data()["updatedAt"],
+    version: snapshot.data()["version"],
   );
 
   Stream<List<Evaluation>> streamEvaluation() {
@@ -31,6 +33,8 @@ class EvaluationService {
     rating: snapshot.data()["rating"],
     createdDate: snapshot.data()["createdDate"],
     createdAt: snapshot.data()["createdAt"],
+    updatedAt: snapshot.data()["updatedAt"],
+    version: snapshot.data()["version"],
   );
 
   Future<List<Evaluation>> findEvaluations() async {

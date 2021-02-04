@@ -13,6 +13,9 @@ class UserService {
     rating: snapshot.data()["rating"],
     isFriend: snapshot.data()["isFriend"],
     avatarUrl: snapshot.data()["avatarUrl"],
+    createdAt: snapshot.data()["createdAt"],
+    updatedAt: snapshot.data()["updatedAt"],
+    version: snapshot.data()["version"],
   );
 
   Stream<List<User>> streamUsers() {
@@ -30,6 +33,9 @@ class UserService {
     rating: snapshot.data()["rating"],
     isFriend: snapshot.data()["isFriend"],
     avatarUrl: snapshot.data()["avatarUrl"],
+    createdAt: snapshot.data()["createdAt"],
+    updatedAt: snapshot.data()["updatedAt"],
+    version: snapshot.data()["version"],
   );
 
   Future<List<User>> findUsers() async {
