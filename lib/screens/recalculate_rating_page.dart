@@ -4,6 +4,7 @@ import 'package:linnefromice/components/wrapper_common_background.dart';
 import 'package:linnefromice/models/evaluation.dart';
 import 'package:linnefromice/models/user.dart';
 import 'package:linnefromice/services/evaluation_service.dart';
+import 'package:linnefromice/services/rating_calcuration_service.dart';
 import 'package:linnefromice/services/user_service.dart';
 
 class _RatingInformation {
@@ -26,10 +27,10 @@ class _Contents extends StatelessWidget {
     @required this.datas
   }) : super(key: key);
 
-  final List<_RatingInformation> datas;
+  final List<RatingInformation> datas;
   final userService = UserService();
 
-  Future<void> _commitAllRecalcuratedRating(final List<_RatingInformation> datas) async {
+  Future<void> _commitAllRecalcuratedRating(final List<RatingInformation> datas) async {
     final List<User> users = await userService.findUsers();
     datas.forEach((element) => userService.updateRating(
         element.userId,
@@ -61,7 +62,7 @@ class _Contents extends StatelessWidget {
     },
   );
 
-  Widget _buildCard(final _RatingInformation info) => Card(
+  Widget _buildCard(final RatingInformation info) => Card(
     child: ListTile(
       title: Text(info.name, style: TextStyle(fontSize: 12.0)),
       subtitle: Text(
@@ -89,6 +90,7 @@ class _Contents extends StatelessWidget {
 class RecalculateRatingPage extends StatelessWidget {
   final userService = UserService();
   final evaluationService = EvaluationService();
+  final ratingCalculationService = RatingCalculationService();
 
   Widget _buildProgressing() => Column(
     mainAxisAlignment: MainAxisAlignment.center,
@@ -122,9 +124,9 @@ class RecalculateRatingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: WrapperCommonBackground(
-        child: FutureBuilder<List<_RatingInformation>>(
-          future: _getNewRatingList(),
-          builder: (BuildContext context, AsyncSnapshot<List<_RatingInformation>> snapshot) {
+        child: FutureBuilder<List<RatingInformation>>(
+          future: ratingCalculationService.getNewRatingInformationList(),
+          builder: (BuildContext context, AsyncSnapshot<List<RatingInformation>> snapshot) {
             if (snapshot.hasError) return Center(child: Text(snapshot.error.toString()));
             if (snapshot.hasData) return _Contents(datas: snapshot.data);
             return Center(child: _buildProgressing());
