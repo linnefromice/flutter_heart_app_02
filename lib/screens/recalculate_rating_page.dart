@@ -14,7 +14,7 @@ class _Contents extends StatelessWidget {
   final List<RatingInformation> datas;
   final userService = UserService();
 
-  Future<void> _commitAllRecalcuratedRating(final List<RatingInformation> datas) async {
+  Future<void> _commitAllRecalculatedRating(final List<RatingInformation> datas) async {
     final List<User> users = await userService.findUsers();
     datas.forEach((element) => userService.updateRating(
         element.userId,
@@ -40,7 +40,7 @@ class _Contents extends StatelessWidget {
       ),
     ),
     onPressed: () async {
-      await _commitAllRecalcuratedRating(datas);
+      await _commitAllRecalculatedRating(datas);
       ScaffoldMessenger.of(context).showSnackBar(successSnackBar());
       Navigator.of(context).pop();
     },
