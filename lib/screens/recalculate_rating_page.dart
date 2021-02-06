@@ -1,25 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:linnefromice/components/common_snack_bars.dart';
 import 'package:linnefromice/components/wrapper_common_background.dart';
-import 'package:linnefromice/models/evaluation.dart';
 import 'package:linnefromice/models/user.dart';
-import 'package:linnefromice/services/evaluation_service.dart';
 import 'package:linnefromice/services/rating_calcuration_service.dart';
 import 'package:linnefromice/services/user_service.dart';
-
-class _RatingInformation {
-  _RatingInformation({
-    @required this.userId,
-    @required this.name,
-    @required this.rating,
-    @required this.newRating
-  });
-
-  final String userId;
-  final String name;
-  final double rating;
-  final double newRating;
-}
 
 class _Contents extends StatelessWidget {
   _Contents({
@@ -88,8 +72,6 @@ class _Contents extends StatelessWidget {
 }
 
 class RecalculateRatingPage extends StatelessWidget {
-  final userService = UserService();
-  final evaluationService = EvaluationService();
   final ratingCalculationService = RatingCalculationService();
 
   Widget _buildProgressing() => Column(
@@ -100,25 +82,6 @@ class RecalculateRatingPage extends StatelessWidget {
       Text("Loading ...")
     ],
   );
-
-  Future<List<_RatingInformation>> _getNewRatingList() async {
-    final List<User> users = await userService.findUsers();
-    final List<Evaluation> evaluations = await evaluationService.findEvaluations();
-    final List<_RatingInformation> results = users.map((user) {
-      final List<Evaluation> selectedEvaluations = evaluations.where((el) => el.userId == user.id).toList();
-      if (selectedEvaluations.isNotEmpty) {
-        final List<double> values = selectedEvaluations.map((element) => element.rating).toList();
-        return _RatingInformation(
-          userId: user.id,
-          name: user.name,
-          rating: user.rating,
-          newRating: values.reduce((curr, next) => curr + next) / values.length // calculate average of evaluations
-        );
-      }
-    }).toList();
-    results.removeWhere((element) => element == null); // remove user's element of no evaluation
-    return results;
-  }
 
   @override
   Widget build(BuildContext context) {
