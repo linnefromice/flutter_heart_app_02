@@ -110,7 +110,7 @@ class RecalculateRatingPage extends StatelessWidget {
           userId: user.id,
           name: user.name,
           rating: user.rating,
-          newRating: values.reduce((curr, next) => curr + next) / values.length
+          newRating: values.reduce((curr, next) => curr + next) / values.length // calculate average of evaluations
         );
       }
     }).toList();
