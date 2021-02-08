@@ -58,7 +58,7 @@ class LoginPage extends HookWidget {
 
   void _authenticate({final BuildContext context, final String email, final String domain, final String password}) async {
     final String errorMessage = await authService.authenticate(email: email, domain: domain, password: password);
-    if (errorMessage.isEmpty) {
+    if (errorMessage == null) {
       Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomePage()));
     } else {
       showDialog(

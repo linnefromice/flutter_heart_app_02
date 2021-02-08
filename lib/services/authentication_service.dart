@@ -6,10 +6,10 @@ class AuthenticationService {
   Future<String> authenticate({final String email, final String domain, final String password}) async {
     try {
       await _instance
-          .signInWithEmailAndPassword(
+        .signInWithEmailAndPassword(
           email: email + "@" + domain,
           password: password
-      );
+        );
       return null;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
