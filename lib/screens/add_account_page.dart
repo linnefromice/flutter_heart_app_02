@@ -3,11 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:linnefromice/components/common_snack_bars.dart';
 import 'package:linnefromice/components/wrapper_common_background.dart';
-import 'package:linnefromice/models/user.dart';
-import 'package:linnefromice/services/user_service.dart';
+import 'package:linnefromice/services/account_service.dart';
 
-class AddUserPage extends HookWidget {
-  final userService = UserService();
+class AddAccountPage extends HookWidget {
+  final accountService = AccountService();
 
   @override
   Widget build(BuildContext context) {
@@ -141,7 +140,7 @@ class AddUserPage extends HookWidget {
           ScaffoldMessenger.of(context).showSnackBar(failureSnackBar());
           return;
         }
-        userService.createUser(
+        accountService.createAccount(
           name: _nameController.text,
           description: _descriptionController.text,
           rating: rating,
