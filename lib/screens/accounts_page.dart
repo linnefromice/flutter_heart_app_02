@@ -164,7 +164,7 @@ class _AccountList extends StatelessWidget {
 
   Column _buildContents(AsyncSnapshot<List<Account>> snapshot) {
     return Column(
-      children: snapshot.data.map((value) => _AccountListTile( // TODO: use User
+      children: snapshot.data.map((value) => _AccountListTile( // TODO: use Account
         name: value.name,
         description: value.description,
         rating: value.rating,

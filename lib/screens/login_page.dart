@@ -157,8 +157,8 @@ class LoginPage extends HookWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  _buildAddUserButton(context),
-                  _buildDeleteUserButton(context)
+                  _buildAddAccountButton(context),
+                  _buildDeleteAccountButton(context)
                 ],
               ),
             ),
@@ -172,7 +172,7 @@ class LoginPage extends HookWidget {
     );
   }
 
-  ElevatedButton _buildAddUserButton(BuildContext context) {
+  ElevatedButton _buildAddAccountButton(BuildContext context) {
     return ElevatedButton.icon(
       icon: Icon(
         Icons.build,
@@ -201,7 +201,7 @@ class LoginPage extends HookWidget {
     );
   }
 
-  ElevatedButton _buildDeleteUserButton(BuildContext context) {
+  ElevatedButton _buildDeleteAccountButton(BuildContext context) {
     return ElevatedButton.icon(
         icon: Icon(
           Icons.build,
