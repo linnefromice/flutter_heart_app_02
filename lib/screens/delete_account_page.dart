@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:linnefromice/components/common_snack_bars.dart';
 import 'package:linnefromice/components/wrapper_common_background.dart';
-import 'package:linnefromice/models/user.dart';
+import 'package:linnefromice/models/account.dart';
+import 'package:linnefromice/services/account_service.dart';
 import 'package:linnefromice/services/evaluation_service.dart';
-import 'package:linnefromice/services/user_service.dart';
 
-class DeleteUserPage extends StatelessWidget {
-  final userService = UserService();
+class DeleteAccountPage extends StatelessWidget {
+  final accountService = AccountService();
   final evaluationService = EvaluationService();
   
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: WrapperCommonBackground(
-        child: FutureBuilder<List<User>>(
-          future: userService.findUsers(),
-          builder: (BuildContext context, AsyncSnapshot<List<User>> snapshot) {
+        child: FutureBuilder<List<Account>>(
+          future: accountService.findAccounts(),
+          builder: (BuildContext context, AsyncSnapshot<List<Account>> snapshot) {
             if (snapshot.hasError) {
               return Center(child: Text(snapshot.error.toString()));
             }
@@ -34,7 +34,7 @@ class DeleteUserPage extends StatelessWidget {
     );
   }
 
-  ListView _buildContents(AsyncSnapshot<List<User>> snapshot) {
+  ListView _buildContents(AsyncSnapshot<List<Account>> snapshot) {
     return ListView.builder(
       itemCount: snapshot.data.length,
       itemBuilder: (context, index) {
@@ -45,8 +45,8 @@ class DeleteUserPage extends StatelessWidget {
             leading: IconButton(
               icon: Icon(Icons.close, color: Colors.white),
               onPressed: () async {
-                await evaluationService.deleteEvaluationsSelectedUser(item.id);
-                await userService.deleteUser(item.id);
+                // await evaluationService.deleteEvaluationsSelectedUser(item.id);
+                await accountService.deleteAccount(item.id);
                 ScaffoldMessenger.of(context).showSnackBar(successSnackBar());
                 Navigator.of(context).pop();
               },

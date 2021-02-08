@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:linnefromice/components/wrapper_common_background.dart';
 import 'package:linnefromice/screens/add_account_page.dart';
-import 'package:linnefromice/screens/delete_user_page.dart';
+import 'package:linnefromice/screens/delete_account_page.dart';
 import 'package:linnefromice/screens/home_page.dart';
 import 'package:linnefromice/screens/recalculate_rating_page.dart';
 
@@ -209,7 +209,7 @@ class LoginPage extends HookWidget {
           color: Colors.white,
         ),
         label: Text(
-          "DEBUG\ndelete user",
+          "DEBUG\ndelete account",
           style: TextStyle(
             color: Colors.white,
             fontSize: 12,
@@ -224,7 +224,7 @@ class LoginPage extends HookWidget {
         ),
         onPressed: () => Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => DeleteUserPage()
+            builder: (context) => DeleteAccountPage()
           )
         )
     );
