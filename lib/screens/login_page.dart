@@ -6,6 +6,7 @@ import 'package:linnefromice/screens/add_account_page.dart';
 import 'package:linnefromice/screens/delete_account_page.dart';
 import 'package:linnefromice/screens/home_page.dart';
 import 'package:linnefromice/screens/recalculate_rating_page.dart';
+import 'package:linnefromice/services/authentication_service.dart';
 
 final List<String> domainList = [
   "gmail.com",
@@ -18,6 +19,8 @@ final List<String> domainList = [
 ];
 
 class LoginPage extends HookWidget {
+  final authService = AuthenticationService();
+
   Widget _buildTitle() => Text(
     "Rating",
     style: TextStyle(
@@ -54,35 +57,19 @@ class LoginPage extends HookWidget {
   }
 
   void _authenticate({final BuildContext context, final String email, final String domain, final String password}) async {
-    try {
-      UserCredential userCredential = await FirebaseAuth.instance
-        .signInWithEmailAndPassword(
-          email: email + "@" + domain,
-          password: password
-        );
+    final String errorMessage = await authService.authenticate(email: email, domain: domain, password: password);
+    if (errorMessage.isEmpty) {
       Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomePage()));
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        showDialog(
-          context: context,
-          builder: (BuildContext buildContext) {
-            return _buildErrorDialog(
-              context,
-              "No user found for that email."
-            );
-          }
-        );
-      } else if (e.code == 'wrong-password') {
-        showDialog(
-          context: context,
-          builder: (BuildContext buildContext) {
-            return _buildErrorDialog(
-              context,
-              "Wrong password provided for that user."
-            );
-          }
-        );
-      }
+    } else {
+      showDialog(
+        context: context,
+        builder: (BuildContext buildContext) {
+          return _buildErrorDialog(
+            context,
+            errorMessage
+          );
+        }
+      );
     }
   }
 
