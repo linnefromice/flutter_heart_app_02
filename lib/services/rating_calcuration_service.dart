@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:linnefromice/models/account.dart';
 import 'package:linnefromice/models/evaluation.dart';
-import 'package:linnefromice/models/user.dart';
-import 'package:linnefromice/services/user_service.dart';
+import 'package:linnefromice/services/account_service.dart';
 import 'package:linnefromice/services/evaluation_service.dart';
 
 class RatingInformation {
@@ -19,21 +19,21 @@ class RatingInformation {
 }
 
 class RatingCalculationService {
-  final userService = UserService();
+  final accountService = AccountService();
   final evaluationService = EvaluationService();
 
   Future<List<RatingInformation>> getNewRatingInformationList() async {
-    final List<User> users = await userService.findUsers();
+    final List<Account> accounts = await accountService.findAccounts();
     final List<Evaluation> evaluations = await evaluationService.findEvaluations();
 
-    final List<RatingInformation> results = users.map((user) {
-      final List<Evaluation> selectedEvaluations = evaluations.where((el) => el.userId == user.id).toList();
+    final List<RatingInformation> results = accounts.map((account) {
+      final List<Evaluation> selectedEvaluations = evaluations.where((el) => el.userId == account.id).toList();
       if (selectedEvaluations.isNotEmpty) {
         final List<double> values = selectedEvaluations.map((element) => element.rating).toList();
         return RatingInformation(
-            userId: user.id,
-            name: user.name,
-            rating: user.rating,
+            userId: account.id,
+            name: account.name,
+            rating: account.rating,
             newRating: values.reduce((curr, next) => curr + next) / values.length // calculate average of evaluations
         );
       }
