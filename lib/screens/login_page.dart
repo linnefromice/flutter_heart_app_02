@@ -2,8 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:linnefromice/components/wrapper_common_background.dart';
-import 'package:linnefromice/screens/add_user_page.dart';
-import 'package:linnefromice/screens/delete_user_page.dart';
+import 'package:linnefromice/screens/add_account_page.dart';
+import 'package:linnefromice/screens/delete_account_page.dart';
 import 'package:linnefromice/screens/home_page.dart';
 import 'package:linnefromice/screens/recalculate_rating_page.dart';
 
@@ -157,8 +157,8 @@ class LoginPage extends HookWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  _buildAddUserButton(context),
-                  _buildDeleteUserButton(context)
+                  _buildAddAccountButton(context),
+                  _buildDeleteAccountButton(context)
                 ],
               ),
             ),
@@ -172,7 +172,7 @@ class LoginPage extends HookWidget {
     );
   }
 
-  ElevatedButton _buildAddUserButton(BuildContext context) {
+  ElevatedButton _buildAddAccountButton(BuildContext context) {
     return ElevatedButton.icon(
       icon: Icon(
         Icons.build,
@@ -180,7 +180,7 @@ class LoginPage extends HookWidget {
         color: Colors.white,
       ),
       label: Text(
-        "DEBUG\nadd user",
+        "DEBUG\nadd account",
         style: TextStyle(
           color: Colors.white,
           fontSize: 12,
@@ -195,13 +195,13 @@ class LoginPage extends HookWidget {
       ),
       onPressed: () => Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (context) => AddUserPage()
+          builder: (context) => AddAccountPage()
         )
       )
     );
   }
 
-  ElevatedButton _buildDeleteUserButton(BuildContext context) {
+  ElevatedButton _buildDeleteAccountButton(BuildContext context) {
     return ElevatedButton.icon(
         icon: Icon(
           Icons.build,
@@ -209,7 +209,7 @@ class LoginPage extends HookWidget {
           color: Colors.white,
         ),
         label: Text(
-          "DEBUG\ndelete user",
+          "DEBUG\ndelete account",
           style: TextStyle(
             color: Colors.white,
             fontSize: 12,
@@ -224,7 +224,7 @@ class LoginPage extends HookWidget {
         ),
         onPressed: () => Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => DeleteUserPage()
+            builder: (context) => DeleteAccountPage()
           )
         )
     );

@@ -2,7 +2,7 @@ import 'package:fab_circular_menu/fab_circular_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:linnefromice/screens/evaluations_page.dart';
 import 'package:linnefromice/screens/home_page.dart';
-import 'package:linnefromice/screens/users_page.dart';
+import 'package:linnefromice/screens/accounts_page.dart';
 
 class WrapperFabCircularMenu extends StatelessWidget {
   WrapperFabCircularMenu({
@@ -40,7 +40,7 @@ class WrapperFabCircularMenu extends StatelessWidget {
         _buildRawMaterialButton(
           icon: Icon(Icons.supervisor_account, color: Colors.white),
           onPressed: () => Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => UsersPage()),
+            MaterialPageRoute(builder: (context) => AccountsPage()),
           ),
         ),
         _buildRawMaterialButton(

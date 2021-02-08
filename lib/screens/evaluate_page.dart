@@ -8,30 +8,30 @@ import 'package:linnefromice/components/common_snack_bars.dart';
 import 'package:linnefromice/components/rated_heart.dart';
 import 'package:linnefromice/components/wrapper_common_background.dart';
 import 'package:linnefromice/components/wrapper_fab_circle_menu.dart';
+import 'package:linnefromice/models/account.dart';
 import 'package:linnefromice/models/evaluation.dart';
-import 'package:linnefromice/models/user.dart';
 import 'package:linnefromice/services/evaluation_service.dart';
 
 class EvaluatePage extends HookWidget {
   EvaluatePage({
     Key key,
-    @required this.user
+    @required this.account
   }) : super(key: key);
 
-  final User user;
+  final Account account;
   final GlobalKey<FabCircularMenuState> fabKey = GlobalKey();
   final EvaluationService evaluationService = EvaluationService();
 
   AvatarArea _buildAvatarArea({final double diameter}) {
     return AvatarArea(
       diameter: diameter,
-      image: !(user.avatarUrl == null || user.avatarUrl == "") ? NetworkImage(user.avatarUrl) : null,
-      child: user.avatarUrl == null || user.avatarUrl == "" ? Text("NO IMAGE", style: TextStyle(color: Colors.black)) : null,
+      image: !(account.avatarUrl == null || account.avatarUrl == "") ? NetworkImage(account.avatarUrl) : null,
+      child: account.avatarUrl == null || account.avatarUrl == "" ? Text("NO IMAGE", style: TextStyle(color: Colors.black)) : null,
     );
   }
 
   Text _buildNameArea() => Text(
-    user.name,
+    account.name,
     textAlign: TextAlign.center,
     style: TextStyle(
       fontWeight: FontWeight.w400,
@@ -69,7 +69,7 @@ class EvaluatePage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ratingState = useState(user.rating);
+    final ratingState = useState(account.rating);
 
     return Scaffold(
       body: WrapperCommonBackground(
@@ -124,7 +124,7 @@ class EvaluatePage extends HookWidget {
                     ),
                     icon: Icon(Icons.refresh),
                     label: Text("RESET"),
-                    onPressed: () => ratingState.value = user.rating,
+                    onPressed: () => ratingState.value = account.rating,
                   ),
                   ElevatedButton.icon(
                     style: ButtonStyle(
@@ -139,7 +139,7 @@ class EvaluatePage extends HookWidget {
                         return;
                       }
                       evaluationService.createEvaluation(
-                        userId: user.id,
+                        userId: account.id,
                         rating: _roundedRating,
                       );
                       ScaffoldMessenger.of(context).showSnackBar(successSnackBar());

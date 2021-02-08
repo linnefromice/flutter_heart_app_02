@@ -7,27 +7,27 @@ import 'package:linnefromice/components/avatar_area.dart';
 import 'package:linnefromice/components/rated_heart.dart';
 import 'package:linnefromice/components/wrapper_common_background.dart';
 import 'package:linnefromice/components/wrapper_fab_circle_menu.dart';
-import 'package:linnefromice/models/user.dart';
+import 'package:linnefromice/models/account.dart';
 
-class UserDetailPage extends HookWidget {
-  UserDetailPage({
+class AccountDetailPage extends HookWidget {
+  AccountDetailPage({
     Key key,
-    @required this.user
+    @required this.account
   }) : super(key: key);
 
-  final User user;
+  final Account account;
   final GlobalKey<FabCircularMenuState> fabKey = GlobalKey();
 
   AvatarArea _buildAvatarArea({final double diameter}) {
     return AvatarArea(
       diameter: diameter,
-      image: !(user.avatarUrl == null || user.avatarUrl == "") ? NetworkImage(user.avatarUrl) : null,
-      child: user.avatarUrl == null || user.avatarUrl == "" ? Text("NO IMAGE", style: TextStyle(color: Colors.black)) : null,
+      image: !(account.avatarUrl == null || account.avatarUrl == "") ? NetworkImage(account.avatarUrl) : null,
+      child: account.avatarUrl == null || account.avatarUrl == "" ? Text("NO IMAGE", style: TextStyle(color: Colors.black)) : null,
     );
   }
 
   Text _buildNameArea() => Text(
-    user.name,
+    account.name,
     textAlign: TextAlign.center,
     style: TextStyle(
       fontWeight: FontWeight.w400,
@@ -37,7 +37,7 @@ class UserDetailPage extends HookWidget {
   );
 
   Text _buildDescriptionArea() => Text(
-    user.description != "" ? user.description : "NO DESCRIPTION",
+    account.description != "" ? account.description : "NO DESCRIPTION",
     textAlign: TextAlign.center,
     style: TextStyle(
       fontSize: 14.0,
@@ -49,11 +49,11 @@ class UserDetailPage extends HookWidget {
     mainAxisAlignment: MainAxisAlignment.center,
     crossAxisAlignment: CrossAxisAlignment.center,
     children: [
-      RatedHeart(rate: min(1, max(0, user.rating - 0)), size: 50), // origin -> Icon(Icons.favorite, size: 50, color: user.rating >= 1 ? Colors.pink.withOpacity(0.5) : Colors.white),
-      RatedHeart(rate: min(1, max(0, user.rating - 1)), size: 50),
-      RatedHeart(rate: min(1, max(0, user.rating - 2)), size: 50),
-      RatedHeart(rate: min(1, max(0, user.rating - 3)), size: 50),
-      RatedHeart(rate: min(1, max(0, user.rating - 4)), size: 50),
+      RatedHeart(rate: min(1, max(0, account.rating - 0)), size: 50), // origin -> Icon(Icons.favorite, size: 50, color: user.rating >= 1 ? Colors.pink.withOpacity(0.5) : Colors.white),
+      RatedHeart(rate: min(1, max(0, account.rating - 1)), size: 50),
+      RatedHeart(rate: min(1, max(0, account.rating - 2)), size: 50),
+      RatedHeart(rate: min(1, max(0, account.rating - 3)), size: 50),
+      RatedHeart(rate: min(1, max(0, account.rating - 4)), size: 50),
     ],
   );
 

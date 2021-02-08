@@ -5,38 +5,38 @@ import 'package:flutter/material.dart';
 import 'package:linnefromice/components/rated_heart.dart';
 import 'package:linnefromice/components/wrapper_common_background.dart';
 import 'package:linnefromice/components/wrapper_fab_circle_menu.dart';
+import 'package:linnefromice/models/account.dart';
 import 'package:linnefromice/models/evaluation.dart';
-import 'package:linnefromice/models/user.dart';
+import 'package:linnefromice/services/account_service.dart';
 import 'package:linnefromice/services/evaluation_service.dart';
-import 'package:linnefromice/services/user_service.dart';
 
-// TODO: 暫定(本来はevaluationを拡張して、evaluationがUserを保持する形にしたい)
-class _EvaluationWithUser {
-  _EvaluationWithUser({
+// TODO: 暫定(本来はevaluationを拡張して、evaluationがAccountを保持する形にしたい)
+class _EvaluationWithAccount {
+  _EvaluationWithAccount({
     @required this.evaluation,
-    @required this.user,
+    @required this.account,
   });
 
   final Evaluation evaluation;
-  final User user;
+  final Account account;
 }
 
 class EvaluationsPage extends StatelessWidget {
   final GlobalKey<FabCircularMenuState> fabKey = GlobalKey();
   final evaluationService = EvaluationService();
-  final userService = UserService();
+  final accountService = AccountService();
 
   // TODO: Simplize
-  Future<List<_EvaluationWithUser>> _findEvaluationWithUser() async {
+  Future<List<_EvaluationWithAccount>> _findEvaluationWithUser() async {
    final List<Evaluation> evaluations = await evaluationService.findEvaluations();
-   final List<User> users = await userService.findUsers();
-   final Map<String, User> userMap = Map.fromIterables(
+   final List<Account> users = await accountService.findAccounts();
+   final Map<String, Account> userMap = Map.fromIterables(
      users.map((e) => e.id).toList(),
      users.map((e) => e).toList()
    );
-   final List<_EvaluationWithUser> results = evaluations.map((e) => _EvaluationWithUser(
+   final List<_EvaluationWithAccount> results = evaluations.map((e) => _EvaluationWithAccount(
      evaluation: e,
-     user: userMap[e.userId]
+     account: userMap[e.userId]
    )).toList();
    return results;
   }
@@ -45,9 +45,9 @@ class EvaluationsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: WrapperCommonBackground(
-        child: FutureBuilder<List<_EvaluationWithUser>> (
+        child: FutureBuilder<List<_EvaluationWithAccount>> (
           future: _findEvaluationWithUser(),
-          builder: (BuildContext context, AsyncSnapshot<List<_EvaluationWithUser>> snapshot) {
+          builder: (BuildContext context, AsyncSnapshot<List<_EvaluationWithAccount>> snapshot) {
             if (snapshot.hasError) {
               return Center(child: Text(snapshot.error.toString()));
             }
@@ -55,7 +55,7 @@ class EvaluationsPage extends StatelessWidget {
               return ListView.builder(
                 itemCount: snapshot.data.length,
                 itemBuilder: (context, index) {
-                  final _EvaluationWithUser item = snapshot.data[index];
+                  final _EvaluationWithAccount item = snapshot.data[index];
                   final String formattedDate = "${item.evaluation.createdDate.substring(0, 4)}/${item.evaluation.createdDate.substring(4, 6)}/${item.evaluation.createdDate.substring(6, 8)}";
                   return Card(
                     color: Colors.deepOrange[200].withOpacity(0.5),
@@ -67,7 +67,7 @@ class EvaluationsPage extends StatelessWidget {
                         ),
                       ),
                       title: Text(
-                        "-> ${item.user.name}",
+                        "-> ${item.account.name}",
                         style: TextStyle(
                           color: Colors.white
                         ),

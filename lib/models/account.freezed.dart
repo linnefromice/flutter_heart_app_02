@@ -1,23 +1,23 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
 
-part of 'user.dart';
+part of 'account.dart';
 
 // **************************************************************************
 // FreezedGenerator
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
-User _$UserFromJson(Map<String, dynamic> json) {
-  return _User.fromJson(json);
+Account _$AccountFromJson(Map<String, dynamic> json) {
+  return _Account.fromJson(json);
 }
 
 /// @nodoc
-class _$UserTearOff {
-  const _$UserTearOff();
+class _$AccountTearOff {
+  const _$AccountTearOff();
 
 // ignore: unused_element
-  _User call(
+  _Account call(
       {String id,
       String name,
       String description,
@@ -27,7 +27,7 @@ class _$UserTearOff {
       String createdAt,
       String updatedAt,
       int version}) {
-    return _User(
+    return _Account(
       id: id,
       name: name,
       description: description,
@@ -41,17 +41,17 @@ class _$UserTearOff {
   }
 
 // ignore: unused_element
-  User fromJson(Map<String, Object> json) {
-    return User.fromJson(json);
+  Account fromJson(Map<String, Object> json) {
+    return Account.fromJson(json);
   }
 }
 
 /// @nodoc
 // ignore: unused_element
-const $User = _$UserTearOff();
+const $Account = _$AccountTearOff();
 
 /// @nodoc
-mixin _$User {
+mixin _$Account {
   String get id;
   String get name;
   String get description;
@@ -64,13 +64,13 @@ mixin _$User {
 
   Map<String, dynamic> toJson();
   @JsonKey(ignore: true)
-  $UserCopyWith<User> get copyWith;
+  $AccountCopyWith<Account> get copyWith;
 }
 
 /// @nodoc
-abstract class $UserCopyWith<$Res> {
-  factory $UserCopyWith(User value, $Res Function(User) then) =
-      _$UserCopyWithImpl<$Res>;
+abstract class $AccountCopyWith<$Res> {
+  factory $AccountCopyWith(Account value, $Res Function(Account) then) =
+      _$AccountCopyWithImpl<$Res>;
   $Res call(
       {String id,
       String name,
@@ -84,12 +84,12 @@ abstract class $UserCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
-  _$UserCopyWithImpl(this._value, this._then);
+class _$AccountCopyWithImpl<$Res> implements $AccountCopyWith<$Res> {
+  _$AccountCopyWithImpl(this._value, this._then);
 
-  final User _value;
+  final Account _value;
   // ignore: unused_field
-  final $Res Function(User) _then;
+  final $Res Function(Account) _then;
 
   @override
   $Res call({
@@ -119,9 +119,9 @@ class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$UserCopyWith<$Res> implements $UserCopyWith<$Res> {
-  factory _$UserCopyWith(_User value, $Res Function(_User) then) =
-      __$UserCopyWithImpl<$Res>;
+abstract class _$AccountCopyWith<$Res> implements $AccountCopyWith<$Res> {
+  factory _$AccountCopyWith(_Account value, $Res Function(_Account) then) =
+      __$AccountCopyWithImpl<$Res>;
   @override
   $Res call(
       {String id,
@@ -136,13 +136,13 @@ abstract class _$UserCopyWith<$Res> implements $UserCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
-    implements _$UserCopyWith<$Res> {
-  __$UserCopyWithImpl(_User _value, $Res Function(_User) _then)
-      : super(_value, (v) => _then(v as _User));
+class __$AccountCopyWithImpl<$Res> extends _$AccountCopyWithImpl<$Res>
+    implements _$AccountCopyWith<$Res> {
+  __$AccountCopyWithImpl(_Account _value, $Res Function(_Account) _then)
+      : super(_value, (v) => _then(v as _Account));
 
   @override
-  _User get _value => super._value as _User;
+  _Account get _value => super._value as _Account;
 
   @override
   $Res call({
@@ -156,7 +156,7 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
     Object updatedAt = freezed,
     Object version = freezed,
   }) {
-    return _then(_User(
+    return _then(_Account(
       id: id == freezed ? _value.id : id as String,
       name: name == freezed ? _value.name : name as String,
       description:
@@ -174,8 +174,8 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
 @JsonSerializable()
 
 /// @nodoc
-class _$_User with DiagnosticableTreeMixin implements _User {
-  const _$_User(
+class _$_Account with DiagnosticableTreeMixin implements _Account {
+  const _$_Account(
       {this.id,
       this.name,
       this.description,
@@ -186,8 +186,8 @@ class _$_User with DiagnosticableTreeMixin implements _User {
       this.updatedAt,
       this.version});
 
-  factory _$_User.fromJson(Map<String, dynamic> json) =>
-      _$_$_UserFromJson(json);
+  factory _$_Account.fromJson(Map<String, dynamic> json) =>
+      _$_$_AccountFromJson(json);
 
   @override
   final String id;
@@ -210,14 +210,14 @@ class _$_User with DiagnosticableTreeMixin implements _User {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'User(id: $id, name: $name, description: $description, rating: $rating, isFriend: $isFriend, avatarUrl: $avatarUrl, createdAt: $createdAt, updatedAt: $updatedAt, version: $version)';
+    return 'Account(id: $id, name: $name, description: $description, rating: $rating, isFriend: $isFriend, avatarUrl: $avatarUrl, createdAt: $createdAt, updatedAt: $updatedAt, version: $version)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(DiagnosticsProperty('type', 'User'))
+      ..add(DiagnosticsProperty('type', 'Account'))
       ..add(DiagnosticsProperty('id', id))
       ..add(DiagnosticsProperty('name', name))
       ..add(DiagnosticsProperty('description', description))
@@ -232,7 +232,7 @@ class _$_User with DiagnosticableTreeMixin implements _User {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _User &&
+        (other is _Account &&
             (identical(other.id, id) ||
                 const DeepCollectionEquality().equals(other.id, id)) &&
             (identical(other.name, name) ||
@@ -273,17 +273,17 @@ class _$_User with DiagnosticableTreeMixin implements _User {
 
   @JsonKey(ignore: true)
   @override
-  _$UserCopyWith<_User> get copyWith =>
-      __$UserCopyWithImpl<_User>(this, _$identity);
+  _$AccountCopyWith<_Account> get copyWith =>
+      __$AccountCopyWithImpl<_Account>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_UserToJson(this);
+    return _$_$_AccountToJson(this);
   }
 }
 
-abstract class _User implements User {
-  const factory _User(
+abstract class _Account implements Account {
+  const factory _Account(
       {String id,
       String name,
       String description,
@@ -292,9 +292,9 @@ abstract class _User implements User {
       String avatarUrl,
       String createdAt,
       String updatedAt,
-      int version}) = _$_User;
+      int version}) = _$_Account;
 
-  factory _User.fromJson(Map<String, dynamic> json) = _$_User.fromJson;
+  factory _Account.fromJson(Map<String, dynamic> json) = _$_Account.fromJson;
 
   @override
   String get id;
@@ -316,5 +316,5 @@ abstract class _User implements User {
   int get version;
   @override
   @JsonKey(ignore: true)
-  _$UserCopyWith<_User> get copyWith;
+  _$AccountCopyWith<_Account> get copyWith;
 }

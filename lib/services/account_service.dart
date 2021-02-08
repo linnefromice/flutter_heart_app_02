@@ -1,12 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:linnefromice/models/user.dart';
+import 'package:linnefromice/models/account.dart';
 
-class UserService {
+class AccountService {
   final _instance = FirebaseFirestore.instance;
-  final _collectionName = "users";
+  final _collectionName = "accounts";
   final _defaultSortKey = "updatedAt";
 
-  User _generateUserFromQueryDocumentSnapshot(QueryDocumentSnapshot snapshot) => User(
+  Account _generateModelFromQueryDocumentSnapshot(QueryDocumentSnapshot snapshot) => Account(
     id: snapshot.id,
     name: snapshot.data()["name"],
     description: snapshot.data()["description"],
@@ -18,15 +18,15 @@ class UserService {
     version: snapshot.data()["version"],
   );
 
-  Stream<List<User>> streamUsers() {
+  Stream<List<Account>> streamAccounts() {
     return _instance.collection(_collectionName).orderBy(_defaultSortKey).snapshots().map(
       (QuerySnapshot querySnapshot) => querySnapshot.docs.map(
-        (QueryDocumentSnapshot queryDocumentSnapshot) => _generateUserFromQueryDocumentSnapshot(queryDocumentSnapshot)
+        (QueryDocumentSnapshot queryDocumentSnapshot) => _generateModelFromQueryDocumentSnapshot(queryDocumentSnapshot)
       ).toList()
     );
   }
 
-  User _generateUserFromDocumentSnapshot(DocumentSnapshot snapshot) => User(
+  Account _generateModelFromDocumentSnapshot(DocumentSnapshot snapshot) => Account(
     id: snapshot.id,
     name: snapshot.data()["name"],
     description: snapshot.data()["description"],
@@ -38,17 +38,17 @@ class UserService {
     version: snapshot.data()["version"],
   );
 
-  Future<List<User>> findUsers() async {
+  Future<List<Account>> findAccounts() async {
     QuerySnapshot querySnapshot = await _instance.collection(_collectionName).orderBy(_defaultSortKey).get();
     return querySnapshot.docs.map(
-      (DocumentSnapshot documentSnapshot) => _generateUserFromDocumentSnapshot(documentSnapshot)
+      (DocumentSnapshot documentSnapshot) => _generateModelFromDocumentSnapshot(documentSnapshot)
     ).toList();
   }
   
-  Future<void> createUser({ final String name, final String description, final double rating, final bool isFriend, final String avatarUrl }) async {
+  Future<void> createAccount({ final String name, final String description, final double rating, final bool isFriend, final String avatarUrl }) async {
     final DateTime now = DateTime.now();
     _instance.collection(_collectionName).add(
-      User(
+        Account(
         name: name,
         description: description,
         rating: rating,
@@ -61,7 +61,7 @@ class UserService {
     );
   }
 
-  Future<void> deleteUser(final String id) async {
+  Future<void> deleteAccount(final String id) async {
     _instance.collection(_collectionName).doc(id).delete();
   }
 
