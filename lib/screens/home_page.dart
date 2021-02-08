@@ -6,9 +6,9 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:linnefromice/components/rated_heart.dart';
 import 'package:linnefromice/components/wrapper_fab_circle_menu.dart';
 import 'package:linnefromice/components/wrapper_common_background.dart';
-import 'package:linnefromice/models/user.dart';
+import 'package:linnefromice/models/account.dart';
 import 'package:linnefromice/screens/evaluate_page.dart';
-import 'package:linnefromice/services/user_service.dart';
+import 'package:linnefromice/services/account_service.dart';
 
 final List datas = [
   {
@@ -39,15 +39,15 @@ final List datas = [
 
 class HomePage extends StatelessWidget {
   final GlobalKey<FabCircularMenuState> fabKey = GlobalKey();
-  final userService = UserService();
+  final accountService = AccountService();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: WrapperCommonBackground(
-        child: StreamBuilder<List<User>>(
-          stream: userService.streamUsers(),
-          builder: (BuildContext context, AsyncSnapshot<List<User>> snapshot) {
+        child: StreamBuilder<List<Account>>(
+          stream: accountService.streamAccounts(),
+          builder: (BuildContext context, AsyncSnapshot<List<Account>> snapshot) {
             if (snapshot.hasError) {
               return Center(child: Text(snapshot.error.toString()));
             }
@@ -55,7 +55,7 @@ class HomePage extends StatelessWidget {
               return Center(child: Text("NO DATA"));
             }
             return _Content(
-              users: snapshot.data,
+              accounts: snapshot.data,
             );
           },
         ),
@@ -70,10 +70,10 @@ class HomePage extends StatelessWidget {
 class _Content extends HookWidget {
   _Content({
     Key key,
-    this.users,
+    this.accounts,
   }) : super(key: key);
 
-  final List<User> users;
+  final List<Account> accounts;
   final int _initialPageIndex = 0;
 
   Widget _buildPagingButton({final double minWidth, final double height, final IconData iconData, final Function onPressed}) {
@@ -98,15 +98,15 @@ class _Content extends HookWidget {
       initialPage: _initialPageIndex,
       viewportFraction: 0.5,
     );
-    final _name = useState(users[_initialPageIndex].name);
-    final _rating = useState(users[_initialPageIndex].rating);
+    final _name = useState(accounts[_initialPageIndex].name);
+    final _rating = useState(accounts[_initialPageIndex].rating);
 
     return Stack(
       children: [
         PageView(
           controller: _pageController,
-          children: users.map((User user) => _ContentAvatar(
-            user: user,
+          children: accounts.map((Account account) => _ContentAvatar(
+            account: account,
           )).toList(),
         ),
         Positioned(
@@ -127,8 +127,8 @@ class _Content extends HookWidget {
                     duration: Duration(milliseconds: 500),
                     curve: Curves.easeInOut,
                   );
-                  _name.value = users[nextPageIndex].name;
-                  _rating.value = users[nextPageIndex].rating;
+                  _name.value = accounts[nextPageIndex].name;
+                  _rating.value = accounts[nextPageIndex].rating;
                 }
               ),
               SizedBox(width: 200),
@@ -143,8 +143,8 @@ class _Content extends HookWidget {
                     duration: Duration(milliseconds: 500),
                     curve: Curves.easeInOut,
                   );
-                  _name.value = users[nextPageIndex].name;
-                  _rating.value = users[nextPageIndex].rating;
+                  _name.value = accounts[nextPageIndex].name;
+                  _rating.value = accounts[nextPageIndex].rating;
                 }
               ),
             ],
@@ -184,17 +184,17 @@ class _Content extends HookWidget {
 class _ContentAvatar extends StatelessWidget {
   _ContentAvatar({
     Key key,
-    this.user,
+    this.account,
   }) : super(key: key);
 
-  final User user;
+  final Account account;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (context) => EvaluatePage(user: user)
+          builder: (context) => EvaluatePage(account: account)
         )
       ),
       child: Container(
@@ -216,9 +216,9 @@ class _ContentAvatar extends StatelessWidget {
           widthFactor: 0.7,
           child: CircleAvatar(
             maxRadius: 30,
-            child: !(user.avatarUrl == null || user.avatarUrl == "") ? null : Text(user.name, style: TextStyle(color: Colors.red)),
-            backgroundColor: user.avatarUrl == null || user.avatarUrl == "" ? Colors.white : null,
-            backgroundImage: !(user.avatarUrl == null || user.avatarUrl == "") ? NetworkImage(user.avatarUrl) : null,
+            child: !(account.avatarUrl == null || account.avatarUrl == "") ? null : Text(account.name, style: TextStyle(color: Colors.red)),
+            backgroundColor: account.avatarUrl == null || account.avatarUrl == "" ? Colors.white : null,
+            backgroundImage: !(account.avatarUrl == null || account.avatarUrl == "") ? NetworkImage(account.avatarUrl) : null,
           )
         ),
       ),

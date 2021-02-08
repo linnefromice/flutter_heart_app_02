@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:linnefromice/components/common_snack_bars.dart';
 import 'package:linnefromice/components/wrapper_common_background.dart';
-import 'package:linnefromice/models/user.dart';
+import 'package:linnefromice/models/account.dart';
+import 'package:linnefromice/services/account_service.dart';
 import 'package:linnefromice/services/rating_calcuration_service.dart';
-import 'package:linnefromice/services/user_service.dart';
 
 class _Contents extends StatelessWidget {
   _Contents({
@@ -12,11 +12,11 @@ class _Contents extends StatelessWidget {
   }) : super(key: key);
 
   final List<RatingInformation> datas;
-  final userService = UserService();
+  final accountService = AccountService();
 
   Future<void> _commitAllRecalculatedRating(final List<RatingInformation> datas) async {
-    final List<User> users = await userService.findUsers();
-    datas.forEach((element) => userService.updateRating(
+    final List<Account> users = await accountService.findAccounts();
+    datas.forEach((element) => accountService.updateRating(
         element.userId,
         users.firstWhere((user) => user.id == element.userId).version,
         element.newRating

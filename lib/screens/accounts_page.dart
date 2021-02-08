@@ -7,9 +7,9 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:linnefromice/components/rated_heart.dart';
 import 'package:linnefromice/components/wrapper_common_background.dart';
 import 'package:linnefromice/components/wrapper_fab_circle_menu.dart';
-import 'package:linnefromice/models/user.dart';
-import 'package:linnefromice/screens/user_detail_page.dart';
-import 'package:linnefromice/services/user_service.dart';
+import 'package:linnefromice/models/account.dart';
+import 'package:linnefromice/screens/account_detail_page.dart';
+import 'package:linnefromice/services/account_service.dart';
 
 final List datas = [
   {
@@ -87,8 +87,8 @@ final List datas = [
   },
 ];
 
-class _UserListTile extends StatelessWidget {
-  _UserListTile({
+class _AccountListTile extends StatelessWidget {
+  _AccountListTile({
     Key key,
     this.name,
     this.description,
@@ -107,8 +107,8 @@ class _UserListTile extends StatelessWidget {
     return ListTile(
       onTap: () => Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (context) => UserDetailPage(
-            user: User(name: name, description: description, rating: rating, avatarUrl: avatarUrl, isFriend: isFriend)
+          builder: (context) => AccountDetailPage(
+            account: Account(name: name, description: description, rating: rating, avatarUrl: avatarUrl, isFriend: isFriend)
           )
         )
       ),
@@ -153,18 +153,18 @@ class _UserListTile extends StatelessWidget {
   }
 }
 
-class _UserList extends StatelessWidget {
-  _UserList({
+class _AccountList extends StatelessWidget {
+  _AccountList({
     Key key,
     this.hasConnectivity
   }) : super(key: key);
 
   final bool hasConnectivity;
-  final userService = UserService();
+  final accountService = AccountService();
 
-  Column _buildContents(AsyncSnapshot<List<User>> snapshot) {
+  Column _buildContents(AsyncSnapshot<List<Account>> snapshot) {
     return Column(
-      children: snapshot.data.map((value) => _UserListTile( // TODO: use User
+      children: snapshot.data.map((value) => _AccountListTile( // TODO: use User
         name: value.name,
         description: value.description,
         rating: value.rating,
@@ -176,9 +176,9 @@ class _UserList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<User>>(
-      future: userService.findUsers(),
-      builder: (BuildContext context, AsyncSnapshot<List<User>> snapshot) {
+    return FutureBuilder<List<Account>>(
+      future: accountService.findAccounts(),
+      builder: (BuildContext context, AsyncSnapshot<List<Account>> snapshot) {
         if (snapshot.hasError) {
           return Center(child: Text(snapshot.error.toString()));
         }
@@ -191,7 +191,7 @@ class _UserList extends StatelessWidget {
   }
 }
 
-class UsersPage extends HookWidget {
+class AccountsPage extends HookWidget {
   final GlobalKey<FabCircularMenuState> fabKey = GlobalKey();
   final Connectivity _connectivity = Connectivity();
 
@@ -286,7 +286,7 @@ class UsersPage extends HookWidget {
                               Text("Loading ...")
                             ],
                           )
-                        : _UserList(hasConnectivity: hasConnectivity.data);
+                        : _AccountList(hasConnectivity: hasConnectivity.data);
                   }
                 ),
               ),
