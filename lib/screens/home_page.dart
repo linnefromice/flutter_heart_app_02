@@ -9,6 +9,7 @@ import 'package:linnefromice/components/wrapper_common_background.dart';
 import 'package:linnefromice/models/account.dart';
 import 'package:linnefromice/screens/evaluate_page.dart';
 import 'package:linnefromice/services/account_service.dart';
+import 'package:linnefromice/services/authentication_service.dart';
 
 final List datas = [
   {
@@ -40,9 +41,13 @@ final List datas = [
 class HomePage extends StatelessWidget {
   final GlobalKey<FabCircularMenuState> fabKey = GlobalKey();
   final accountService = AccountService();
+  final authenticationService = AuthenticationService();
 
   @override
   Widget build(BuildContext context) {
+    print(authenticationService.currentUser.toString()); // for debug
+    print(AuthenticationService.currentAccount.toString()); // for debug
+
     return Scaffold(
       body: WrapperCommonBackground(
         child: StreamBuilder<List<Account>>(

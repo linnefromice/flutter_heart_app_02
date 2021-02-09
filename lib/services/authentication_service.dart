@@ -18,7 +18,7 @@ class AuthenticationService {
           email: email + "@" + domain,
           password: password
         );
-      currentAccount = await accountService.findAccount(credential.user.uid);
+      currentAccount = await accountService.findAccount(credential.user.uid); // TODO エラーハンドリング
       return null;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {

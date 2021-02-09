@@ -46,6 +46,7 @@ class AccountService {
   }
 
   Future<Account> findAccount(final String id) async {
+    // TODO: カラム名変更 or ドキュメントパス変更 (whereを使いたくない)
     QuerySnapshot querySnapshot = await _instance.collection(_collectionName).where("id", isEqualTo: id).get();
     return _generateModelFromDocumentSnapshot(querySnapshot.docs.first);
   }
