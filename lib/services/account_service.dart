@@ -44,7 +44,13 @@ class AccountService {
       (DocumentSnapshot documentSnapshot) => _generateModelFromDocumentSnapshot(documentSnapshot)
     ).toList();
   }
-  
+
+  Future<Account> findAccount(final String id) async {
+    // TODO: カラム名変更 or ドキュメントパス変更 (whereを使いたくない)
+    QuerySnapshot querySnapshot = await _instance.collection(_collectionName).where("id", isEqualTo: id).get();
+    return _generateModelFromDocumentSnapshot(querySnapshot.docs.first);
+  }
+
   Future<void> createAccount({ final String name, final String description, final double rating, final bool isFriend, final String avatarUrl }) async {
     final DateTime now = DateTime.now();
     _instance.collection(_collectionName).add(

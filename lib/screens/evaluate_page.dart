@@ -9,7 +9,6 @@ import 'package:linnefromice/components/rated_heart.dart';
 import 'package:linnefromice/components/wrapper_common_background.dart';
 import 'package:linnefromice/components/wrapper_fab_circle_menu.dart';
 import 'package:linnefromice/models/account.dart';
-import 'package:linnefromice/models/evaluation.dart';
 import 'package:linnefromice/services/evaluation_service.dart';
 
 class EvaluatePage extends HookWidget {
