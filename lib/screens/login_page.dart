@@ -56,8 +56,8 @@ class LoginPage extends HookWidget {
     );
   }
 
-  void _authenticate({final BuildContext context, final String email, final String domain, final String password}) async {
-    final String errorMessage = await authService.authenticate(email: email + "@" + domain, password: password);
+  void _authenticate({final BuildContext context, final String localPart, final String domain, final String password}) async {
+    final String errorMessage = await authService.authenticate(email: localPart + "@" + domain, password: password);
     if (errorMessage == null) {
       Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomePage()));
     } else {
@@ -75,7 +75,7 @@ class LoginPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _emailController = useTextEditingController();
+    final _localPartController = useTextEditingController();
     final _passwordController = useTextEditingController();
     final _isObscureText = useState(true);
     final _selectedDomain = useState(domainList.first);
@@ -98,7 +98,7 @@ class LoginPage extends HookWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Flexible(
-                    child: _buildEmailField(_emailController),
+                    child: _buildEmailField(_localPartController),
                   ),
                   Container(
                     margin: EdgeInsets.symmetric(horizontal: 4.0),
@@ -137,7 +137,7 @@ class LoginPage extends HookWidget {
             ),
             Container(
               margin: EdgeInsets.symmetric(vertical: 16.0),
-              child: _buildLoginButton(context, _emailController, _selectedDomain, _passwordController),
+              child: _buildLoginButton(context, _localPartController, _selectedDomain, _passwordController),
             ),
             Container(
               margin: EdgeInsets.symmetric(vertical: 4.0),
@@ -246,7 +246,7 @@ class LoginPage extends HookWidget {
     );
   }
 
-  ElevatedButton _buildLoginButton(BuildContext context, TextEditingController _emailController, ValueNotifier<String> _selectedDomain, TextEditingController _passwordController) {
+  ElevatedButton _buildLoginButton(BuildContext context, TextEditingController localPartController, ValueNotifier<String> selectedDomain, TextEditingController passwordController) {
     return ElevatedButton.icon(
       icon: Icon(
         Icons.login,
@@ -269,16 +269,16 @@ class LoginPage extends HookWidget {
       ),
       onPressed: () => _authenticate(
         context: context,
-        email: _emailController.text,
-        domain: _selectedDomain.value,
-        password: _passwordController.text
+        localPart: localPartController.text,
+        domain: selectedDomain.value,
+        password: passwordController.text
       ),
     );
   }
 
-  TextField _buildPasswordField(TextEditingController _passwordController, ValueNotifier<bool> _isObscureText) {
+  TextField _buildPasswordField(TextEditingController passwordController, ValueNotifier<bool> _isObscureText) {
     return TextField(
-      controller: _passwordController,
+      controller: passwordController,
       keyboardType: TextInputType.text,
       obscureText: _isObscureText.value,
       style: TextStyle(
@@ -298,15 +298,15 @@ class LoginPage extends HookWidget {
     );
   }
 
-  Theme _buildEmailDomainSelector(ValueNotifier<String> _selectedDomain) {
+  Theme _buildEmailDomainSelector(ValueNotifier<String> selectedDomain) {
     return Theme(
       data: ThemeData(
         canvasColor: Colors.grey
       ),
       child: DropdownButtonHideUnderline(
         child: DropdownButton<String>(
-          value: _selectedDomain.value,
-          onChanged: (value) => _selectedDomain.value = value,
+          value: selectedDomain.value,
+          onChanged: (value) => selectedDomain.value = value,
           style: TextStyle(color: Colors.white),
           items: domainList.map((value) => DropdownMenuItem(
             value: value,
@@ -317,9 +317,9 @@ class LoginPage extends HookWidget {
     );
   }
 
-  TextField _buildEmailField(TextEditingController _emailController) {
+  TextField _buildEmailField(TextEditingController localPartController) {
     return TextField(
-      controller: _emailController,
+      controller: localPartController,
       keyboardType: TextInputType.emailAddress,
       obscureText: false,
       style: TextStyle(
