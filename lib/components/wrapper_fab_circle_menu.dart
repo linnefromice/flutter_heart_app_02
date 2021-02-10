@@ -52,7 +52,7 @@ class WrapperFabCircularMenu extends StatelessWidget {
         ),
         _buildRawMaterialButton(
           icon: Icon(Icons.settings, color: Colors.white),
-          onPressed: () => () => Navigator.of(context).push(
+          onPressed: () => Navigator.of(context).push(
             MaterialPageRoute(builder: (context) => SettingsPage()),
           ),
         ),
