@@ -11,11 +11,11 @@ class AuthenticationService {
 
   User get currentUser => _firebaseAuthInstance.currentUser;
 
-  Future<String> authenticate({final String email, final String domain, final String password}) async {
+  Future<String> authenticate({final String email, final String password}) async {
     try {
       UserCredential credential = await _firebaseAuthInstance
         .signInWithEmailAndPassword(
-          email: email + "@" + domain,
+          email: email,
           password: password
         );
       currentAccount = await accountService.findAccount(credential.user.uid); // TODO エラーハンドリング
