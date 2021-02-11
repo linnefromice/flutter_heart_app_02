@@ -5,6 +5,7 @@ import 'package:linnefromice/screens/add_account_page.dart';
 import 'package:linnefromice/screens/delete_account_page.dart';
 import 'package:linnefromice/screens/home_page.dart';
 import 'package:linnefromice/screens/recalculate_rating_page.dart';
+import 'package:linnefromice/screens/sign_up_page.dart';
 import 'package:linnefromice/services/authentication_service.dart';
 
 final List<String> domainList = [
@@ -90,7 +91,7 @@ class LoginPage extends HookWidget {
         primary: Colors.transparent,
         onPrimary: Colors.black,
         shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(10))
+          borderRadius: BorderRadius.all(Radius.circular(10))
         ),
       ),
       onPressed: onPressed,
@@ -114,7 +115,7 @@ class LoginPage extends HookWidget {
     return _buildButtonRelatedAuthentication(
       iconData: Icons.person_add,
       label: "SIGN UP\nif no account",
-      onPressed: () => {}
+      onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => SignUpPage()))
     );
   }
 
