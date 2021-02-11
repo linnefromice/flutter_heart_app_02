@@ -1,9 +1,13 @@
+import 'package:fab_circular_menu/fab_circular_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:linnefromice/components/wrapper_common_background.dart';
+import 'package:linnefromice/components/wrapper_fab_circle_menu.dart';
 import 'package:linnefromice/models/account.dart';
 import 'package:linnefromice/services/authentication_service.dart';
 
 class SettingsPage extends StatelessWidget {
+  final GlobalKey<FabCircularMenuState> fabKey = GlobalKey();
+
   @override
   Widget build(BuildContext context) {
     final Account account = AuthenticationService.currentAccount;
@@ -51,6 +55,9 @@ class SettingsPage extends StatelessWidget {
             ),
           ],
         ),
+      ),
+      floatingActionButton: Builder(
+        builder: (context) => WrapperFabCircularMenu(fabKey: fabKey)
       ),
     );
   }
