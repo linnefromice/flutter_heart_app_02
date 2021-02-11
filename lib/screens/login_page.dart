@@ -72,10 +72,10 @@ class LoginPage extends HookWidget {
     }
   }
 
-  ElevatedButton _buildButtonRelatedAuthentication({final String label, final Function onPressed}) {
+  ElevatedButton _buildButtonRelatedAuthentication({final String label, final IconData iconData, final Function onPressed}) {
     return ElevatedButton.icon(
       icon: Icon(
-        Icons.login,
+        iconData,
         size: 48,
         color: Colors.white,
       ),
@@ -99,6 +99,7 @@ class LoginPage extends HookWidget {
 
   ElevatedButton _buildLoginButton(BuildContext context, TextEditingController localPartController, ValueNotifier<String> selectedDomain, TextEditingController passwordController) {
     return _buildButtonRelatedAuthentication(
+      iconData: Icons.login,
       label: "LOGIN",
       onPressed: () => _authenticate(
         context: context,
@@ -108,6 +109,15 @@ class LoginPage extends HookWidget {
       ),
     );
   }
+
+  ElevatedButton _buildSignUpButton(BuildContext context) {
+    return _buildButtonRelatedAuthentication(
+      iconData: Icons.person_add,
+      label: "SIGN UP\nif no account",
+      onPressed: () => {}
+    );
+  }
+
 
   TextField _buildPasswordField(TextEditingController passwordController, ValueNotifier<bool> _isObscureText) {
     return TextField(
@@ -130,7 +140,7 @@ class LoginPage extends HookWidget {
       ),
     );
   }
-  
+
   Theme _buildEmailDomainSelector(ValueNotifier<String> selectedDomain) {
     return Theme(
       data: ThemeData(
@@ -237,6 +247,10 @@ class LoginPage extends HookWidget {
               Container(
                 margin: EdgeInsets.symmetric(vertical: 16.0),
                 child: _buildLoginButton(context, _localPartController, _selectedDomain, _passwordController),
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(vertical: 4.0),
+                child: _buildSignUpButton(context),
               ),
               Container(
                 margin: EdgeInsets.symmetric(vertical: 4.0),
