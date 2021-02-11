@@ -8,6 +8,14 @@ import 'package:linnefromice/services/authentication_service.dart';
 class SettingsPage extends StatelessWidget {
   final GlobalKey<FabCircularMenuState> fabKey = GlobalKey();
 
+  Widget _buildMenu({final Icon icon, final String label}) => Card(
+    color: Colors.transparent,
+    child: ListTile(
+      leading: icon,
+      title: Text(label, style: TextStyle(color: Colors.white))
+    ),
+  );
+
   @override
   Widget build(BuildContext context) {
     final Account account = AuthenticationService.currentAccount;
@@ -19,7 +27,7 @@ class SettingsPage extends StatelessWidget {
           mainAxisSize: MainAxisSize.max,
           children: [
             Card(
-              color: Colors.white.withOpacity(0.80),
+              color: Colors.transparent,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -34,24 +42,36 @@ class SettingsPage extends StatelessWidget {
                     )
                   ),
                   Container(
-                    margin: EdgeInsets.symmetric(vertical: 5.0),
-                    padding: EdgeInsets.all(15.0),
-                    child: Text(account.name)
+                    margin: EdgeInsets.symmetric(vertical: 2.5),
+                    padding: EdgeInsets.all(5.0),
+                    child: Text(
+                      account.name,
+                      style: TextStyle(color: Colors.white, fontSize: 18),
+                    )
                   ),
                 ],
               ),
             ),
-            SizedBox(height: 50),
-            Card(
-              color: Colors.white.withOpacity(0.80),
-              child: Column(
-                children: [
-                  ListTile(title: Text("About US")),
-                  ListTile(title: Text("Privacy Policy")),
-                  ListTile(title: Text("Terms & Conditions")),
-                  ListTile(title: Text("Sign out")),
-                ],
-              ),
+            SizedBox(height: 25),
+            Column(
+              children: [
+                Container(
+                  margin: EdgeInsets.all(1.0),
+                  child: _buildMenu(icon: null, label: "About US")
+                ),
+                Container(
+                  margin: EdgeInsets.all(1.0),
+                  child: _buildMenu(icon: null, label: "Privacy Policy")
+                ),
+                Container(
+                  margin: EdgeInsets.all(1.0),
+                  child: _buildMenu(icon: null, label: "Terms & Conditions")
+                ),
+                Container(
+                  margin: EdgeInsets.all(1.0),
+                  child: _buildMenu(icon: null, label: "Sign out")
+                ),
+              ],
             ),
           ],
         ),

@@ -90,17 +90,26 @@ final List datas = [
 class _AccountListTile extends StatelessWidget {
   _AccountListTile({
     Key key,
-    this.name,
-    this.description,
-    this.rating,
-    this.isFriend,
-    this.avatarUrl,
+    this.account,
   }) : super(key: key);
-  final String name;
-  final String description;
-  final double rating;
-  final bool isFriend;
-  final String avatarUrl;
+
+  final Account account;
+
+  Widget _buildCircleAvatar(final Account account) {
+    if (account.avatarUrl == null || account.avatarUrl == "") {
+      return CircleAvatar(
+        child: Text(
+          account.name.characters.first,
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: Colors.grey
+      );
+    } else {
+      return CircleAvatar(
+        backgroundImage: NetworkImage(account.avatarUrl),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -108,32 +117,21 @@ class _AccountListTile extends StatelessWidget {
       onTap: () => Navigator.of(context).push(
         MaterialPageRoute(
           builder: (context) => AccountDetailPage(
-            account: Account(name: name, description: description, rating: rating, avatarUrl: avatarUrl, isFriend: isFriend)
+            account: account
           )
         )
       ),
-      leading: CircleAvatar(
-        child: avatarUrl == null || avatarUrl == "" ? Text(
-          name.characters.first,
-          style: TextStyle(color: Colors.white),
-        ) : null,
-        backgroundColor: avatarUrl == null || avatarUrl == "" ? Colors.grey : null,
-        backgroundImage: !(avatarUrl == null || avatarUrl == "") ? NetworkImage(avatarUrl) : null,
-      ),
+      leading: _buildCircleAvatar(account),
       title: Text(
-        name,
+        account.name,
         style: TextStyle(color: Colors.white),
       ),
       subtitle: Row(
-        children: [
-          RatedHeart(rate: min(1, max(0, rating - 0)), size: 30), // origin -> Icon(Icons.favorite, size: 30, color: rating >= 1 ? Colors.pink.withOpacity(0.5) : Colors.white)
-          RatedHeart(rate: min(1, max(0, rating - 1)), size: 30),
-          RatedHeart(rate: min(1, max(0, rating - 2)), size: 30),
-          RatedHeart(rate: min(1, max(0, rating - 3)), size: 30),
-          RatedHeart(rate: min(1, max(0, rating - 4)), size: 30),
-        ],
+        children: List.generate(5, (index) => RatedHeart(
+          rate: min(1, max(0, account.rating - index)), size: 30)
+        ),
       ),
-      trailing: isFriend ? RaisedButton(
+      trailing: account.isFriend ? RaisedButton(
         child: Text(
           "Friend",
           style: TextStyle(color: Colors.orange),
@@ -153,70 +151,23 @@ class _AccountListTile extends StatelessWidget {
   }
 }
 
-class _AccountList extends StatelessWidget {
-  _AccountList({
-    Key key,
-    this.hasConnectivity
-  }) : super(key: key);
-
-  final bool hasConnectivity;
+class _Contents extends HookWidget {
   final accountService = AccountService();
 
-  Column _buildContents(AsyncSnapshot<List<Account>> snapshot) {
-    return Column(
-      children: snapshot.data.map((value) => _AccountListTile( // TODO: use Account
-        name: value.name,
-        description: value.description,
-        rating: value.rating,
-        isFriend: value.isFriend,
-        avatarUrl: hasConnectivity ? value.avatarUrl : null,
-      )).toList()
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder<List<Account>>(
-      future: accountService.findAccounts(),
-      builder: (BuildContext context, AsyncSnapshot<List<Account>> snapshot) {
-        if (snapshot.hasError) {
-          return Center(child: Text(snapshot.error.toString()));
-        }
-        if (snapshot.data == null) {
-          return Center(child: Text("NO DATA"));
-        }
-        return _buildContents(snapshot);
-      },
-    );
-  }
-}
-
-class AccountsPage extends HookWidget {
-  final GlobalKey<FabCircularMenuState> fabKey = GlobalKey();
-  final Connectivity _connectivity = Connectivity();
-
-  Widget _buildHeader({final ValueNotifier valueNotifier, final TextEditingController textEditingController}) {
+  Widget _buildHeader({final TextEditingController textEditingController}) {
     return Column(
       children: [
         Container(
           margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
           child: TextField(
             controller: textEditingController,
+            style: TextStyle(color: Colors.white),
             decoration: InputDecoration(
               hintText: "Search...",
               hintStyle: TextStyle(color: Colors.white),
               prefixIcon: IconButton(
-                icon: Icon(Icons.search, color: Colors.white),
-                onPressed: () { // does not work...
-                  print(textEditingController.text);
-                  final text = textEditingController.text;
-                  final results = List();
-                  valueNotifier.value((v) {
-                    if (v["name"].contains(text)) results.add(v);
-                  });
-                  valueNotifier.value = results;
-                  print(results);
-                },
+                icon: Icon(Icons.clear, color: Colors.white),
+                onPressed: () => textEditingController.clear(),
               ),
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.white, width: 0.0),
@@ -229,10 +180,62 @@ class AccountsPage extends HookWidget {
     );
   }
 
+  Widget _buildContents(final String searchText) {
+    return FutureBuilder<List<Account>>(
+      future: accountService.findAccounts(),
+      builder: (BuildContext context, AsyncSnapshot<List<Account>> snapshot) {
+        if (snapshot.hasError) {
+          return Center(child: Text(snapshot.error.toString()));
+        }
+        if (snapshot.data == null) {
+          return Center(child: Text("NO DATA"));
+        }
+        return _buildAccountList(searchText, snapshot.data);
+      },
+    );
+  }
+
+  Widget _buildAccountList(final String searchText, final List<Account> list) {
+    final List<_AccountListTile> children = [];
+    if (searchText == null || searchText == "") { // 全検索
+      list.forEach((element) => children.add(_AccountListTile(account: element)));
+    } else {
+      list.forEach((element) {
+        if (element.name.contains(searchText)) children.add(_AccountListTile(account: element));
+      });
+    }
+
+    return Column(
+      children: children
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    final ValueNotifier _datas = useState(datas);
     final TextEditingController textEditingController = useTextEditingController();
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        SizedBox(height: 50),
+        _buildHeader(textEditingController: textEditingController),
+        Expanded(
+          child: SingleChildScrollView(
+            child: _buildContents(textEditingController.text)
+          ),
+        ),
+        SizedBox(height: 50),
+      ],
+    );
+  }
+}
+
+class AccountsPage extends HookWidget {
+  final GlobalKey<FabCircularMenuState> fabKey = GlobalKey();
+  final Connectivity _connectivity = Connectivity();
+
+  @override
+  Widget build(BuildContext context) {
     final hasConnectivityController = useStreamController<bool>(keys: ["hasConnectivity"]);
 
     useEffect(
@@ -254,45 +257,30 @@ class AccountsPage extends HookWidget {
 
     return Scaffold(
       body: WrapperCommonBackground(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(height: 50),
-            _buildHeader(
-              valueNotifier: _datas,
-              textEditingController: textEditingController
-            ),
-            Expanded(
-              child: SingleChildScrollView(
-                child: HookBuilder(
-                  builder: (context) {
-                    // final AsyncSnapshot<bool> hasConnectivity = useStream(hasConnectivityController.stream); // if use useEffect & useStreamController
-                    final AsyncSnapshot<bool> hasConnectivity = useFuture(_connectivity.checkConnectivity().then((value) {
-                      switch (value) {
-                        case ConnectivityResult.wifi:
-                        case ConnectivityResult.mobile:
-                          return true;
-                        case ConnectivityResult.none:
-                        default:
-                          return false;
-                      }
-                    }));
-                    return !hasConnectivity.hasData
-                        ? Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              CircularProgressIndicator(),
-                              Text("Loading ...")
-                            ],
-                          )
-                        : _AccountList(hasConnectivity: hasConnectivity.data);
-                  }
-                ),
-              ),
-            ),
-            SizedBox(height: 50),
-          ],
+        child: HookBuilder(
+          builder: (context) {
+            // final AsyncSnapshot<bool> hasConnectivity = useStream(hasConnectivityController.stream); // if use useEffect & useStreamController
+            final AsyncSnapshot<bool> hasConnectivity = useFuture(_connectivity.checkConnectivity().then((value) {
+              switch (value) {
+                case ConnectivityResult.wifi:
+                case ConnectivityResult.mobile:
+                  return true;
+                case ConnectivityResult.none:
+                default:
+                  return false;
+              }
+            }));
+            return !hasConnectivity.hasData
+              ? Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    CircularProgressIndicator(),
+                    Text("Loading ...")
+                  ],
+                )
+              : _Contents();
+          }
         )
       ),
       floatingActionButton: Builder(
