@@ -30,6 +30,7 @@ class SettingsPage extends StatelessWidget {
                 children: [
                   Container(
                     margin: EdgeInsets.symmetric(vertical: 5.0),
+                    padding: EdgeInsets.all(10.0),
                     child: AvatarArea(
                       diameter: MediaQuery.of(context).size.width * 0.8,
                       image: !(account.avatarUrl == null || account.avatarUrl == "") ? NetworkImage(account.avatarUrl) : null,
