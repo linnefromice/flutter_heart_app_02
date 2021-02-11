@@ -90,17 +90,10 @@ final List datas = [
 class _AccountListTile extends StatelessWidget {
   _AccountListTile({
     Key key,
-    this.name,
-    this.description,
-    this.rating,
-    this.isFriend,
-    this.avatarUrl,
+    this.account,
   }) : super(key: key);
-  final String name;
-  final String description;
-  final double rating;
-  final bool isFriend;
-  final String avatarUrl;
+
+  final Account account;
 
   @override
   Widget build(BuildContext context) {
@@ -108,32 +101,32 @@ class _AccountListTile extends StatelessWidget {
       onTap: () => Navigator.of(context).push(
         MaterialPageRoute(
           builder: (context) => AccountDetailPage(
-            account: Account(name: name, description: description, rating: rating, avatarUrl: avatarUrl, isFriend: isFriend)
+            account: account
           )
         )
       ),
       leading: CircleAvatar(
-        child: avatarUrl == null || avatarUrl == "" ? Text(
-          name.characters.first,
+        child: account.avatarUrl == null || account.avatarUrl == "" ? Text(
+          account.name.characters.first,
           style: TextStyle(color: Colors.white),
         ) : null,
-        backgroundColor: avatarUrl == null || avatarUrl == "" ? Colors.grey : null,
-        backgroundImage: !(avatarUrl == null || avatarUrl == "") ? NetworkImage(avatarUrl) : null,
+        backgroundColor: account.avatarUrl == null || account.avatarUrl == "" ? Colors.grey : null,
+        backgroundImage: !(account.avatarUrl == null || account.avatarUrl == "") ? NetworkImage(account.avatarUrl) : null,
       ),
       title: Text(
-        name,
+        account.name,
         style: TextStyle(color: Colors.white),
       ),
       subtitle: Row(
         children: [
-          RatedHeart(rate: min(1, max(0, rating - 0)), size: 30), // origin -> Icon(Icons.favorite, size: 30, color: rating >= 1 ? Colors.pink.withOpacity(0.5) : Colors.white)
-          RatedHeart(rate: min(1, max(0, rating - 1)), size: 30),
-          RatedHeart(rate: min(1, max(0, rating - 2)), size: 30),
-          RatedHeart(rate: min(1, max(0, rating - 3)), size: 30),
-          RatedHeart(rate: min(1, max(0, rating - 4)), size: 30),
+          RatedHeart(rate: min(1, max(0, account.rating - 0)), size: 30), // origin -> Icon(Icons.favorite, size: 30, color: rating >= 1 ? Colors.pink.withOpacity(0.5) : Colors.white)
+          RatedHeart(rate: min(1, max(0, account.rating - 1)), size: 30),
+          RatedHeart(rate: min(1, max(0, account.rating - 2)), size: 30),
+          RatedHeart(rate: min(1, max(0, account.rating - 3)), size: 30),
+          RatedHeart(rate: min(1, max(0, account.rating - 4)), size: 30),
         ],
       ),
-      trailing: isFriend ? RaisedButton(
+      trailing: account.isFriend ? RaisedButton(
         child: Text(
           "Friend",
           style: TextStyle(color: Colors.orange),
@@ -163,11 +156,7 @@ class _AccountList extends StatelessWidget {
   Column _buildContents(AsyncSnapshot<List<Account>> snapshot) {
     return Column(
       children: snapshot.data.map((value) => _AccountListTile( // TODO: use Account
-        name: value.name,
-        description: value.description,
-        rating: value.rating,
-        isFriend: value.isFriend,
-        avatarUrl: value.avatarUrl,
+        account: value,
       )).toList()
     );
   }
