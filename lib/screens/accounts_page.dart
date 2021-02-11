@@ -158,11 +158,9 @@ class _AccountList extends StatelessWidget {
 
   final accountService = AccountService();
 
-  Column _buildContents(AsyncSnapshot<List<Account>> snapshot) {
+  Column _buildContents(List<Account> list) {
     return Column(
-      children: snapshot.data.map((value) => _AccountListTile( // TODO: use Account
-        account: value,
-      )).toList()
+      children: list.map((value) => _AccountListTile(account: value)).toList()
     );
   }
 
@@ -177,7 +175,7 @@ class _AccountList extends StatelessWidget {
         if (snapshot.data == null) {
           return Center(child: Text("NO DATA"));
         }
-        return _buildContents(snapshot);
+        return _buildContents(snapshot.data);
       },
     );
   }
