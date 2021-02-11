@@ -161,12 +161,13 @@ class _Contents extends HookWidget {
           margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
           child: TextField(
             controller: textEditingController,
+            style: TextStyle(color: Colors.white),
             decoration: InputDecoration(
               hintText: "Search...",
               hintStyle: TextStyle(color: Colors.white),
               prefixIcon: IconButton(
-                icon: Icon(Icons.search, color: Colors.white),
-                onPressed: () { },
+                icon: Icon(Icons.clear, color: Colors.white),
+                onPressed: () => textEditingController.clear(),
               ),
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.white, width: 0.0),
