@@ -151,37 +151,9 @@ class _AccountListTile extends StatelessWidget {
   }
 }
 
-class _AccountList extends StatelessWidget {
-  _AccountList({
-    Key key,
-  }) : super(key: key);
-
+class _Contents extends HookWidget {
   final accountService = AccountService();
 
-  Column _buildContents(List<Account> list) {
-    return Column(
-      children: list.map((value) => _AccountListTile(account: value)).toList()
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder<List<Account>>(
-      future: accountService.findAccounts(),
-      builder: (BuildContext context, AsyncSnapshot<List<Account>> snapshot) {
-        if (snapshot.hasError) {
-          return Center(child: Text(snapshot.error.toString()));
-        }
-        if (snapshot.data == null) {
-          return Center(child: Text("NO DATA"));
-        }
-        return _buildContents(snapshot.data);
-      },
-    );
-  }
-}
-
-class _Contents extends HookWidget {
   Widget _buildHeader({final TextEditingController textEditingController}) {
     return Column(
       children: [
@@ -207,6 +179,27 @@ class _Contents extends HookWidget {
     );
   }
 
+  Widget _buildContents(final String searchText) {
+    return FutureBuilder<List<Account>>(
+      future: accountService.findAccounts(),
+      builder: (BuildContext context, AsyncSnapshot<List<Account>> snapshot) {
+        if (snapshot.hasError) {
+          return Center(child: Text(snapshot.error.toString()));
+        }
+        if (snapshot.data == null) {
+          return Center(child: Text("NO DATA"));
+        }
+        return _buildAccountList(searchText, snapshot.data);
+      },
+    );
+  }
+
+  Widget _buildAccountList(final String searchText, final List<Account> list) {
+    return Column(
+      children: list.map((value) => _AccountListTile(account: value)).toList()
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final TextEditingController textEditingController = useTextEditingController();
@@ -218,7 +211,7 @@ class _Contents extends HookWidget {
         _buildHeader(textEditingController: textEditingController),
         Expanded(
           child: SingleChildScrollView(
-            child: _AccountList()
+            child: _buildContents(textEditingController.text)
           ),
         ),
         SizedBox(height: 50),
