@@ -5,14 +5,6 @@ import 'package:linnefromice/models/account.dart';
 import 'package:linnefromice/services/authentication_service.dart';
 
 class SettingsPage extends StatelessWidget {
-  AvatarArea _buildAvatarArea({final double diameter, final Account account}) {
-    return AvatarArea(
-      diameter: diameter,
-      image: !(account.avatarUrl == null || account.avatarUrl == "") ? NetworkImage(account.avatarUrl) : null,
-      child: account.avatarUrl == null || account.avatarUrl == "" ? Text("NO IMAGE", style: TextStyle(color: Colors.black)) : null,
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final Account account = AuthenticationService.currentAccount;
@@ -30,15 +22,17 @@ class SettingsPage extends StatelessWidget {
                 children: [
                   Container(
                     margin: EdgeInsets.symmetric(vertical: 5.0),
-                    padding: EdgeInsets.all(10.0),
-                    child: AvatarArea(
-                      diameter: MediaQuery.of(context).size.width * 0.8,
-                      image: !(account.avatarUrl == null || account.avatarUrl == "") ? NetworkImage(account.avatarUrl) : null,
+                    padding: EdgeInsets.all(15.0),
+                    child: CircleAvatar(
+                      maxRadius: 150,
                       child: account.avatarUrl == null || account.avatarUrl == "" ? Text("NO IMAGE", style: TextStyle(color: Colors.black)) : null,
-                    ),
+                      backgroundImage: !(account.avatarUrl == null || account.avatarUrl == "") ? NetworkImage(account.avatarUrl) : null,
+                      backgroundColor: Colors.white,
+                    )
                   ),
                   Container(
                     margin: EdgeInsets.symmetric(vertical: 5.0),
+                    padding: EdgeInsets.all(15.0),
                     child: Text(account.name)
                   ),
                 ],
