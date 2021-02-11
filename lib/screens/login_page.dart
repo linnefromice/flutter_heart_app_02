@@ -72,179 +72,6 @@ class LoginPage extends HookWidget {
     }
   }
 
-  @override
-  Widget build(BuildContext context) {
-    final _localPartController = useTextEditingController();
-    final _passwordController = useTextEditingController();
-    final _isObscureText = useState(true);
-    final _selectedDomain = useState(domainList.first);
-
-    return Scaffold(
-      body: WrapperCommonBackground(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Container(
-              margin: EdgeInsets.symmetric(vertical: 16.0),
-              child: _buildTitle(),
-            ),
-            _buildDescriptionLine("You can reflect"),
-            _buildDescriptionLine("feelings to actually evaluations..."),
-            Container( // Input Email
-              margin: EdgeInsets.symmetric(vertical: 8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Flexible(
-                    child: _buildEmailField(_localPartController),
-                  ),
-                  Container(
-                    margin: EdgeInsets.symmetric(horizontal: 4.0),
-                    child: Text("@", style: TextStyle(color: Colors.white))
-                  ),
-                  _buildEmailDomainSelector(_selectedDomain)
-                ]
-              ),
-            ),
-            Container( // Input Password
-              margin: EdgeInsets.symmetric(vertical: 8.0),
-              child: _buildPasswordField(_passwordController, _isObscureText),
-            ),
-            Container(
-              margin: EdgeInsets.symmetric(vertical: 8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    "Show password",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  Theme(
-                    data: ThemeData(
-                      primarySwatch: Colors.grey,
-                      unselectedWidgetColor: Colors.white
-                    ),
-                    child: Checkbox(
-                      value: _isObscureText.value,
-                      onChanged: (value) => _isObscureText.value = value,
-                    ),
-                  )
-                ],
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.symmetric(vertical: 16.0),
-              child: _buildLoginButton(context, _localPartController, _selectedDomain, _passwordController),
-            ),
-            Container(
-              margin: EdgeInsets.symmetric(vertical: 4.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  _buildAddAccountButton(context),
-                  _buildDeleteAccountButton(context)
-                ],
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.symmetric(vertical: 4.0),
-              child: _buildRecalculateRatingButton(context),
-            )
-          ],
-        )
-      ),
-    );
-  }
-
-  ElevatedButton _buildAddAccountButton(BuildContext context) {
-    return ElevatedButton.icon(
-      icon: Icon(
-        Icons.build,
-        size: 24,
-        color: Colors.white,
-      ),
-      label: Text(
-        "DEBUG\nadd account",
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: 12,
-        ),
-      ),
-      style: ElevatedButton.styleFrom(
-        primary: Colors.transparent,
-        onPrimary: Colors.black,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(10))
-        ),
-      ),
-      onPressed: () => Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) => AddAccountPage()
-        )
-      )
-    );
-  }
-
-  ElevatedButton _buildDeleteAccountButton(BuildContext context) {
-    return ElevatedButton.icon(
-        icon: Icon(
-          Icons.build,
-          size: 24,
-          color: Colors.white,
-        ),
-        label: Text(
-          "DEBUG\ndelete account",
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 12,
-          ),
-        ),
-        style: ElevatedButton.styleFrom(
-          primary: Colors.transparent,
-          onPrimary: Colors.black,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(10))
-          ),
-        ),
-        onPressed: () => Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => DeleteAccountPage()
-          )
-        )
-    );
-  }
-
-  ElevatedButton _buildRecalculateRatingButton(BuildContext context) {
-    return ElevatedButton.icon(
-        icon: Icon(
-          Icons.build,
-          size: 24,
-          color: Colors.white,
-        ),
-        label: Text(
-          "DEBUG\nrecalculate rating",
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 12,
-          ),
-        ),
-        style: ElevatedButton.styleFrom(
-          primary: Colors.transparent,
-          onPrimary: Colors.black,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(10))
-          ),
-        ),
-        onPressed: () => Navigator.of(context).push(
-          MaterialPageRoute(
-              builder: (context) => RecalculateRatingPage()
-          )
-        )
-    );
-  }
-
   ElevatedButton _buildLoginButton(BuildContext context, TextEditingController localPartController, ValueNotifier<String> selectedDomain, TextEditingController passwordController) {
     return ElevatedButton.icon(
       icon: Icon(
@@ -335,6 +162,180 @@ class LoginPage extends HookWidget {
           borderRadius: BorderRadius.circular(32.0)
         )
       ),
+    );
+  }
+  
+  @override
+  Widget build(BuildContext context) {
+    final _localPartController = useTextEditingController();
+    final _passwordController = useTextEditingController();
+    final _isObscureText = useState(true);
+    final _selectedDomain = useState(domainList.first);
+
+    return Scaffold(
+      body: WrapperCommonBackground(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                margin: EdgeInsets.symmetric(vertical: 16.0),
+                child: _buildTitle(),
+              ),
+              _buildDescriptionLine("You can reflect"),
+              _buildDescriptionLine("feelings to actually evaluations..."),
+              Container( // Input Email
+                margin: EdgeInsets.symmetric(vertical: 8.0),
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Flexible(
+                        child: _buildEmailField(_localPartController),
+                      ),
+                      Container(
+                          margin: EdgeInsets.symmetric(horizontal: 4.0),
+                          child: Text("@", style: TextStyle(color: Colors.white))
+                      ),
+                      _buildEmailDomainSelector(_selectedDomain)
+                    ]
+                ),
+              ),
+              Container( // Input Password
+                margin: EdgeInsets.symmetric(vertical: 8.0),
+                child: _buildPasswordField(_passwordController, _isObscureText),
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(vertical: 8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Show password",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    Theme(
+                      data: ThemeData(
+                          primarySwatch: Colors.grey,
+                          unselectedWidgetColor: Colors.white
+                      ),
+                      child: Checkbox(
+                        value: _isObscureText.value,
+                        onChanged: (value) => _isObscureText.value = value,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(vertical: 16.0),
+                child: _buildLoginButton(context, _localPartController, _selectedDomain, _passwordController),
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(vertical: 4.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    _buildAddAccountButton(context),
+                    _buildDeleteAccountButton(context)
+                  ],
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(vertical: 4.0),
+                child: _buildRecalculateRatingButton(context),
+              )
+            ],
+          )
+      ),
+    );
+  }
+
+  // For DEBUG
+  ElevatedButton _buildAddAccountButton(BuildContext context) {
+    return ElevatedButton.icon(
+        icon: Icon(
+          Icons.build,
+          size: 24,
+          color: Colors.white,
+        ),
+        label: Text(
+          "DEBUG\nadd account",
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 12,
+          ),
+        ),
+        style: ElevatedButton.styleFrom(
+          primary: Colors.transparent,
+          onPrimary: Colors.black,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10))
+          ),
+        ),
+        onPressed: () => Navigator.of(context).push(
+            MaterialPageRoute(
+                builder: (context) => AddAccountPage()
+            )
+        )
+    );
+  }
+
+  ElevatedButton _buildDeleteAccountButton(BuildContext context) {
+    return ElevatedButton.icon(
+        icon: Icon(
+          Icons.build,
+          size: 24,
+          color: Colors.white,
+        ),
+        label: Text(
+          "DEBUG\ndelete account",
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 12,
+          ),
+        ),
+        style: ElevatedButton.styleFrom(
+          primary: Colors.transparent,
+          onPrimary: Colors.black,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10))
+          ),
+        ),
+        onPressed: () => Navigator.of(context).push(
+            MaterialPageRoute(
+                builder: (context) => DeleteAccountPage()
+            )
+        )
+    );
+  }
+
+  ElevatedButton _buildRecalculateRatingButton(BuildContext context) {
+    return ElevatedButton.icon(
+        icon: Icon(
+          Icons.build,
+          size: 24,
+          color: Colors.white,
+        ),
+        label: Text(
+          "DEBUG\nrecalculate rating",
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 12,
+          ),
+        ),
+        style: ElevatedButton.styleFrom(
+          primary: Colors.transparent,
+          onPrimary: Colors.black,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10))
+          ),
+        ),
+        onPressed: () => Navigator.of(context).push(
+            MaterialPageRoute(
+                builder: (context) => RecalculateRatingPage()
+            )
+        )
     );
   }
 }
