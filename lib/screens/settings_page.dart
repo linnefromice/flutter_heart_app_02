@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:linnefromice/components/avatar_area.dart';
 import 'package:linnefromice/components/wrapper_common_background.dart';
 import 'package:linnefromice/models/account.dart';
 import 'package:linnefromice/services/authentication_service.dart';
