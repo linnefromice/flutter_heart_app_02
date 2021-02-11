@@ -191,11 +191,8 @@ class _AccountList extends StatelessWidget {
   }
 }
 
-class AccountsPage extends HookWidget {
-  final GlobalKey<FabCircularMenuState> fabKey = GlobalKey();
-  final Connectivity _connectivity = Connectivity();
-
-  Widget _buildHeader({final ValueNotifier valueNotifier, final TextEditingController textEditingController}) {
+class _Contents extends HookWidget {
+  Widget _buildHeader({final TextEditingController textEditingController}) {
     return Column(
       children: [
         Container(
@@ -207,16 +204,7 @@ class AccountsPage extends HookWidget {
               hintStyle: TextStyle(color: Colors.white),
               prefixIcon: IconButton(
                 icon: Icon(Icons.search, color: Colors.white),
-                onPressed: () { // does not work...
-                  print(textEditingController.text);
-                  final text = textEditingController.text;
-                  final results = List();
-                  valueNotifier.value((v) {
-                    if (v["name"].contains(text)) results.add(v);
-                  });
-                  valueNotifier.value = results;
-                  print(results);
-                },
+                onPressed: () { },
               ),
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.white, width: 0.0),
@@ -231,8 +219,30 @@ class AccountsPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ValueNotifier _datas = useState(datas);
     final TextEditingController textEditingController = useTextEditingController();
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        SizedBox(height: 50),
+        _buildHeader(textEditingController: textEditingController),
+        Expanded(
+          child: SingleChildScrollView(
+            child: _AccountList(hasConnectivity: true)
+          ),
+        ),
+        SizedBox(height: 50),
+      ],
+    );
+  }
+}
+
+class AccountsPage extends HookWidget {
+  final GlobalKey<FabCircularMenuState> fabKey = GlobalKey();
+  final Connectivity _connectivity = Connectivity();
+
+  @override
+  Widget build(BuildContext context) {
     final hasConnectivityController = useStreamController<bool>(keys: ["hasConnectivity"]);
 
     useEffect(
@@ -254,45 +264,30 @@ class AccountsPage extends HookWidget {
 
     return Scaffold(
       body: WrapperCommonBackground(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(height: 50),
-            _buildHeader(
-              valueNotifier: _datas,
-              textEditingController: textEditingController
-            ),
-            Expanded(
-              child: SingleChildScrollView(
-                child: HookBuilder(
-                  builder: (context) {
-                    // final AsyncSnapshot<bool> hasConnectivity = useStream(hasConnectivityController.stream); // if use useEffect & useStreamController
-                    final AsyncSnapshot<bool> hasConnectivity = useFuture(_connectivity.checkConnectivity().then((value) {
-                      switch (value) {
-                        case ConnectivityResult.wifi:
-                        case ConnectivityResult.mobile:
-                          return true;
-                        case ConnectivityResult.none:
-                        default:
-                          return false;
-                      }
-                    }));
-                    return !hasConnectivity.hasData
-                        ? Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              CircularProgressIndicator(),
-                              Text("Loading ...")
-                            ],
-                          )
-                        : _AccountList(hasConnectivity: hasConnectivity.data);
-                  }
-                ),
-              ),
-            ),
-            SizedBox(height: 50),
-          ],
+        child: HookBuilder(
+          builder: (context) {
+            // final AsyncSnapshot<bool> hasConnectivity = useStream(hasConnectivityController.stream); // if use useEffect & useStreamController
+            final AsyncSnapshot<bool> hasConnectivity = useFuture(_connectivity.checkConnectivity().then((value) {
+              switch (value) {
+                case ConnectivityResult.wifi:
+                case ConnectivityResult.mobile:
+                  return true;
+                case ConnectivityResult.none:
+                default:
+                  return false;
+              }
+            }));
+            return !hasConnectivity.hasData
+              ? Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    CircularProgressIndicator(),
+                    Text("Loading ...")
+                  ],
+                )
+              : _Contents();
+          }
         )
       ),
       floatingActionButton: Builder(
