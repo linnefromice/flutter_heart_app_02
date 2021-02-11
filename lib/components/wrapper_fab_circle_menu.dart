@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:linnefromice/screens/evaluations_page.dart';
 import 'package:linnefromice/screens/home_page.dart';
 import 'package:linnefromice/screens/accounts_page.dart';
+import 'package:linnefromice/screens/settings_page.dart';
 
 class WrapperFabCircularMenu extends StatelessWidget {
   WrapperFabCircularMenu({
@@ -51,7 +52,9 @@ class WrapperFabCircularMenu extends StatelessWidget {
         ),
         _buildRawMaterialButton(
           icon: Icon(Icons.settings, color: Colors.white),
-          onPressed: () => print("Unimplemented"),
+          onPressed: () => Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => SettingsPage()),
+          ),
         ),
         _buildRawMaterialButton(
           icon: Icon(Icons.close, color: Colors.white),
