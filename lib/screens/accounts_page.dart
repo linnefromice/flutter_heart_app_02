@@ -95,6 +95,22 @@ class _AccountListTile extends StatelessWidget {
 
   final Account account;
 
+  Widget _buildCircleAvatar(final Account account) {
+    if (account.avatarUrl == null || account.avatarUrl == "") {
+      return CircleAvatar(
+        child: Text(
+          account.name.characters.first,
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: Colors.grey
+      );
+    } else {
+      return CircleAvatar(
+        backgroundImage: NetworkImage(account.avatarUrl),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return ListTile(
@@ -105,26 +121,15 @@ class _AccountListTile extends StatelessWidget {
           )
         )
       ),
-      leading: CircleAvatar(
-        child: account.avatarUrl == null || account.avatarUrl == "" ? Text(
-          account.name.characters.first,
-          style: TextStyle(color: Colors.white),
-        ) : null,
-        backgroundColor: account.avatarUrl == null || account.avatarUrl == "" ? Colors.grey : null,
-        backgroundImage: !(account.avatarUrl == null || account.avatarUrl == "") ? NetworkImage(account.avatarUrl) : null,
-      ),
+      leading: _buildCircleAvatar(account),
       title: Text(
         account.name,
         style: TextStyle(color: Colors.white),
       ),
       subtitle: Row(
-        children: [
-          RatedHeart(rate: min(1, max(0, account.rating - 0)), size: 30), // origin -> Icon(Icons.favorite, size: 30, color: rating >= 1 ? Colors.pink.withOpacity(0.5) : Colors.white)
-          RatedHeart(rate: min(1, max(0, account.rating - 1)), size: 30),
-          RatedHeart(rate: min(1, max(0, account.rating - 2)), size: 30),
-          RatedHeart(rate: min(1, max(0, account.rating - 3)), size: 30),
-          RatedHeart(rate: min(1, max(0, account.rating - 4)), size: 30),
-        ],
+        children: List.generate(5, (index) => RatedHeart(
+          rate: min(1, max(0, account.rating - index)), size: 30)
+        ),
       ),
       trailing: account.isFriend ? RaisedButton(
         child: Text(
