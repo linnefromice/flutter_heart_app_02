@@ -195,8 +195,17 @@ class _Contents extends HookWidget {
   }
 
   Widget _buildAccountList(final String searchText, final List<Account> list) {
+    final List<_AccountListTile> children = [];
+    if (searchText == null || searchText == "") { // 全検索
+      list.forEach((element) => children.add(_AccountListTile(account: element)));
+    } else {
+      list.forEach((element) {
+        if (element.name.contains(searchText)) children.add(_AccountListTile(account: element));
+      });
+    }
+
     return Column(
-      children: list.map((value) => _AccountListTile(account: value)).toList()
+      children: children
     );
   }
 
