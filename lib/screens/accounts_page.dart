@@ -156,10 +156,8 @@ class _AccountListTile extends StatelessWidget {
 class _AccountList extends StatelessWidget {
   _AccountList({
     Key key,
-    this.hasConnectivity
   }) : super(key: key);
 
-  final bool hasConnectivity;
   final accountService = AccountService();
 
   Column _buildContents(AsyncSnapshot<List<Account>> snapshot) {
@@ -169,7 +167,7 @@ class _AccountList extends StatelessWidget {
         description: value.description,
         rating: value.rating,
         isFriend: value.isFriend,
-        avatarUrl: hasConnectivity ? value.avatarUrl : null,
+        avatarUrl: value.avatarUrl,
       )).toList()
     );
   }
@@ -228,7 +226,7 @@ class _Contents extends HookWidget {
         _buildHeader(textEditingController: textEditingController),
         Expanded(
           child: SingleChildScrollView(
-            child: _AccountList(hasConnectivity: true)
+            child: _AccountList()
           ),
         ),
         SizedBox(height: 50),
