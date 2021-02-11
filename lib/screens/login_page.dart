@@ -72,7 +72,7 @@ class LoginPage extends HookWidget {
     }
   }
 
-  ElevatedButton _buildLoginButton(BuildContext context, TextEditingController localPartController, ValueNotifier<String> selectedDomain, TextEditingController passwordController) {
+  ElevatedButton _buildButtonRelatedAuthentication({final String label, final Function onPressed}) {
     return ElevatedButton.icon(
       icon: Icon(
         Icons.login,
@@ -80,7 +80,7 @@ class LoginPage extends HookWidget {
         color: Colors.white,
       ),
       label: Text(
-        "LOGIN",
+        label,
         style: TextStyle(
           color: Colors.white,
           fontSize: 18,
@@ -90,9 +90,16 @@ class LoginPage extends HookWidget {
         primary: Colors.transparent,
         onPrimary: Colors.black,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(10))
+            borderRadius: BorderRadius.all(Radius.circular(10))
         ),
       ),
+      onPressed: onPressed,
+    );
+  }
+
+  ElevatedButton _buildLoginButton(BuildContext context, TextEditingController localPartController, ValueNotifier<String> selectedDomain, TextEditingController passwordController) {
+    return _buildButtonRelatedAuthentication(
+      label: "LOGIN",
       onPressed: () => _authenticate(
         context: context,
         localPart: localPartController.text,
@@ -123,7 +130,7 @@ class LoginPage extends HookWidget {
       ),
     );
   }
-
+  
   Theme _buildEmailDomainSelector(ValueNotifier<String> selectedDomain) {
     return Theme(
       data: ThemeData(
@@ -164,7 +171,7 @@ class LoginPage extends HookWidget {
       ),
     );
   }
-  
+
   @override
   Widget build(BuildContext context) {
     final _localPartController = useTextEditingController();
