@@ -140,9 +140,14 @@ class SignUpPage extends HookWidget {
   TextField _buildTextField(final TextEditingController _controller, final String label) {
     return TextField(
       controller: _controller,
+      style: TextStyle(color: Colors.white),
       keyboardType: TextInputType.name,
       decoration: InputDecoration(
-          hintText: label
+        hintText: label,
+        hintStyle: TextStyle(color: Colors.white),
+        enabledBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: Colors.white),
+        )
       ),
     );
   }
@@ -154,9 +159,14 @@ class SignUpPage extends HookWidget {
         Expanded(
           child: TextField(
             controller: _avatarUrlController,
+            style: TextStyle(color: Colors.white),
             keyboardType: TextInputType.text,
             decoration: InputDecoration(
-                hintText: "AvatarUrl"
+                hintText: "AvatarUrl",
+                hintStyle: TextStyle(color: Colors.white),
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white),
+                )
             ),
           ),
         ),
