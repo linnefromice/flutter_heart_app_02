@@ -42,10 +42,28 @@ class SignUpPage extends HookWidget {
   ElevatedButton _buildSubmitButton(BuildContext context, TextEditingController localPartController, ValueNotifier<String> selectedDomain, TextEditingController passwordController) {
     return _buildButtonRelatedAuthentication(
         iconData: Icons.person_add,
-        label: "SIGN UP\nif no account",
+        label: "SIGN UP",
         onPressed: () => {}
     );
   }
+
+  Widget _buildTitle() => Text(
+    "Create Account",
+    style: TextStyle(
+        color: Colors.white,
+        fontSize: 24,
+        fontStyle: FontStyle.italic,
+        fontWeight: FontWeight.bold
+    ),
+  );
+
+  Widget _buildDescriptionLine(final String description) => Text(
+    description,
+    style: TextStyle(
+      color: Colors.white,
+      fontSize: 18,
+    ),
+  );
 
   TextField _buildEmailField(TextEditingController localPartController) {
     return TextField(
@@ -123,6 +141,11 @@ class SignUpPage extends HookWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            Container(
+              margin: EdgeInsets.symmetric(vertical: 16.0),
+              child: _buildTitle(),
+            ),
+            _buildDescriptionLine("Please enter your account information."),
             Container( // Input Email
               margin: EdgeInsets.symmetric(vertical: 8.0),
               child: Row(
