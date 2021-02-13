@@ -7,7 +7,7 @@ class AccountService {
   final _defaultSortKey = "updatedAt";
 
   Account _generateModelFromQueryDocumentSnapshot(QueryDocumentSnapshot snapshot) => Account(
-    id: snapshot.id,
+    id: snapshot.data()["id"], // snapshot.id,
     name: snapshot.data()["name"],
     description: snapshot.data()["description"],
     rating: snapshot.data()["rating"],
@@ -27,7 +27,7 @@ class AccountService {
   }
 
   Account _generateModelFromDocumentSnapshot(DocumentSnapshot snapshot) => Account(
-    id: snapshot.id,
+    id: snapshot.data()["id"], // snapshot.id,
     name: snapshot.data()["name"],
     description: snapshot.data()["description"],
     rating: snapshot.data()["rating"],
@@ -51,10 +51,11 @@ class AccountService {
     return _generateModelFromDocumentSnapshot(querySnapshot.docs.first);
   }
 
-  Future<void> createAccount({ final String name, final String description, final double rating, final bool isFriend, final String avatarUrl }) async {
+  Future<void> createAccount({ final String id, final String name, final String description, final double rating, final bool isFriend, final String avatarUrl }) async {
     final DateTime now = DateTime.now();
     _instance.collection(_collectionName).add(
-        Account(
+      Account(
+        id: id,
         name: name,
         description: description,
         rating: rating,
