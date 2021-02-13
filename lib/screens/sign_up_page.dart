@@ -1,3 +1,4 @@
+import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:linnefromice/components/wrapper_common_background.dart';
@@ -136,12 +137,51 @@ class SignUpPage extends HookWidget {
     );
   }
 
+  TextField _buildTextField(final TextEditingController _controller, final String label) {
+    return TextField(
+      controller: _controller,
+      keyboardType: TextInputType.name,
+      decoration: InputDecoration(
+          hintText: label
+      ),
+    );
+  }
+
+  Row _buildAvatarUrlField(TextEditingController _avatarUrlController) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        Expanded(
+          child: TextField(
+            controller: _avatarUrlController,
+            keyboardType: TextInputType.text,
+            decoration: InputDecoration(
+                hintText: "AvatarUrl"
+            ),
+          ),
+        ),
+        IconButton(
+          icon: Icon(Icons.crop_free),
+          onPressed: () => FlutterClipboard.paste().then((value) {
+            _avatarUrlController.text = value;
+          }),
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    // For authentication
     final _localPartController = useTextEditingController();
     final _passwordController = useTextEditingController();
     final _isObscureText = useState(true);
     final _selectedDomain = useState(domainList.first);
+    // Fpr Account
+    final _nameController = useTextEditingController();
+    final _descriptionController = useTextEditingController();
+    final _avatarUrlController = useTextEditingController();
+
 
     return Scaffold(
       body: WrapperCommonBackground(
@@ -196,6 +236,21 @@ class SignUpPage extends HookWidget {
                   )
                 ],
               ),
+            ),
+            Container(
+              margin: EdgeInsets.symmetric(vertical: 8.0),
+              padding: EdgeInsets.symmetric(horizontal: 10.0),
+              child: _buildTextField(_nameController, "Name"),
+            ),
+            Container(
+              margin: EdgeInsets.symmetric(vertical: 8.0),
+              padding: EdgeInsets.symmetric(horizontal: 10.0),
+              child: _buildTextField(_descriptionController, "Description"),
+            ),
+            Container(
+              margin: EdgeInsets.symmetric(vertical: 8.0),
+              padding: EdgeInsets.symmetric(horizontal: 10.0),
+              child: _buildAvatarUrlField(_avatarUrlController),
             ),
             Container(
               margin: EdgeInsets.symmetric(vertical: 16.0),
