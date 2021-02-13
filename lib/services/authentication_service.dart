@@ -29,4 +29,36 @@ class AuthenticationService {
       return "Internal Server Error";
     }
   }
+
+  Future<String> signUp({final String email, final String password, final String name, final String description, final String avatarUrl}) async {
+    try {
+      UserCredential credential = await _firebaseAuthInstance
+        .createUserWithEmailAndPassword(
+          email: email,
+          password: password
+        );
+      
+      // Account作成
+      await accountService.createAccount(
+        id: credential.user.uid,
+        name: name,
+        description: description,
+        rating: 0,
+        isFriend: false, // initial status
+        avatarUrl: avatarUrl,
+      );
+      currentAccount = await accountService.findAccount(credential.user.uid); // TODO エラーハンドリング
+      return null;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        return "The password provided is too weak.";
+      } else if (e.code == 'email-already-in-use') {
+        return "The account already exists for that email.";
+      }
+      return "Internal Server Error";
+    } catch (e) {
+      print(e);
+      return "Internal Server Error";
+    }
+  }
 }
