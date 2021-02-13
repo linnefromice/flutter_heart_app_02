@@ -4,7 +4,6 @@ import 'package:linnefromice/services/account_service.dart';
 
 final FirebaseAuth _firebaseAuthInstance = FirebaseAuth.instance;
 
-
 class AuthenticationService {
   final accountService = AccountService();
   static Account currentAccount;
@@ -37,7 +36,7 @@ class AuthenticationService {
           email: email,
           password: password
         );
-      
+
       // Account作成
       await accountService.createAccount(
         id: credential.user.uid,
