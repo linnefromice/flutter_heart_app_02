@@ -7,7 +7,8 @@ final List<String> _domainList = [
   "au.com",
   "docomo.ne.jp",
   "i.softbank.jp",
-  "softbank.ne.jp"
+  "softbank.ne.jp",
+  "mognet.com"
 ];
 final String defaultDomain = _domainList.first;
 
