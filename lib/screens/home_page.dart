@@ -11,33 +11,6 @@ import 'package:linnefromice/screens/evaluate_page.dart';
 import 'package:linnefromice/services/account_service.dart';
 import 'package:linnefromice/services/authentication_service.dart';
 
-final List datas = [
-  {
-    "name": "Zidane Tribal",
-    "rating": 4,
-    "avatarUrl": "https://static.wikia.nocookie.net/finalfantasy/images/1/11/Zidane_Tribal_character.png/revision/latest/scale-to-width-down/84?cb=20120811142151"
-  },
-  {
-    "name": "Dagger",
-    "rating": 4,
-    "avatarUrl": "https://static.wikia.nocookie.net/finalfantasy/images/e/e8/Garnet_Til_Alexandros_XVII_character.jpg/revision/latest/scale-to-width-down/55?cb=20130321045317"
-  },
-  {
-    "name": "Vivi Orunitia",
-    "rating": 3,
-    "avatarUrl": "https://static.wikia.nocookie.net/finalfantasy/images/b/b5/Vivi_Ornitier_from_Final_Fantasy_IX_render.png/revision/latest/scale-to-width-down/94?cb=20200516160037"
-  },
-  {
-    "name": "Adelbert Steiner",
-    "rating": 2,
-    "avatarUrl": "https://static.wikia.nocookie.net/finalfantasy/images/3/3f/Adelbert_Steiner_from_Final_Fantasy_IX_render.png/revision/latest/scale-to-width-down/104?cb=20200523163741"
-  },
-  {
-    "name": "Kuja",
-    "rating": 5,
-  },
-];
-
 class HomePage extends StatelessWidget {
   final GlobalKey<FabCircularMenuState> fabKey = GlobalKey();
   final accountService = AccountService();

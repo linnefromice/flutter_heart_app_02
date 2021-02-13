@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:linnefromice/components/commons_related_authentication.dart';
 import 'package:linnefromice/components/wrapper_common_background.dart';
 import 'package:linnefromice/screens/add_account_page.dart';
 import 'package:linnefromice/screens/delete_account_page.dart';
@@ -7,16 +8,6 @@ import 'package:linnefromice/screens/home_page.dart';
 import 'package:linnefromice/screens/recalculate_rating_page.dart';
 import 'package:linnefromice/screens/sign_up_page.dart';
 import 'package:linnefromice/services/authentication_service.dart';
-
-final List<String> domainList = [
-  "gmail.com",
-  "yahoo.co.jp",
-  "ezweb.ne.jp",
-  "au.com",
-  "docomo.ne.jp",
-  "i.softbank.jp",
-  "softbank.ne.jp"
-];
 
 class LoginPage extends HookWidget {
   final authService = AuthenticationService();
@@ -73,33 +64,8 @@ class LoginPage extends HookWidget {
     }
   }
 
-  ElevatedButton _buildButtonRelatedAuthentication({final String label, final IconData iconData, final Function onPressed}) {
-    return ElevatedButton.icon(
-      icon: Icon(
-        iconData,
-        size: 48,
-        color: Colors.white,
-      ),
-      label: Text(
-        label,
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: 18,
-        ),
-      ),
-      style: ElevatedButton.styleFrom(
-        primary: Colors.transparent,
-        onPrimary: Colors.black,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(10))
-        ),
-      ),
-      onPressed: onPressed,
-    );
-  }
-
   ElevatedButton _buildLoginButton(BuildContext context, TextEditingController localPartController, ValueNotifier<String> selectedDomain, TextEditingController passwordController) {
-    return _buildButtonRelatedAuthentication(
+    return buildButtonRelatedAuthentication(
       iconData: Icons.login,
       label: "LOGIN",
       onPressed: () => _authenticate(
@@ -112,74 +78,10 @@ class LoginPage extends HookWidget {
   }
 
   ElevatedButton _buildSignUpButton(BuildContext context) {
-    return _buildButtonRelatedAuthentication(
+    return buildButtonRelatedAuthentication(
       iconData: Icons.person_add,
       label: "SIGN UP\nif no account",
       onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => SignUpPage()))
-    );
-  }
-
-
-  TextField _buildPasswordField(TextEditingController passwordController, ValueNotifier<bool> _isObscureText) {
-    return TextField(
-      controller: passwordController,
-      keyboardType: TextInputType.text,
-      obscureText: _isObscureText.value,
-      style: TextStyle(
-        fontSize: 18.0,
-        color: Colors.white
-      ),
-      decoration: InputDecoration(
-        contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-        prefixIcon: Icon(Icons.lock, color: Colors.white),
-        hintText: "Password",
-        hintStyle: TextStyle(color: Colors.white),
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.white),
-          borderRadius: BorderRadius.circular(32.0),
-        )
-      ),
-    );
-  }
-
-  Theme _buildEmailDomainSelector(ValueNotifier<String> selectedDomain) {
-    return Theme(
-      data: ThemeData(
-        canvasColor: Colors.grey
-      ),
-      child: DropdownButtonHideUnderline(
-        child: DropdownButton<String>(
-          value: selectedDomain.value,
-          onChanged: (value) => selectedDomain.value = value,
-          style: TextStyle(color: Colors.white),
-          items: domainList.map((value) => DropdownMenuItem(
-            value: value,
-            child: Text(value),
-          )) .toList(),
-        ),
-      ),
-    );
-  }
-
-  TextField _buildEmailField(TextEditingController localPartController) {
-    return TextField(
-      controller: localPartController,
-      keyboardType: TextInputType.emailAddress,
-      obscureText: false,
-      style: TextStyle(
-        fontSize: 18.0,
-        color: Colors.white
-      ),
-      decoration: InputDecoration(
-        contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-        prefixIcon: Icon(Icons.account_circle, color: Colors.white),
-        hintText: "Email",
-        hintStyle: TextStyle(color: Colors.white),
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.white),
-          borderRadius: BorderRadius.circular(32.0)
-        )
-      ),
     );
   }
 
@@ -188,7 +90,7 @@ class LoginPage extends HookWidget {
     final _localPartController = useTextEditingController();
     final _passwordController = useTextEditingController();
     final _isObscureText = useState(true);
-    final _selectedDomain = useState(domainList.first);
+    final _selectedDomain = useState(defaultDomain);
 
     return Scaffold(
       body: WrapperCommonBackground(
@@ -208,19 +110,19 @@ class LoginPage extends HookWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Flexible(
-                        child: _buildEmailField(_localPartController),
+                        child: buildEmailField(_localPartController),
                       ),
                       Container(
                           margin: EdgeInsets.symmetric(horizontal: 4.0),
                           child: Text("@", style: TextStyle(color: Colors.white))
                       ),
-                      _buildEmailDomainSelector(_selectedDomain)
+                      buildEmailDomainSelector(_selectedDomain)
                     ]
                 ),
               ),
               Container( // Input Password
                 margin: EdgeInsets.symmetric(vertical: 8.0),
-                child: _buildPasswordField(_passwordController, _isObscureText),
+                child: buildPasswordField(_passwordController, _isObscureText),
               ),
               Container(
                 margin: EdgeInsets.symmetric(vertical: 8.0),
