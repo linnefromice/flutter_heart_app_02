@@ -39,6 +39,14 @@ class SignUpPage extends HookWidget {
     );
   }
 
+  ElevatedButton _buildBackButton(BuildContext context) {
+    return _buildButtonRelatedAuthentication(
+        iconData: Icons.arrow_back,
+        label: "Back",
+        onPressed: () => Navigator.of(context).pop()
+    );
+  }
+
   ElevatedButton _buildSubmitButton(BuildContext context, TextEditingController localPartController, ValueNotifier<String> selectedDomain, TextEditingController passwordController) {
     return _buildButtonRelatedAuthentication(
         iconData: Icons.person_add,
@@ -191,7 +199,13 @@ class SignUpPage extends HookWidget {
             ),
             Container(
               margin: EdgeInsets.symmetric(vertical: 16.0),
-              child: _buildSubmitButton(context, _localPartController, _selectedDomain, _passwordController),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  _buildBackButton(context),
+                  _buildSubmitButton(context, _localPartController, _selectedDomain, _passwordController),
+                ],
+              ),
             ),
           ]
         )
