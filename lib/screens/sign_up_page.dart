@@ -2,6 +2,8 @@ import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:linnefromice/components/wrapper_common_background.dart';
+import 'package:linnefromice/screens/home_page.dart';
+import 'package:linnefromice/services/authentication_service.dart';
 
 final List<String> domainList = [
   "gmail.com",
@@ -14,6 +16,55 @@ final List<String> domainList = [
 ];
 
 class SignUpPage extends HookWidget {
+  final authService = AuthenticationService();
+
+  Widget _buildErrorDialog(final BuildContext context, final String title) {
+    return AlertDialog(
+      title: Text(
+        title,
+        style: TextStyle(color: Colors.red),
+      ),
+      actions: <Widget>[
+        TextButton(
+          child: Text('OK'),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+      ],
+    );
+  }
+
+  void _signUp(
+      final BuildContext context,
+      final String localPart,
+      final String domain,
+      final String password,
+      final String name,
+      final String description,
+      final String avatarUrl
+    ) async {
+    final String errorMessage = await authService.signUp(
+      email: localPart + "@" + domain,
+      password: password,
+      name: name,
+      description: description,
+      avatarUrl: avatarUrl
+    );
+    if (errorMessage == null) {
+      Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomePage()));
+    } else {
+      showDialog(
+          context: context,
+          builder: (BuildContext buildContext) {
+            return _buildErrorDialog(
+              context,
+              errorMessage
+            );
+          }
+      );
+    }
+  }
 
   ElevatedButton _buildButtonRelatedAuthentication({final String label, final IconData iconData, final Function onPressed}) {
     return ElevatedButton.icon(
@@ -48,11 +99,27 @@ class SignUpPage extends HookWidget {
     );
   }
 
-  ElevatedButton _buildSubmitButton(BuildContext context, TextEditingController localPartController, ValueNotifier<String> selectedDomain, TextEditingController passwordController) {
+  ElevatedButton _buildSubmitButton(
+      BuildContext context,
+      TextEditingController localPartController,
+      ValueNotifier<String> selectedDomain,
+      TextEditingController passwordController,
+      TextEditingController nameController,
+      TextEditingController descriptionController,
+      TextEditingController avatarUrlController
+    ) {
     return _buildButtonRelatedAuthentication(
-        iconData: Icons.person_add,
-        label: "SIGN UP",
-        onPressed: () => {}
+      iconData: Icons.person_add,
+      label: "SIGN UP",
+      onPressed: () => _signUp(
+        context,
+        localPartController.text,
+        selectedDomain.value,
+        passwordController.text,
+        nameController.text,
+        descriptionController.text,
+        avatarUrlController.text
+      )
     );
   }
 
@@ -268,7 +335,15 @@ class SignUpPage extends HookWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   _buildBackButton(context),
-                  _buildSubmitButton(context, _localPartController, _selectedDomain, _passwordController),
+                  _buildSubmitButton(
+                    context,
+                    _localPartController,
+                    _selectedDomain,
+                    _passwordController,
+                    _nameController,
+                    _descriptionController,
+                    _avatarUrlController
+                  ),
                 ],
               ),
             ),
