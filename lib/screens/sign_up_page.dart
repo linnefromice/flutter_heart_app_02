@@ -6,16 +6,6 @@ import 'package:linnefromice/components/wrapper_common_background.dart';
 import 'package:linnefromice/screens/home_page.dart';
 import 'package:linnefromice/services/authentication_service.dart';
 
-final List<String> domainList = [
-  "gmail.com",
-  "yahoo.co.jp",
-  "ezweb.ne.jp",
-  "au.com",
-  "docomo.ne.jp",
-  "i.softbank.jp",
-  "softbank.ne.jp"
-];
-
 class SignUpPage extends HookWidget {
   final authService = AuthenticationService();
 
@@ -166,7 +156,7 @@ class SignUpPage extends HookWidget {
     final _localPartController = useTextEditingController();
     final _passwordController = useTextEditingController();
     final _isObscureText = useState(true);
-    final _selectedDomain = useState(domainList.first);
+    final _selectedDomain = useState(defaultDomain);
     // Fpr Account
     final _nameController = useTextEditingController();
     final _descriptionController = useTextEditingController();

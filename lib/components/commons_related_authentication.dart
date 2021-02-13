@@ -9,6 +9,7 @@ final List<String> _domainList = [
   "i.softbank.jp",
   "softbank.ne.jp"
 ];
+final String defaultDomain = _domainList.first;
 
 ElevatedButton buildButtonRelatedAuthentication({final String label, final IconData iconData, final Function onPressed}) {
   return ElevatedButton.icon(
