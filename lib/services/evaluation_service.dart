@@ -8,6 +8,7 @@ class EvaluationService {
 
   Evaluation _generateModelFromQueryDocumentSnapshot(QueryDocumentSnapshot snapshot) => Evaluation(
     id: snapshot.id,
+    fromUserId: snapshot.data()["fromUserId"],
     toUserId: snapshot.data()["toUserId"],
     rating: snapshot.data()["rating"],
     createdDate: snapshot.data()["createdDate"],
@@ -29,6 +30,7 @@ class EvaluationService {
 
   Evaluation _generateModelFromDocumentSnapshot(DocumentSnapshot snapshot) => Evaluation(
     id: snapshot.id,
+    fromUserId: snapshot.data()["fromUserId"],
     toUserId: snapshot.data()["toUserId"],
     rating: snapshot.data()["rating"],
     createdDate: snapshot.data()["createdDate"],
@@ -71,13 +73,14 @@ class EvaluationService {
 
 
 
-  Future<void> createEvaluation({ final String userId, final double rating}) async {
+  Future<void> createEvaluation({ final String fromUserId, final String toUserId, final double rating}) async {
     final _roundedRating = double.parse(rating.toStringAsFixed(2)); // format to X.XX
     final DateTime now = DateTime.now();
     final String nowDate = now.year.toString().padLeft(4,"0") + now.month.toString().padLeft(2,"0") + now.day.toString().padLeft(2,"0");
     _instance.collection(_collectionName).add(
       Evaluation(
-        toUserId: userId,
+        fromUserId: fromUserId,
+        toUserId: toUserId,
         rating: _roundedRating,
         createdDate: nowDate,
         createdAt: now.toIso8601String(),
