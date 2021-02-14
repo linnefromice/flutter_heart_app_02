@@ -8,7 +8,8 @@ part 'evaluation.g.dart';
 abstract class Evaluation with _$Evaluation {
   const factory Evaluation({
     String id,
-    String userId,
+    String fromUserId,
+    String toUserId,
     double rating,
     String createdDate,
     String createdAt, // temp (instead of DateTime)
