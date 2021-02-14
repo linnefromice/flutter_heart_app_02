@@ -36,7 +36,7 @@ class EvaluationsPage extends StatelessWidget {
    );
    final List<_EvaluationWithAccount> results = evaluations.map((e) => _EvaluationWithAccount(
      evaluation: e,
-     account: userMap[e.userId]
+     account: userMap[e.toUserId]
    )).toList();
    return results;
   }

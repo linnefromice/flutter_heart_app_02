@@ -8,7 +8,7 @@ class EvaluationService {
 
   Evaluation _generateModelFromQueryDocumentSnapshot(QueryDocumentSnapshot snapshot) => Evaluation(
     id: snapshot.id,
-    userId: snapshot.data()["userId"],
+    toUserId: snapshot.data()["toUserId"],
     rating: snapshot.data()["rating"],
     createdDate: snapshot.data()["createdDate"],
     createdAt: snapshot.data()["createdAt"],
@@ -29,7 +29,7 @@ class EvaluationService {
 
   Evaluation _generateModelFromDocumentSnapshot(DocumentSnapshot snapshot) => Evaluation(
     id: snapshot.id,
-    userId: snapshot.data()["userId"],
+    toUserId: snapshot.data()["toUserId"],
     rating: snapshot.data()["rating"],
     createdDate: snapshot.data()["createdDate"],
     createdAt: snapshot.data()["createdAt"],
@@ -77,7 +77,7 @@ class EvaluationService {
     final String nowDate = now.year.toString().padLeft(4,"0") + now.month.toString().padLeft(2,"0") + now.day.toString().padLeft(2,"0");
     _instance.collection(_collectionName).add(
       Evaluation(
-        userId: userId,
+        toUserId: userId,
         rating: _roundedRating,
         createdDate: nowDate,
         createdAt: now.toIso8601String(),

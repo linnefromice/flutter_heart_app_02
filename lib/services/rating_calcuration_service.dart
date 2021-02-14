@@ -27,7 +27,7 @@ class RatingCalculationService {
     final List<Evaluation> evaluations = await evaluationService.findEvaluations();
 
     final List<RatingInformation> results = accounts.map((account) {
-      final List<Evaluation> selectedEvaluations = evaluations.where((el) => el.userId == account.id).toList();
+      final List<Evaluation> selectedEvaluations = evaluations.where((el) => el.toUserId == account.id).toList();
       if (selectedEvaluations.isNotEmpty) {
         final List<double> values = selectedEvaluations.map((element) => element.rating).toList();
         return RatingInformation(
