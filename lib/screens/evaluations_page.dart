@@ -14,11 +14,13 @@ import 'package:linnefromice/services/evaluation_service.dart';
 class _EvaluationWithAccount {
   _EvaluationWithAccount({
     @required this.evaluation,
-    @required this.account,
+    @required this.fromAccount,
+    @required this.toAccount,
   });
 
   final Evaluation evaluation;
-  final Account account;
+  final Account fromAccount;
+  final Account toAccount;
 }
 
 class EvaluationsPage extends StatelessWidget {
@@ -36,7 +38,8 @@ class EvaluationsPage extends StatelessWidget {
    );
    final List<_EvaluationWithAccount> results = evaluations.map((e) => _EvaluationWithAccount(
      evaluation: e,
-     account: userMap[e.userId]
+     fromAccount: userMap[e.fromUserId],
+     toAccount: userMap[e.toUserId]
    )).toList();
    return results;
   }
@@ -67,7 +70,7 @@ class EvaluationsPage extends StatelessWidget {
                         ),
                       ),
                       title: Text(
-                        "-> ${item.account.name}",
+                        "${item.fromAccount.name} -> ${item.toAccount.name}",
                         style: TextStyle(
                           color: Colors.white
                         ),

@@ -19,7 +19,8 @@ class _$EvaluationTearOff {
 // ignore: unused_element
   _Evaluation call(
       {String id,
-      String userId,
+      String fromUserId,
+      String toUserId,
       double rating,
       String createdDate,
       String createdAt,
@@ -27,7 +28,8 @@ class _$EvaluationTearOff {
       int version}) {
     return _Evaluation(
       id: id,
-      userId: userId,
+      fromUserId: fromUserId,
+      toUserId: toUserId,
       rating: rating,
       createdDate: createdDate,
       createdAt: createdAt,
@@ -49,7 +51,8 @@ const $Evaluation = _$EvaluationTearOff();
 /// @nodoc
 mixin _$Evaluation {
   String get id;
-  String get userId;
+  String get fromUserId;
+  String get toUserId;
   double get rating;
   String get createdDate;
   String get createdAt; // temp (instead of DateTime)
@@ -68,7 +71,8 @@ abstract class $EvaluationCopyWith<$Res> {
       _$EvaluationCopyWithImpl<$Res>;
   $Res call(
       {String id,
-      String userId,
+      String fromUserId,
+      String toUserId,
       double rating,
       String createdDate,
       String createdAt,
@@ -87,7 +91,8 @@ class _$EvaluationCopyWithImpl<$Res> implements $EvaluationCopyWith<$Res> {
   @override
   $Res call({
     Object id = freezed,
-    Object userId = freezed,
+    Object fromUserId = freezed,
+    Object toUserId = freezed,
     Object rating = freezed,
     Object createdDate = freezed,
     Object createdAt = freezed,
@@ -96,7 +101,9 @@ class _$EvaluationCopyWithImpl<$Res> implements $EvaluationCopyWith<$Res> {
   }) {
     return _then(_value.copyWith(
       id: id == freezed ? _value.id : id as String,
-      userId: userId == freezed ? _value.userId : userId as String,
+      fromUserId:
+          fromUserId == freezed ? _value.fromUserId : fromUserId as String,
+      toUserId: toUserId == freezed ? _value.toUserId : toUserId as String,
       rating: rating == freezed ? _value.rating : rating as double,
       createdDate:
           createdDate == freezed ? _value.createdDate : createdDate as String,
@@ -115,7 +122,8 @@ abstract class _$EvaluationCopyWith<$Res> implements $EvaluationCopyWith<$Res> {
   @override
   $Res call(
       {String id,
-      String userId,
+      String fromUserId,
+      String toUserId,
       double rating,
       String createdDate,
       String createdAt,
@@ -136,7 +144,8 @@ class __$EvaluationCopyWithImpl<$Res> extends _$EvaluationCopyWithImpl<$Res>
   @override
   $Res call({
     Object id = freezed,
-    Object userId = freezed,
+    Object fromUserId = freezed,
+    Object toUserId = freezed,
     Object rating = freezed,
     Object createdDate = freezed,
     Object createdAt = freezed,
@@ -145,7 +154,9 @@ class __$EvaluationCopyWithImpl<$Res> extends _$EvaluationCopyWithImpl<$Res>
   }) {
     return _then(_Evaluation(
       id: id == freezed ? _value.id : id as String,
-      userId: userId == freezed ? _value.userId : userId as String,
+      fromUserId:
+          fromUserId == freezed ? _value.fromUserId : fromUserId as String,
+      toUserId: toUserId == freezed ? _value.toUserId : toUserId as String,
       rating: rating == freezed ? _value.rating : rating as double,
       createdDate:
           createdDate == freezed ? _value.createdDate : createdDate as String,
@@ -162,7 +173,8 @@ class __$EvaluationCopyWithImpl<$Res> extends _$EvaluationCopyWithImpl<$Res>
 class _$_Evaluation with DiagnosticableTreeMixin implements _Evaluation {
   const _$_Evaluation(
       {this.id,
-      this.userId,
+      this.fromUserId,
+      this.toUserId,
       this.rating,
       this.createdDate,
       this.createdAt,
@@ -175,7 +187,9 @@ class _$_Evaluation with DiagnosticableTreeMixin implements _Evaluation {
   @override
   final String id;
   @override
-  final String userId;
+  final String fromUserId;
+  @override
+  final String toUserId;
   @override
   final double rating;
   @override
@@ -189,7 +203,7 @@ class _$_Evaluation with DiagnosticableTreeMixin implements _Evaluation {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Evaluation(id: $id, userId: $userId, rating: $rating, createdDate: $createdDate, createdAt: $createdAt, updatedAt: $updatedAt, version: $version)';
+    return 'Evaluation(id: $id, fromUserId: $fromUserId, toUserId: $toUserId, rating: $rating, createdDate: $createdDate, createdAt: $createdAt, updatedAt: $updatedAt, version: $version)';
   }
 
   @override
@@ -198,7 +212,8 @@ class _$_Evaluation with DiagnosticableTreeMixin implements _Evaluation {
     properties
       ..add(DiagnosticsProperty('type', 'Evaluation'))
       ..add(DiagnosticsProperty('id', id))
-      ..add(DiagnosticsProperty('userId', userId))
+      ..add(DiagnosticsProperty('fromUserId', fromUserId))
+      ..add(DiagnosticsProperty('toUserId', toUserId))
       ..add(DiagnosticsProperty('rating', rating))
       ..add(DiagnosticsProperty('createdDate', createdDate))
       ..add(DiagnosticsProperty('createdAt', createdAt))
@@ -212,8 +227,12 @@ class _$_Evaluation with DiagnosticableTreeMixin implements _Evaluation {
         (other is _Evaluation &&
             (identical(other.id, id) ||
                 const DeepCollectionEquality().equals(other.id, id)) &&
-            (identical(other.userId, userId) ||
-                const DeepCollectionEquality().equals(other.userId, userId)) &&
+            (identical(other.fromUserId, fromUserId) ||
+                const DeepCollectionEquality()
+                    .equals(other.fromUserId, fromUserId)) &&
+            (identical(other.toUserId, toUserId) ||
+                const DeepCollectionEquality()
+                    .equals(other.toUserId, toUserId)) &&
             (identical(other.rating, rating) ||
                 const DeepCollectionEquality().equals(other.rating, rating)) &&
             (identical(other.createdDate, createdDate) ||
@@ -233,7 +252,8 @@ class _$_Evaluation with DiagnosticableTreeMixin implements _Evaluation {
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(id) ^
-      const DeepCollectionEquality().hash(userId) ^
+      const DeepCollectionEquality().hash(fromUserId) ^
+      const DeepCollectionEquality().hash(toUserId) ^
       const DeepCollectionEquality().hash(rating) ^
       const DeepCollectionEquality().hash(createdDate) ^
       const DeepCollectionEquality().hash(createdAt) ^
@@ -254,7 +274,8 @@ class _$_Evaluation with DiagnosticableTreeMixin implements _Evaluation {
 abstract class _Evaluation implements Evaluation {
   const factory _Evaluation(
       {String id,
-      String userId,
+      String fromUserId,
+      String toUserId,
       double rating,
       String createdDate,
       String createdAt,
@@ -267,7 +288,9 @@ abstract class _Evaluation implements Evaluation {
   @override
   String get id;
   @override
-  String get userId;
+  String get fromUserId;
+  @override
+  String get toUserId;
   @override
   double get rating;
   @override
