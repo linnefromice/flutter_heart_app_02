@@ -126,26 +126,10 @@ class LoginPage extends HookWidget {
               ),
               Container(
                 margin: EdgeInsets.symmetric(vertical: 8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Show password",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    Theme(
-                      data: ThemeData(
-                          primarySwatch: Colors.grey,
-                          unselectedWidgetColor: Colors.white
-                      ),
-                      child: Checkbox(
-                        value: _isObscureText.value,
-                        onChanged: (value) => _isObscureText.value = value,
-                      ),
-                    )
-                  ],
-                ),
+                child: buildObscureCheckbox(
+                  label: "Show Password",
+                  isObscureText: _isObscureText
+                )
               ),
               Container(
                 margin: EdgeInsets.symmetric(vertical: 16.0),

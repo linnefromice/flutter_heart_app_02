@@ -106,7 +106,7 @@ Row buildObscureCheckbox({final String label, final ValueNotifier<bool> isObscur
     crossAxisAlignment: CrossAxisAlignment.center,
     children: [
       Text(
-        "Show password",
+        label,
         style: TextStyle(color: Colors.white),
       ),
       Theme(
