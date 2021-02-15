@@ -17,7 +17,10 @@ class AuthenticationService {
           email: email,
           password: password
         );
-      currentAccount = await accountService.findAccount(credential.user.uid); // TODO エラーハンドリング
+      currentAccount = await accountService.findAccount(credential.user.uid);
+      if (currentAccount == null) {
+        return "Internal Server Error (Not found related user)";
+      }
       return null;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
@@ -46,7 +49,10 @@ class AuthenticationService {
         isFriend: false, // initial status
         avatarUrl: avatarUrl,
       );
-      currentAccount = await accountService.findAccount(credential.user.uid); // TODO エラーハンドリング
+      currentAccount = await accountService.findAccount(credential.user.uid);
+      if (currentAccount == null) {
+        return "Internal Server Error (Not found related user)";
+      }
       return null;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
