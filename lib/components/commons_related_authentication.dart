@@ -99,3 +99,26 @@ TextField buildPasswordField(TextEditingController passwordController, ValueNoti
     ),
   );
 }
+
+Row buildObscureCheckbox({final String label, final ValueNotifier<bool> isObscureText}) {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.end,
+    crossAxisAlignment: CrossAxisAlignment.center,
+    children: [
+      Text(
+        "Show password",
+        style: TextStyle(color: Colors.white),
+      ),
+      Theme(
+        data: ThemeData(
+            primarySwatch: Colors.grey,
+            unselectedWidgetColor: Colors.white
+        ),
+        child: Checkbox(
+          value: isObscureText.value,
+          onChanged: (value) => isObscureText.value = value,
+        ),
+      )
+    ],
+  );
+}
