@@ -162,7 +162,6 @@ class SignUpPage extends HookWidget {
     final _descriptionController = useTextEditingController();
     final _avatarUrlController = useTextEditingController();
 
-
     return Scaffold(
       body: WrapperCommonBackground(
         child: Column(

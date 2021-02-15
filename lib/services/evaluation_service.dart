@@ -71,8 +71,6 @@ class EvaluationService {
     ).toList();
   }
 
-
-
   Future<void> createEvaluation({ final String fromUserId, final String toUserId, final double rating}) async {
     final _roundedRating = double.parse(rating.toStringAsFixed(2)); // format to X.XX
     final DateTime now = DateTime.now();
