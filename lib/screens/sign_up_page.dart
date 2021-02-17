@@ -157,7 +157,7 @@ class SignUpPage extends HookWidget {
     final _passwordController = useTextEditingController();
     final _isHiddenPassword = useState(true);
     final _selectedDomain = useState(defaultDomain);
-    // Fpr Account
+    // For Account
     final _nameController = useTextEditingController();
     final _descriptionController = useTextEditingController();
     final _avatarUrlController = useTextEditingController();
