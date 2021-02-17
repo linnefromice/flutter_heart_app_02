@@ -78,6 +78,10 @@ class _Content extends HookWidget {
     );
     final _name = useState(accounts[_initialPageIndex].name);
     final _rating = useState(accounts[_initialPageIndex].rating);
+    _pageController.addListener(() {
+      _name.value = accounts[_pageController.page.toInt()].name;
+      _rating.value = accounts[_pageController.page.toInt()].rating;
+    });
 
     return Stack(
       children: [
