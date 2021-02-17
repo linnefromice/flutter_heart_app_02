@@ -78,11 +78,11 @@ Theme buildEmailDomainSelector(ValueNotifier<String> selectedDomain) {
   );
 }
 
-TextField buildPasswordField(TextEditingController passwordController, ValueNotifier<bool> _isObscureText) {
+TextField buildPasswordField(TextEditingController passwordController, bool isObscure) {
   return TextField(
     controller: passwordController,
     keyboardType: TextInputType.text,
-    obscureText: _isObscureText.value,
+    obscureText: isObscure,
     style: TextStyle(
         fontSize: 18.0,
         color: Colors.white
@@ -100,7 +100,7 @@ TextField buildPasswordField(TextEditingController passwordController, ValueNoti
   );
 }
 
-Row buildObscureCheckbox({final String label, final ValueNotifier<bool> isObscureText}) {
+Row buildObscureCheckbox({final String label, final ValueNotifier<bool> status}) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.end,
     crossAxisAlignment: CrossAxisAlignment.center,
@@ -115,8 +115,8 @@ Row buildObscureCheckbox({final String label, final ValueNotifier<bool> isObscur
             unselectedWidgetColor: Colors.white
         ),
         child: Checkbox(
-          value: isObscureText.value,
-          onChanged: (value) => isObscureText.value = value,
+          value: status.value,
+          onChanged: (value) => status.value = value,
         ),
       )
     ],

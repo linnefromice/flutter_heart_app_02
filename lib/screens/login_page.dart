@@ -122,13 +122,13 @@ class LoginPage extends HookWidget {
               ),
               Container( // Input Password
                 margin: EdgeInsets.symmetric(vertical: 8.0),
-                child: buildPasswordField(_passwordController, _isObscureText),
+                child: buildPasswordField(_passwordController, _isObscureText.value),
               ),
               Container(
                 margin: EdgeInsets.symmetric(vertical: 8.0),
                 child: buildObscureCheckbox(
                   label: "Show Password",
-                  isObscureText: _isObscureText
+                  status: _isObscureText
                 )
               ),
               Container(
