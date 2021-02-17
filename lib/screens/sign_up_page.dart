@@ -155,7 +155,7 @@ class SignUpPage extends HookWidget {
     // For authentication
     final _localPartController = useTextEditingController();
     final _passwordController = useTextEditingController();
-    final _isObscureText = useState(true);
+    final _isHiddenPassword = useState(true);
     final _selectedDomain = useState(defaultDomain);
     // Fpr Account
     final _nameController = useTextEditingController();
@@ -191,13 +191,13 @@ class SignUpPage extends HookWidget {
             ),
             Container( // Input Password
               margin: EdgeInsets.symmetric(vertical: 8.0),
-              child: buildPasswordField(_passwordController, _isObscureText.value),
+              child: buildPasswordField(_passwordController, !_isHiddenPassword.value),
             ),
             Container(
               margin: EdgeInsets.symmetric(vertical: 8.0),
               child: buildObscureCheckbox(
                 label: "Show Password",
-                status: _isObscureText
+                status: _isHiddenPassword
               )
             ),
             Container(
