@@ -3,7 +3,7 @@ import 'package:linnefromice/models/evaluation.dart';
 
 class EvaluationService {
   final _instance = FirebaseFirestore.instance;
-  final _collectionName = "evaluation";
+  final _collectionName = "evaluations";
   final _defaultSortKey = "updatedAt";
 
   Evaluation _generateModelFromQueryDocumentSnapshot(QueryDocumentSnapshot snapshot) => Evaluation(
@@ -70,8 +70,6 @@ class EvaluationService {
         (DocumentSnapshot documentSnapshot) => _generateModelFromDocumentSnapshot(documentSnapshot)
     ).toList();
   }
-
-
 
   Future<void> createEvaluation({ final String fromUserId, final String toUserId, final double rating}) async {
     final _roundedRating = double.parse(rating.toStringAsFixed(2)); // format to X.XX

@@ -89,7 +89,7 @@ class LoginPage extends HookWidget {
   Widget build(BuildContext context) {
     final _localPartController = useTextEditingController();
     final _passwordController = useTextEditingController();
-    final _isObscureText = useState(true);
+    final _isHiddenPassword = useState(true);
     final _selectedDomain = useState(defaultDomain);
 
     return Scaffold(
@@ -122,30 +122,14 @@ class LoginPage extends HookWidget {
               ),
               Container( // Input Password
                 margin: EdgeInsets.symmetric(vertical: 8.0),
-                child: buildPasswordField(_passwordController, _isObscureText),
+                child: buildPasswordField(_passwordController, !_isHiddenPassword.value),
               ),
               Container(
                 margin: EdgeInsets.symmetric(vertical: 8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Show password",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    Theme(
-                      data: ThemeData(
-                          primarySwatch: Colors.grey,
-                          unselectedWidgetColor: Colors.white
-                      ),
-                      child: Checkbox(
-                        value: _isObscureText.value,
-                        onChanged: (value) => _isObscureText.value = value,
-                      ),
-                    )
-                  ],
-                ),
+                child: buildObscureCheckbox(
+                  label: "Show Password",
+                  status: _isHiddenPassword
+                )
               ),
               Container(
                 margin: EdgeInsets.symmetric(vertical: 16.0),
