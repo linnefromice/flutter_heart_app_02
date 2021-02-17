@@ -109,8 +109,6 @@ class _Content extends HookWidget {
                     duration: Duration(milliseconds: 500),
                     curve: Curves.easeInOut,
                   );
-                  _name.value = accounts[nextPageIndex].name;
-                  _rating.value = accounts[nextPageIndex].rating;
                 }
               ),
               SizedBox(width: 200),
@@ -125,8 +123,6 @@ class _Content extends HookWidget {
                     duration: Duration(milliseconds: 500),
                     curve: Curves.easeInOut,
                   );
-                  _name.value = accounts[nextPageIndex].name;
-                  _rating.value = accounts[nextPageIndex].rating;
                 }
               ),
             ],
