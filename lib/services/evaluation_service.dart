@@ -3,7 +3,7 @@ import 'package:linnefromice/models/evaluation.dart';
 
 class EvaluationService {
   final _instance = FirebaseFirestore.instance;
-  final _collectionName = "evaluation";
+  final _collectionName = "evaluations";
   final _defaultSortKey = "updatedAt";
 
   Evaluation _generateModelFromQueryDocumentSnapshot(QueryDocumentSnapshot snapshot) => Evaluation(
