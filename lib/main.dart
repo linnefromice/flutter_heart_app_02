@@ -1,7 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:linnefromice/components/wrapper_common_background.dart';
-import 'package:linnefromice/screens/login_page.dart';
+
+import 'components/wrapper_common_background.dart';
+import 'screens/login_page.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,11 +26,11 @@ class App extends StatelessWidget {
           if (snapshot.hasError) {
             return _ErrorView();
           }
-          // Once complete, show your application
+          // show your application
           if (snapshot.connectionState == ConnectionState.done) {
             return LoginPage();
           }
-          // Otherwise, show something whilst waiting for initialization to complete
+          // show something whilst waiting for initialization to complete
           return _LoadingView();
         },
       ),

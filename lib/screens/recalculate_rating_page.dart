@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:linnefromice/components/common_snack_bars.dart';
-import 'package:linnefromice/components/wrapper_common_background.dart';
-import 'package:linnefromice/models/account.dart';
-import 'package:linnefromice/services/account_service.dart';
-import 'package:linnefromice/services/rating_calcuration_service.dart';
+
+import '../components/common_snack_bars.dart';
+import '../components/wrapper_common_background.dart';
+import '../models/account.dart';
+import '../services/account_service.dart';
+import '../services/rating_calcuration_service.dart';
 
 class _Contents extends StatelessWidget {
   _Contents({
@@ -14,7 +15,9 @@ class _Contents extends StatelessWidget {
   final List<RatingInformation> datas;
   final accountService = AccountService();
 
-  Future<void> _commitAllRecalculatedRating(final List<RatingInformation> datas) async {
+  Future<void> _commitAllRecalculatedRating(
+    final List<RatingInformation> datas
+  ) async {
     final List<Account> users = await accountService.findAccounts();
     datas.forEach((element) => accountService.updateRating(
         element.userId,
@@ -63,7 +66,7 @@ class _Contents extends StatelessWidget {
         _buildExecuteButton(context),
         SingleChildScrollView(
           child: Column(
-            children: datas.map((e) => _buildCard(e)).toList(),
+            children: datas.map(_buildCard).toList(),
           ),
         )
       ],
@@ -89,7 +92,7 @@ class RecalculateRatingPage extends StatelessWidget {
       body: WrapperCommonBackground(
         child: FutureBuilder<List<RatingInformation>>(
           future: ratingCalculationService.getNewRatingInformationList(),
-          builder: (BuildContext context, AsyncSnapshot<List<RatingInformation>> snapshot) {
+          builder: (context, snapshot) {
             if (snapshot.hasError) return Center(child: Text(snapshot.error.toString()));
             if (snapshot.hasData) return _Contents(datas: snapshot.data);
             return Center(child: _buildProgressing());

@@ -1,9 +1,10 @@
 import 'package:fab_circular_menu/fab_circular_menu.dart';
 import 'package:flutter/material.dart';
-import 'package:linnefromice/components/wrapper_common_background.dart';
-import 'package:linnefromice/components/wrapper_fab_circle_menu.dart';
-import 'package:linnefromice/models/account.dart';
-import 'package:linnefromice/services/authentication_service.dart';
+
+import '../components/wrapper_common_background.dart';
+import '../components/wrapper_fab_circle_menu.dart';
+import '../models/account.dart';
+import '../services/authentication_service.dart';
 
 class SettingsPage extends StatelessWidget {
   final GlobalKey<FabCircularMenuState> fabKey = GlobalKey();
@@ -36,8 +37,12 @@ class SettingsPage extends StatelessWidget {
                     padding: EdgeInsets.all(15.0),
                     child: CircleAvatar(
                       maxRadius: 150,
-                      child: account.avatarUrl == null || account.avatarUrl == "" ? Text("NO IMAGE", style: TextStyle(color: Colors.black)) : null,
-                      backgroundImage: !(account.avatarUrl == null || account.avatarUrl == "") ? NetworkImage(account.avatarUrl) : null,
+                      child: account.avatarUrl == null || account.avatarUrl == ""
+                        ? Text("NO IMAGE", style: TextStyle(color: Colors.black))
+                        : null,
+                      backgroundImage: !(account.avatarUrl == null || account.avatarUrl == "")
+                        ? NetworkImage(account.avatarUrl)
+                        : null,
                       backgroundColor: Colors.white,
                     )
                   ),

@@ -1,9 +1,10 @@
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:linnefromice/components/common_snack_bars.dart';
-import 'package:linnefromice/components/wrapper_common_background.dart';
-import 'package:linnefromice/services/account_service.dart';
+
+import '../components/common_snack_bars.dart';
+import '../components/wrapper_common_background.dart';
+import '../services/account_service.dart';
 
 class AddAccountPage extends HookWidget {
   final accountService = AccountService();
@@ -74,7 +75,10 @@ class AddAccountPage extends HookWidget {
   
   Text _buildPageTitle() => Text("Add User");
 
-  TextField _buildTextField(final TextEditingController _controller, final String label) {
+  TextField _buildTextField(
+    final TextEditingController _controller,
+    final String label
+  ) {
     return TextField(
       controller: _controller,
       keyboardType: TextInputType.name,
@@ -92,9 +96,9 @@ class AddAccountPage extends HookWidget {
         DropdownButton<double>(
           value: state.value,
           icon: Icon(Icons.arrow_downward),
-          onChanged: (double value) => state.value = value,
+          onChanged: (value) => state.value = value,
           items: <double>[0, 1, 2, 3, 4, 5]
-              .map<DropdownMenuItem<double>>((double value) {
+              .map<DropdownMenuItem<double>>((value) {
             return DropdownMenuItem<double>(
               value: value,
               child: Text(value.toString()),
@@ -128,7 +132,13 @@ class AddAccountPage extends HookWidget {
     );
   }
 
-  ElevatedButton _buildSubmitButton(BuildContext context, TextEditingController _nameController, TextEditingController _descriptionController, double rating, TextEditingController _avatarUrlController) {
+  ElevatedButton _buildSubmitButton(
+    BuildContext context,
+    TextEditingController _nameController,
+    TextEditingController _descriptionController,
+    double rating,
+    TextEditingController _avatarUrlController
+  ) {
     return ElevatedButton.icon(
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all(Colors.grey)

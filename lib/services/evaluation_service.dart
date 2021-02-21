@@ -1,12 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:linnefromice/models/evaluation.dart';
+
+import '../models/evaluation.dart';
 
 class EvaluationService {
   final _instance = FirebaseFirestore.instance;
   final _collectionName = "evaluations";
   final _defaultSortKey = "updatedAt";
 
-  Evaluation _generateModelFromQueryDocumentSnapshot(QueryDocumentSnapshot snapshot) => Evaluation(
+  Evaluation _generateModelFromQueryDocumentSnapshot(
+    QueryDocumentSnapshot snapshot
+  ) => Evaluation(
     id: snapshot.id,
     fromUserId: snapshot.data()["fromUserId"],
     toUserId: snapshot.data()["toUserId"],
@@ -22,13 +25,15 @@ class EvaluationService {
         .collection(_collectionName)
         .orderBy(_defaultSortKey, descending: true)
         .snapshots().map(
-          (QuerySnapshot querySnapshot) => querySnapshot.docs.map(
-            (QueryDocumentSnapshot queryDocumentSnapshot) => _generateModelFromQueryDocumentSnapshot(queryDocumentSnapshot)
+          (querySnapshot) => querySnapshot.docs.map(
+            _generateModelFromQueryDocumentSnapshot
           ).toList()
     );
   }
 
-  Evaluation _generateModelFromDocumentSnapshot(DocumentSnapshot snapshot) => Evaluation(
+  Evaluation _generateModelFromDocumentSnapshot(
+    DocumentSnapshot snapshot
+  ) => Evaluation(
     id: snapshot.id,
     fromUserId: snapshot.data()["fromUserId"],
     toUserId: snapshot.data()["toUserId"],
@@ -45,33 +50,42 @@ class EvaluationService {
         .orderBy(_defaultSortKey, descending: true)
         .get();
     return querySnapshot.docs.map(
-      (DocumentSnapshot documentSnapshot) => _generateModelFromDocumentSnapshot(documentSnapshot)
+      _generateModelFromDocumentSnapshot
     ).toList();
   }
 
-  Future<List<Evaluation>> findEvaluationsOfSelectedUser(final String userId) async {
+  Future<List<Evaluation>> findEvaluationsOfSelectedUser(
+    final String userId
+  ) async {
     QuerySnapshot querySnapshot = await _instance
         .collection(_collectionName)
         .orderBy(_defaultSortKey, descending: true)
         .where("userId", isEqualTo: userId)
         .get();
     return querySnapshot.docs.map(
-      (DocumentSnapshot documentSnapshot) => _generateModelFromDocumentSnapshot(documentSnapshot)
+      _generateModelFromDocumentSnapshot
     ).toList();
   }
 
-  Future<List<Evaluation>> findEvaluationsOfSelectedPeriod(final String fromCreatedDate, final String toCreatedDate) async {
+  Future<List<Evaluation>> findEvaluationsOfSelectedPeriod(
+    final String fromCreatedDate,
+    final String toCreatedDate
+  ) async {
     QuerySnapshot querySnapshot = await _instance
         .collection(_collectionName)
         .orderBy(_defaultSortKey, descending: true)
         .where("createdAt", isGreaterThanOrEqualTo: fromCreatedDate, isLessThanOrEqualTo: toCreatedDate)
         .get();
     return querySnapshot.docs.map(
-        (DocumentSnapshot documentSnapshot) => _generateModelFromDocumentSnapshot(documentSnapshot)
+        _generateModelFromDocumentSnapshot
     ).toList();
   }
 
-  Future<void> createEvaluation({ final String fromUserId, final String toUserId, final double rating}) async {
+  Future<void> createEvaluation({
+    final String fromUserId,
+    final String toUserId,
+    final double rating
+  }) async {
     final _roundedRating = double.parse(rating.toStringAsFixed(2)); // format to X.XX
     final DateTime now = DateTime.now();
     final String nowDate = now.year.toString().padLeft(4,"0") + now.month.toString().padLeft(2,"0") + now.day.toString().padLeft(2,"0");

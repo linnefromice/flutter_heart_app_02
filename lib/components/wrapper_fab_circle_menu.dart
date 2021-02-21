@@ -1,9 +1,10 @@
 import 'package:fab_circular_menu/fab_circular_menu.dart';
 import 'package:flutter/material.dart';
-import 'package:linnefromice/screens/evaluations_page.dart';
-import 'package:linnefromice/screens/home_page.dart';
-import 'package:linnefromice/screens/accounts_page.dart';
-import 'package:linnefromice/screens/settings_page.dart';
+
+import '../screens/accounts_page.dart';
+import '../screens/evaluations_page.dart';
+import '../screens/home_page.dart';
+import '../screens/settings_page.dart';
 
 class WrapperFabCircularMenu extends StatelessWidget {
   WrapperFabCircularMenu({
@@ -13,7 +14,10 @@ class WrapperFabCircularMenu extends StatelessWidget {
 
   final GlobalKey<FabCircularMenuState> fabKey;
 
-  RawMaterialButton _buildRawMaterialButton({final Icon icon, final Function onPressed}) {
+  RawMaterialButton _buildRawMaterialButton({
+    final Icon icon,
+    final Function onPressed
+  }) {
     return RawMaterialButton(
       onPressed: onPressed,
       shape: CircleBorder(),

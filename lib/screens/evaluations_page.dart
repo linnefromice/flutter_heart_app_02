@@ -2,13 +2,14 @@ import 'dart:math';
 
 import 'package:fab_circular_menu/fab_circular_menu.dart';
 import 'package:flutter/material.dart';
-import 'package:linnefromice/components/rated_heart.dart';
-import 'package:linnefromice/components/wrapper_common_background.dart';
-import 'package:linnefromice/components/wrapper_fab_circle_menu.dart';
-import 'package:linnefromice/models/account.dart';
-import 'package:linnefromice/models/evaluation.dart';
-import 'package:linnefromice/services/account_service.dart';
-import 'package:linnefromice/services/evaluation_service.dart';
+
+import '../components/rated_heart.dart';
+import '../components/wrapper_common_background.dart';
+import '../components/wrapper_fab_circle_menu.dart';
+import '../models/account.dart';
+import '../models/evaluation.dart';
+import '../services/account_service.dart';
+import '../services/evaluation_service.dart';
 
 // TODO: 暫定(本来はevaluationを拡張して、evaluationがAccountを保持する形にしたい)
 class _EvaluationWithAccount {
@@ -50,7 +51,7 @@ class EvaluationsPage extends StatelessWidget {
       body: WrapperCommonBackground(
         child: FutureBuilder<List<_EvaluationWithAccount>> (
           future: _findEvaluationWithUser(),
-          builder: (BuildContext context, AsyncSnapshot<List<_EvaluationWithAccount>> snapshot) {
+          builder: (context, snapshot) {
             if (snapshot.hasError) {
               return Center(child: Text(snapshot.error.toString()));
             }
@@ -78,7 +79,7 @@ class EvaluationsPage extends StatelessWidget {
                       subtitle: Center(
                         child: Row(
                           children: [
-                            RatedHeart(rate: min(1, max(0, item.evaluation.rating - 0)), size: 30), // origin -> Icon(Icons.favorite, size: 30, color: rating >= 1 ? Colors.pink.withOpacity(0.5) : Colors.white)
+                            RatedHeart(rate: min(1, max(0, item.evaluation.rating - 0)), size: 30),
                             RatedHeart(rate: min(1, max(0, item.evaluation.rating - 1)), size: 30),
                             RatedHeart(rate: min(1, max(0, item.evaluation.rating - 2)), size: 30),
                             RatedHeart(rate: min(1, max(0, item.evaluation.rating - 3)), size: 30),

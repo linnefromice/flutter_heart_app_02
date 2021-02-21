@@ -26,7 +26,13 @@ class RatedHeart extends StatelessWidget {
 }
 
 class _RatedIcon extends StatelessWidget {
-  _RatedIcon({this.iconData, this.size, this.rate, this.leftColor, this.rightColor});
+  _RatedIcon({
+    this.iconData,
+    this.size,
+    this.rate,
+    this.leftColor,
+    this.rightColor
+  });
   final IconData iconData;
   final double size;
   final double rate;

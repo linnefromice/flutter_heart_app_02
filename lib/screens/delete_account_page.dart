@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:linnefromice/components/common_snack_bars.dart';
-import 'package:linnefromice/components/wrapper_common_background.dart';
-import 'package:linnefromice/models/account.dart';
-import 'package:linnefromice/services/account_service.dart';
-import 'package:linnefromice/services/evaluation_service.dart';
+
+import '../components/common_snack_bars.dart';
+import '../components/wrapper_common_background.dart';
+import '../models/account.dart';
+import '../services/account_service.dart';
+import '../services/evaluation_service.dart';
 
 class DeleteAccountPage extends StatelessWidget {
   final accountService = AccountService();
@@ -15,7 +16,7 @@ class DeleteAccountPage extends StatelessWidget {
       body: WrapperCommonBackground(
         child: FutureBuilder<List<Account>>(
           future: accountService.findAccounts(),
-          builder: (BuildContext context, AsyncSnapshot<List<Account>> snapshot) {
+          builder: (context, snapshot) {
             if (snapshot.hasError) {
               return Center(child: Text(snapshot.error.toString()));
             }

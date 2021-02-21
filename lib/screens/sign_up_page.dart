@@ -1,10 +1,11 @@
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:linnefromice/components/commons_related_authentication.dart';
-import 'package:linnefromice/components/wrapper_common_background.dart';
-import 'package:linnefromice/screens/home_page.dart';
-import 'package:linnefromice/services/authentication_service.dart';
+
+import '../components/commons_related_authentication.dart';
+import '../components/wrapper_common_background.dart';
+import '../services/authentication_service.dart';
+import 'home_page.dart';
 
 class SignUpPage extends HookWidget {
   final authService = AuthenticationService();
@@ -36,18 +37,20 @@ class SignUpPage extends HookWidget {
       final String avatarUrl
     ) async {
     final String errorMessage = await authService.signUp(
-      email: localPart + "@" + domain,
+      email: "$localPart@$domain",
       password: password,
       name: name,
       description: description,
       avatarUrl: avatarUrl
     );
     if (errorMessage == null) {
-      Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomePage()));
+      Navigator.of(context).push(
+        MaterialPageRoute(builder: (context) => HomePage())
+      );
     } else {
       showDialog(
           context: context,
-          builder: (BuildContext buildContext) {
+          builder: (buildContext) {
             return _buildErrorDialog(
               context,
               errorMessage
@@ -191,7 +194,10 @@ class SignUpPage extends HookWidget {
             ),
             Container( // Input Password
               margin: EdgeInsets.symmetric(vertical: 8.0),
-              child: buildPasswordField(_passwordController, !_isHiddenPassword.value),
+              child: buildPasswordField(
+                passwordController: _passwordController,
+                isObscure: !_isHiddenPassword.value
+              ),
             ),
             Container(
               margin: EdgeInsets.symmetric(vertical: 8.0),

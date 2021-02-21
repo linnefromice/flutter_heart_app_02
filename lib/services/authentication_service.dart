@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:linnefromice/models/account.dart';
-import 'package:linnefromice/services/account_service.dart';
+
+import '../models/account.dart';
+import 'account_service.dart';
 
 final FirebaseAuth _firebaseAuthInstance = FirebaseAuth.instance;
 
@@ -10,7 +11,10 @@ class AuthenticationService {
 
   User get currentUser => _firebaseAuthInstance.currentUser;
 
-  Future<String> authenticate({final String email, final String password}) async {
+  Future<String> authenticate({
+    final String email,
+    final String password
+  }) async {
     try {
       UserCredential credential = await _firebaseAuthInstance
         .signInWithEmailAndPassword(
@@ -32,7 +36,13 @@ class AuthenticationService {
     }
   }
 
-  Future<String> signUp({final String email, final String password, final String name, final String description, final String avatarUrl}) async {
+  Future<String> signUp({
+    final String email,
+    final String password,
+    final String name,
+    final String description,
+    final String avatarUrl
+  }) async {
     try {
       UserCredential credential = await _firebaseAuthInstance
         .createUserWithEmailAndPassword(
@@ -61,7 +71,7 @@ class AuthenticationService {
         return "The account already exists for that email.";
       }
       return "Internal Server Error";
-    } catch (e) {
+    } on Exception catch (e) {
       print(e);
       return "Internal Server Error";
     }

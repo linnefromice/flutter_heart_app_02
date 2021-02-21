@@ -4,12 +4,13 @@ import 'package:connectivity/connectivity.dart';
 import 'package:fab_circular_menu/fab_circular_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:linnefromice/components/rated_heart.dart';
-import 'package:linnefromice/components/wrapper_common_background.dart';
-import 'package:linnefromice/components/wrapper_fab_circle_menu.dart';
-import 'package:linnefromice/models/account.dart';
-import 'package:linnefromice/screens/account_detail_page.dart';
-import 'package:linnefromice/services/account_service.dart';
+
+import '../components/rated_heart.dart';
+import '../components/wrapper_common_background.dart';
+import '../components/wrapper_fab_circle_menu.dart';
+import '../models/account.dart';
+import '../services/account_service.dart';
+import 'account_detail_page.dart';
 
 class _AccountListTile extends StatelessWidget {
   _AccountListTile({
@@ -91,7 +92,7 @@ class _Contents extends HookWidget {
               hintStyle: TextStyle(color: Colors.white),
               prefixIcon: IconButton(
                 icon: Icon(Icons.clear, color: Colors.white),
-                onPressed: () => textEditingController.clear(),
+                onPressed: textEditingController.clear,
               ),
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.white, width: 0.0),
@@ -107,7 +108,7 @@ class _Contents extends HookWidget {
   Widget _buildContents(final String searchText) {
     return FutureBuilder<List<Account>>(
       future: accountService.findAccounts(),
-      builder: (BuildContext context, AsyncSnapshot<List<Account>> snapshot) {
+      builder: (context, snapshot) {
         if (snapshot.hasError) {
           return Center(child: Text(snapshot.error.toString()));
         }
@@ -160,7 +161,9 @@ class AccountsPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final hasConnectivityController = useStreamController<bool>(keys: ["hasConnectivity"]);
+    final hasConnectivityController = useStreamController<bool>(
+      keys: ["hasConnectivity"]
+    );
 
     useEffect(
       () {
@@ -174,7 +177,7 @@ class AccountsPage extends HookWidget {
               hasConnectivityController.add(false);
               break;
           }
-        }).catchError((e) => hasConnectivityController.addError(e));
+        }).catchError(hasConnectivityController.addError);
         return null;
       }, [hasConnectivityController, ["hasConnectivity"]]
     );

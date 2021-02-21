@@ -3,13 +3,14 @@ import 'dart:math';
 import 'package:fab_circular_menu/fab_circular_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:linnefromice/components/rated_heart.dart';
-import 'package:linnefromice/components/wrapper_fab_circle_menu.dart';
-import 'package:linnefromice/components/wrapper_common_background.dart';
-import 'package:linnefromice/models/account.dart';
-import 'package:linnefromice/screens/evaluate_page.dart';
-import 'package:linnefromice/services/account_service.dart';
-import 'package:linnefromice/services/authentication_service.dart';
+
+import '../components/rated_heart.dart';
+import '../components/wrapper_common_background.dart';
+import '../components/wrapper_fab_circle_menu.dart';
+import '../models/account.dart';
+import '../services/account_service.dart';
+import '../services/authentication_service.dart';
+import 'evaluate_page.dart';
 
 class HomePage extends StatelessWidget {
   final GlobalKey<FabCircularMenuState> fabKey = GlobalKey();
@@ -25,7 +26,7 @@ class HomePage extends StatelessWidget {
       body: WrapperCommonBackground(
         child: StreamBuilder<List<Account>>(
           stream: accountService.streamAccounts(),
-          builder: (BuildContext context, AsyncSnapshot<List<Account>> snapshot) {
+          builder: (context, snapshot) {
             if (snapshot.hasError) {
               return Center(child: Text(snapshot.error.toString()));
             }
@@ -54,7 +55,12 @@ class _Content extends HookWidget {
   final List<Account> accounts;
   final int _initialPageIndex = 0;
 
-  Widget _buildPagingButton({final double minWidth, final double height, final IconData iconData, final Function onPressed}) {
+  Widget _buildPagingButton({
+    final double minWidth,
+    final double height,
+    final IconData iconData,
+    final Function onPressed
+  }) {
     return ButtonTheme(
       minWidth: minWidth,
       height: height,
@@ -87,7 +93,7 @@ class _Content extends HookWidget {
       children: [
         PageView(
           controller: _pageController,
-          children: accounts.map((Account account) => _ContentAvatar(
+          children: accounts.map((account) => _ContentAvatar(
             account: account,
           )).toList(),
         ),
@@ -194,9 +200,15 @@ class _ContentAvatar extends StatelessWidget {
           widthFactor: 0.7,
           child: CircleAvatar(
             maxRadius: 30,
-            child: !(account.avatarUrl == null || account.avatarUrl == "") ? null : Text(account.name, style: TextStyle(color: Colors.red)),
-            backgroundColor: account.avatarUrl == null || account.avatarUrl == "" ? Colors.white : null,
-            backgroundImage: !(account.avatarUrl == null || account.avatarUrl == "") ? NetworkImage(account.avatarUrl) : null,
+            child: !(account.avatarUrl == null || account.avatarUrl == "")
+              ? null
+              : Text(account.name, style: TextStyle(color: Colors.red)),
+            backgroundColor: account.avatarUrl == null || account.avatarUrl == ""
+              ? Colors.white
+              : null,
+            backgroundImage: !(account.avatarUrl == null || account.avatarUrl == "")
+              ? NetworkImage(account.avatarUrl)
+              : null,
           )
         ),
       ),
