@@ -50,7 +50,7 @@ class SignUpPage extends HookWidget {
     } else {
       showDialog(
           context: context,
-          builder: (BuildContext buildContext) {
+          builder: (buildContext) {
             return _buildErrorDialog(
               context,
               errorMessage

@@ -92,10 +92,7 @@ class RecalculateRatingPage extends StatelessWidget {
       body: WrapperCommonBackground(
         child: FutureBuilder<List<RatingInformation>>(
           future: ratingCalculationService.getNewRatingInformationList(),
-          builder: (
-              BuildContext context,
-              AsyncSnapshot<List<RatingInformation>> snapshot
-          ) {
+          builder: (context, snapshot) {
             if (snapshot.hasError) return Center(
               child: Text(snapshot.error.toString())
             );

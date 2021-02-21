@@ -96,9 +96,9 @@ class AddAccountPage extends HookWidget {
         DropdownButton<double>(
           value: state.value,
           icon: Icon(Icons.arrow_downward),
-          onChanged: (double value) => state.value = value,
+          onChanged: (value) => state.value = value,
           items: <double>[0, 1, 2, 3, 4, 5]
-              .map<DropdownMenuItem<double>>((double value) {
+              .map<DropdownMenuItem<double>>((value) {
             return DropdownMenuItem<double>(
               value: value,
               child: Text(value.toString()),

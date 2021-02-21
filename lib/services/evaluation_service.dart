@@ -25,8 +25,8 @@ class EvaluationService {
         .collection(_collectionName)
         .orderBy(_defaultSortKey, descending: true)
         .snapshots().map(
-          (QuerySnapshot querySnapshot) => querySnapshot.docs.map(
-            (QueryDocumentSnapshot queryDocumentSnapshot) => _generateModelFromQueryDocumentSnapshot(queryDocumentSnapshot)
+          (querySnapshot) => querySnapshot.docs.map(
+            (queryDocumentSnapshot) => _generateModelFromQueryDocumentSnapshot(queryDocumentSnapshot)
           ).toList()
     );
   }
@@ -50,7 +50,7 @@ class EvaluationService {
         .orderBy(_defaultSortKey, descending: true)
         .get();
     return querySnapshot.docs.map(
-      (DocumentSnapshot documentSnapshot) => _generateModelFromDocumentSnapshot(documentSnapshot)
+      (documentSnapshot) => _generateModelFromDocumentSnapshot(documentSnapshot)
     ).toList();
   }
 
@@ -63,7 +63,7 @@ class EvaluationService {
         .where("userId", isEqualTo: userId)
         .get();
     return querySnapshot.docs.map(
-      (DocumentSnapshot documentSnapshot) => _generateModelFromDocumentSnapshot(documentSnapshot)
+      (documentSnapshot) => _generateModelFromDocumentSnapshot(documentSnapshot)
     ).toList();
   }
 
@@ -77,7 +77,7 @@ class EvaluationService {
         .where("createdAt", isGreaterThanOrEqualTo: fromCreatedDate, isLessThanOrEqualTo: toCreatedDate)
         .get();
     return querySnapshot.docs.map(
-        (DocumentSnapshot documentSnapshot) => _generateModelFromDocumentSnapshot(documentSnapshot)
+        (documentSnapshot) => _generateModelFromDocumentSnapshot(documentSnapshot)
     ).toList();
   }
 

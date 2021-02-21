@@ -4,7 +4,9 @@ analyzer:
   exclude:
     - lib/generated_plugin_registrant.dart
     - lib/models/evaluation.freezed.dart
+    - lib/models/evaluation.g.dart
     - lib/models/account.freezed.dart
+    - lib/models/account.g.dart
 linter:
   rules:
     public_member_api_docs: false

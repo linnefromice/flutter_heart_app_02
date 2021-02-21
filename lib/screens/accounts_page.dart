@@ -108,7 +108,7 @@ class _Contents extends HookWidget {
   Widget _buildContents(final String searchText) {
     return FutureBuilder<List<Account>>(
       future: accountService.findAccounts(),
-      builder: (BuildContext context, AsyncSnapshot<List<Account>> snapshot) {
+      builder: (context, snapshot) {
         if (snapshot.hasError) {
           return Center(child: Text(snapshot.error.toString()));
         }

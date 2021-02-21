@@ -26,7 +26,7 @@ class HomePage extends StatelessWidget {
       body: WrapperCommonBackground(
         child: StreamBuilder<List<Account>>(
           stream: accountService.streamAccounts(),
-          builder: (BuildContext context, AsyncSnapshot<List<Account>> snapshot) {
+          builder: (context, snapshot) {
             if (snapshot.hasError) {
               return Center(child: Text(snapshot.error.toString()));
             }
@@ -93,7 +93,7 @@ class _Content extends HookWidget {
       children: [
         PageView(
           controller: _pageController,
-          children: accounts.map((Account account) => _ContentAvatar(
+          children: accounts.map((account) => _ContentAvatar(
             account: account,
           )).toList(),
         ),

@@ -51,7 +51,7 @@ class EvaluationsPage extends StatelessWidget {
       body: WrapperCommonBackground(
         child: FutureBuilder<List<_EvaluationWithAccount>> (
           future: _findEvaluationWithUser(),
-          builder: (BuildContext context, AsyncSnapshot<List<_EvaluationWithAccount>> snapshot) {
+          builder: (context, snapshot) {
             if (snapshot.hasError) {
               return Center(child: Text(snapshot.error.toString()));
             }
