@@ -36,8 +36,12 @@ class SettingsPage extends StatelessWidget {
                     padding: EdgeInsets.all(15.0),
                     child: CircleAvatar(
                       maxRadius: 150,
-                      child: account.avatarUrl == null || account.avatarUrl == "" ? Text("NO IMAGE", style: TextStyle(color: Colors.black)) : null,
-                      backgroundImage: !(account.avatarUrl == null || account.avatarUrl == "") ? NetworkImage(account.avatarUrl) : null,
+                      child: account.avatarUrl == null || account.avatarUrl == ""
+                        ? Text("NO IMAGE", style: TextStyle(color: Colors.black))
+                        : null,
+                      backgroundImage: !(account.avatarUrl == null || account.avatarUrl == "")
+                        ? NetworkImage(account.avatarUrl)
+                        : null,
                       backgroundColor: Colors.white,
                     )
                   ),

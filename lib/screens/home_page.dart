@@ -54,7 +54,12 @@ class _Content extends HookWidget {
   final List<Account> accounts;
   final int _initialPageIndex = 0;
 
-  Widget _buildPagingButton({final double minWidth, final double height, final IconData iconData, final Function onPressed}) {
+  Widget _buildPagingButton({
+    final double minWidth,
+    final double height,
+    final IconData iconData,
+    final Function onPressed
+  }) {
     return ButtonTheme(
       minWidth: minWidth,
       height: height,
@@ -194,9 +199,15 @@ class _ContentAvatar extends StatelessWidget {
           widthFactor: 0.7,
           child: CircleAvatar(
             maxRadius: 30,
-            child: !(account.avatarUrl == null || account.avatarUrl == "") ? null : Text(account.name, style: TextStyle(color: Colors.red)),
-            backgroundColor: account.avatarUrl == null || account.avatarUrl == "" ? Colors.white : null,
-            backgroundImage: !(account.avatarUrl == null || account.avatarUrl == "") ? NetworkImage(account.avatarUrl) : null,
+            child: !(account.avatarUrl == null || account.avatarUrl == "")
+              ? null
+              : Text(account.name, style: TextStyle(color: Colors.red)),
+            backgroundColor: account.avatarUrl == null || account.avatarUrl == ""
+              ? Colors.white
+              : null,
+            backgroundImage: !(account.avatarUrl == null || account.avatarUrl == "")
+              ? NetworkImage(account.avatarUrl)
+              : null,
           )
         ),
       ),

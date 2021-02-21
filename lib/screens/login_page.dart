@@ -47,8 +47,16 @@ class LoginPage extends HookWidget {
     );
   }
 
-  void _authenticate({final BuildContext context, final String localPart, final String domain, final String password}) async {
-    final String errorMessage = await authService.authenticate(email: localPart + "@" + domain, password: password);
+  void _authenticate({
+    final BuildContext context,
+    final String localPart,
+    final String domain,
+    final String password
+  }) async {
+    final String errorMessage = await authService.authenticate(
+      email: localPart + "@" + domain,
+      password: password
+    );
     if (errorMessage == null) {
       Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomePage()));
     } else {
@@ -81,7 +89,9 @@ class LoginPage extends HookWidget {
     return buildButtonRelatedAuthentication(
       iconData: Icons.person_add,
       label: "SIGN UP\nif no account",
-      onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => SignUpPage()))
+      onPressed: () => Navigator.of(context).push(
+        MaterialPageRoute(builder: (context) => SignUpPage())
+      )
     );
   }
 
@@ -114,7 +124,10 @@ class LoginPage extends HookWidget {
                       ),
                       Container(
                           margin: EdgeInsets.symmetric(horizontal: 4.0),
-                          child: Text("@", style: TextStyle(color: Colors.white))
+                          child: Text(
+                            "@",
+                            style: TextStyle(color: Colors.white)
+                          )
                       ),
                       buildEmailDomainSelector(_selectedDomain)
                     ]
@@ -122,7 +135,10 @@ class LoginPage extends HookWidget {
               ),
               Container( // Input Password
                 margin: EdgeInsets.symmetric(vertical: 8.0),
-                child: buildPasswordField(_passwordController, !_isHiddenPassword.value),
+                child: buildPasswordField(
+                  _passwordController,
+                  !_isHiddenPassword.value
+                ),
               ),
               Container(
                 margin: EdgeInsets.symmetric(vertical: 8.0),
@@ -133,7 +149,12 @@ class LoginPage extends HookWidget {
               ),
               Container(
                 margin: EdgeInsets.symmetric(vertical: 16.0),
-                child: _buildLoginButton(context, _localPartController, _selectedDomain, _passwordController),
+                child: _buildLoginButton(
+                  context,
+                  _localPartController,
+                  _selectedDomain,
+                  _passwordController
+                ),
               ),
               Container(
                 margin: EdgeInsets.symmetric(vertical: 4.0),

@@ -25,11 +25,11 @@ class App extends StatelessWidget {
           if (snapshot.hasError) {
             return _ErrorView();
           }
-          // Once complete, show your application
+          // show your application
           if (snapshot.connectionState == ConnectionState.done) {
             return LoginPage();
           }
-          // Otherwise, show something whilst waiting for initialization to complete
+          // show something whilst waiting for initialization to complete
           return _LoadingView();
         },
       ),

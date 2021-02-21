@@ -74,7 +74,10 @@ class AddAccountPage extends HookWidget {
   
   Text _buildPageTitle() => Text("Add User");
 
-  TextField _buildTextField(final TextEditingController _controller, final String label) {
+  TextField _buildTextField(
+    final TextEditingController _controller,
+    final String label
+  ) {
     return TextField(
       controller: _controller,
       keyboardType: TextInputType.name,
@@ -128,7 +131,13 @@ class AddAccountPage extends HookWidget {
     );
   }
 
-  ElevatedButton _buildSubmitButton(BuildContext context, TextEditingController _nameController, TextEditingController _descriptionController, double rating, TextEditingController _avatarUrlController) {
+  ElevatedButton _buildSubmitButton(
+    BuildContext context,
+    TextEditingController _nameController,
+    TextEditingController _descriptionController,
+    double rating,
+    TextEditingController _avatarUrlController
+  ) {
     return ElevatedButton.icon(
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all(Colors.grey)

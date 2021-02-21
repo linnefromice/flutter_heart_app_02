@@ -13,7 +13,10 @@ class WrapperFabCircularMenu extends StatelessWidget {
 
   final GlobalKey<FabCircularMenuState> fabKey;
 
-  RawMaterialButton _buildRawMaterialButton({final Icon icon, final Function onPressed}) {
+  RawMaterialButton _buildRawMaterialButton({
+    final Icon icon,
+    final Function onPressed
+  }) {
     return RawMaterialButton(
       onPressed: onPressed,
       shape: CircleBorder(),

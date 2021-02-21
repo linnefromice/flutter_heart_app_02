@@ -10,7 +10,10 @@ class AuthenticationService {
 
   User get currentUser => _firebaseAuthInstance.currentUser;
 
-  Future<String> authenticate({final String email, final String password}) async {
+  Future<String> authenticate({
+    final String email,
+    final String password
+  }) async {
     try {
       UserCredential credential = await _firebaseAuthInstance
         .signInWithEmailAndPassword(
@@ -32,7 +35,13 @@ class AuthenticationService {
     }
   }
 
-  Future<String> signUp({final String email, final String password, final String name, final String description, final String avatarUrl}) async {
+  Future<String> signUp({
+    final String email,
+    final String password,
+    final String name,
+    final String description,
+    final String avatarUrl
+  }) async {
     try {
       UserCredential credential = await _firebaseAuthInstance
         .createUserWithEmailAndPassword(

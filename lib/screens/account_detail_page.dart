@@ -21,8 +21,12 @@ class AccountDetailPage extends HookWidget {
   AvatarArea _buildAvatarArea({final double diameter}) {
     return AvatarArea(
       diameter: diameter,
-      image: !(account.avatarUrl == null || account.avatarUrl == "") ? NetworkImage(account.avatarUrl) : null,
-      child: account.avatarUrl == null || account.avatarUrl == "" ? Text("NO IMAGE", style: TextStyle(color: Colors.black)) : null,
+      image: !(account.avatarUrl == null || account.avatarUrl == "")
+        ? NetworkImage(account.avatarUrl)
+        : null,
+      child: account.avatarUrl == null || account.avatarUrl == ""
+        ? Text("NO IMAGE", style: TextStyle(color: Colors.black))
+        : null,
     );
   }
 

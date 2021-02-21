@@ -18,5 +18,6 @@ abstract class Account with _$Account {
     int version
   }) = _Account;
 
-  factory Account.fromJson(Map<String, dynamic> json) => _$AccountFromJson(json);
+  factory Account.fromJson(Map<String, dynamic> json)
+    => _$AccountFromJson(json);
 }

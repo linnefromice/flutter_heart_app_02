@@ -78,7 +78,7 @@ class EvaluationsPage extends StatelessWidget {
                       subtitle: Center(
                         child: Row(
                           children: [
-                            RatedHeart(rate: min(1, max(0, item.evaluation.rating - 0)), size: 30), // origin -> Icon(Icons.favorite, size: 30, color: rating >= 1 ? Colors.pink.withOpacity(0.5) : Colors.white)
+                            RatedHeart(rate: min(1, max(0, item.evaluation.rating - 0)), size: 30),
                             RatedHeart(rate: min(1, max(0, item.evaluation.rating - 1)), size: 30),
                             RatedHeart(rate: min(1, max(0, item.evaluation.rating - 2)), size: 30),
                             RatedHeart(rate: min(1, max(0, item.evaluation.rating - 3)), size: 30),

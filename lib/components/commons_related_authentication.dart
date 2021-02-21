@@ -12,7 +12,11 @@ final List<String> _domainList = [
 ];
 final String defaultDomain = _domainList.first;
 
-ElevatedButton buildButtonRelatedAuthentication({final String label, final IconData iconData, final Function onPressed}) {
+ElevatedButton buildButtonRelatedAuthentication({
+  final String label,
+  final IconData iconData,
+  final Function onPressed
+}) {
   return ElevatedButton.icon(
     icon: Icon(
       iconData,
@@ -78,7 +82,10 @@ Theme buildEmailDomainSelector(ValueNotifier<String> selectedDomain) {
   );
 }
 
-TextField buildPasswordField(TextEditingController passwordController, bool isObscure) {
+TextField buildPasswordField(
+  TextEditingController passwordController,
+  bool isObscure
+) {
   return TextField(
     controller: passwordController,
     keyboardType: TextInputType.text,
@@ -100,7 +107,10 @@ TextField buildPasswordField(TextEditingController passwordController, bool isOb
   );
 }
 
-Row buildObscureCheckbox({final String label, final ValueNotifier<bool> status}) {
+Row buildObscureCheckbox({
+  final String label,
+  final ValueNotifier<bool> status
+}) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.end,
     crossAxisAlignment: CrossAxisAlignment.center,

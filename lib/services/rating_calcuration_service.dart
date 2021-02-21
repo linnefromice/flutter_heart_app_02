@@ -31,14 +31,15 @@ class RatingCalculationService {
       if (selectedEvaluations.isNotEmpty) {
         final List<double> values = selectedEvaluations.map((element) => element.rating).toList();
         return RatingInformation(
-            userId: account.id,
-            name: account.name,
-            rating: account.rating,
-            newRating: values.reduce((curr, next) => curr + next) / values.length // calculate average of evaluations
+          userId: account.id,
+          name: account.name,
+          rating: account.rating,
+          newRating: values.reduce((curr, next) => curr + next) / values.length // calculate average of evaluations
         );
       }
     }).toList();
-    results.removeWhere((element) => element == null); // remove user's element of no evaluation
+    // remove user's element of no evaluation
+    results.removeWhere((element) => element == null);
     return results;
   }
 }

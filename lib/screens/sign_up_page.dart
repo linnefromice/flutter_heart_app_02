@@ -43,7 +43,9 @@ class SignUpPage extends HookWidget {
       avatarUrl: avatarUrl
     );
     if (errorMessage == null) {
-      Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomePage()));
+      Navigator.of(context).push(
+        MaterialPageRoute(builder: (context) => HomePage())
+      );
     } else {
       showDialog(
           context: context,
@@ -191,7 +193,10 @@ class SignUpPage extends HookWidget {
             ),
             Container( // Input Password
               margin: EdgeInsets.symmetric(vertical: 8.0),
-              child: buildPasswordField(_passwordController, !_isHiddenPassword.value),
+              child: buildPasswordField(
+                _passwordController,
+                !_isHiddenPassword.value
+              ),
             ),
             Container(
               margin: EdgeInsets.symmetric(vertical: 8.0),

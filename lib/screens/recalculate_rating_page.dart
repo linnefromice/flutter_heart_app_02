@@ -14,7 +14,9 @@ class _Contents extends StatelessWidget {
   final List<RatingInformation> datas;
   final accountService = AccountService();
 
-  Future<void> _commitAllRecalculatedRating(final List<RatingInformation> datas) async {
+  Future<void> _commitAllRecalculatedRating(
+    final List<RatingInformation> datas
+  ) async {
     final List<Account> users = await accountService.findAccounts();
     datas.forEach((element) => accountService.updateRating(
         element.userId,
@@ -89,8 +91,13 @@ class RecalculateRatingPage extends StatelessWidget {
       body: WrapperCommonBackground(
         child: FutureBuilder<List<RatingInformation>>(
           future: ratingCalculationService.getNewRatingInformationList(),
-          builder: (BuildContext context, AsyncSnapshot<List<RatingInformation>> snapshot) {
-            if (snapshot.hasError) return Center(child: Text(snapshot.error.toString()));
+          builder: (
+              BuildContext context,
+              AsyncSnapshot<List<RatingInformation>> snapshot
+          ) {
+            if (snapshot.hasError) return Center(
+              child: Text(snapshot.error.toString())
+            );
             if (snapshot.hasData) return _Contents(datas: snapshot.data);
             return Center(child: _buildProgressing());
           },

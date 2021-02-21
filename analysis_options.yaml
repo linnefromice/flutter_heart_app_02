@@ -1,5 +1,11 @@
 include: package:effective_dart/analysis_options.yaml
 
+analyzer:
+  exclude:
+    - lib/generated_plugin_registrant.dart
+    - lib/models/evaluation.freezed.dart
+    - lib/models/account.freezed.dart
 linter:
   rules:
     public_member_api_docs: false
+    lines_longer_than_80_chars: false

@@ -160,7 +160,9 @@ class AccountsPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final hasConnectivityController = useStreamController<bool>(keys: ["hasConnectivity"]);
+    final hasConnectivityController = useStreamController<bool>(
+      keys: ["hasConnectivity"]
+    );
 
     useEffect(
       () {

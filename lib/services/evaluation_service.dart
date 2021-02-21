@@ -6,7 +6,9 @@ class EvaluationService {
   final _collectionName = "evaluations";
   final _defaultSortKey = "updatedAt";
 
-  Evaluation _generateModelFromQueryDocumentSnapshot(QueryDocumentSnapshot snapshot) => Evaluation(
+  Evaluation _generateModelFromQueryDocumentSnapshot(
+    QueryDocumentSnapshot snapshot
+  ) => Evaluation(
     id: snapshot.id,
     fromUserId: snapshot.data()["fromUserId"],
     toUserId: snapshot.data()["toUserId"],
@@ -28,7 +30,9 @@ class EvaluationService {
     );
   }
 
-  Evaluation _generateModelFromDocumentSnapshot(DocumentSnapshot snapshot) => Evaluation(
+  Evaluation _generateModelFromDocumentSnapshot(
+    DocumentSnapshot snapshot
+  ) => Evaluation(
     id: snapshot.id,
     fromUserId: snapshot.data()["fromUserId"],
     toUserId: snapshot.data()["toUserId"],
@@ -49,7 +53,9 @@ class EvaluationService {
     ).toList();
   }
 
-  Future<List<Evaluation>> findEvaluationsOfSelectedUser(final String userId) async {
+  Future<List<Evaluation>> findEvaluationsOfSelectedUser(
+    final String userId
+  ) async {
     QuerySnapshot querySnapshot = await _instance
         .collection(_collectionName)
         .orderBy(_defaultSortKey, descending: true)
@@ -60,7 +66,10 @@ class EvaluationService {
     ).toList();
   }
 
-  Future<List<Evaluation>> findEvaluationsOfSelectedPeriod(final String fromCreatedDate, final String toCreatedDate) async {
+  Future<List<Evaluation>> findEvaluationsOfSelectedPeriod(
+    final String fromCreatedDate,
+    final String toCreatedDate
+  ) async {
     QuerySnapshot querySnapshot = await _instance
         .collection(_collectionName)
         .orderBy(_defaultSortKey, descending: true)
@@ -71,7 +80,11 @@ class EvaluationService {
     ).toList();
   }
 
-  Future<void> createEvaluation({ final String fromUserId, final String toUserId, final double rating}) async {
+  Future<void> createEvaluation({
+    final String fromUserId,
+    final String toUserId,
+    final double rating
+  }) async {
     final _roundedRating = double.parse(rating.toStringAsFixed(2)); // format to X.XX
     final DateTime now = DateTime.now();
     final String nowDate = now.year.toString().padLeft(4,"0") + now.month.toString().padLeft(2,"0") + now.day.toString().padLeft(2,"0");

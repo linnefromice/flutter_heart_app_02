@@ -17,5 +17,6 @@ abstract class Evaluation with _$Evaluation {
     int version
   }) = _Evaluation;
 
-  factory Evaluation.fromJson(Map<String, dynamic> json) => _$EvaluationFromJson(json);
+  factory Evaluation.fromJson(Map<String, dynamic> json)
+    => _$EvaluationFromJson(json);
 }
