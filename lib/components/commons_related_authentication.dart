@@ -82,10 +82,10 @@ Theme buildEmailDomainSelector(ValueNotifier<String> selectedDomain) {
   );
 }
 
-TextField buildPasswordField(
+TextField buildPasswordField({
   TextEditingController passwordController,
   bool isObscure
-) {
+}) {
   return TextField(
     controller: passwordController,
     keyboardType: TextInputType.text,

@@ -137,8 +137,8 @@ class LoginPage extends HookWidget {
               Container( // Input Password
                 margin: EdgeInsets.symmetric(vertical: 8.0),
                 child: buildPasswordField(
-                  _passwordController,
-                  !_isHiddenPassword.value
+                  passwordController: _passwordController,
+                  isObscure: !_isHiddenPassword.value
                 ),
               ),
               Container(
