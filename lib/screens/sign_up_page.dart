@@ -1,10 +1,11 @@
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:linnefromice/components/commons_related_authentication.dart';
-import 'package:linnefromice/components/wrapper_common_background.dart';
-import 'package:linnefromice/screens/home_page.dart';
-import 'package:linnefromice/services/authentication_service.dart';
+
+import '../components/commons_related_authentication.dart';
+import '../components/wrapper_common_background.dart';
+import '../services/authentication_service.dart';
+import 'home_page.dart';
 
 class SignUpPage extends HookWidget {
   final authService = AuthenticationService();

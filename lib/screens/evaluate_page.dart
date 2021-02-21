@@ -3,14 +3,15 @@ import 'dart:math';
 import 'package:fab_circular_menu/fab_circular_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:linnefromice/components/avatar_area.dart';
-import 'package:linnefromice/components/common_snack_bars.dart';
-import 'package:linnefromice/components/rated_heart.dart';
-import 'package:linnefromice/components/wrapper_common_background.dart';
-import 'package:linnefromice/components/wrapper_fab_circle_menu.dart';
-import 'package:linnefromice/models/account.dart';
-import 'package:linnefromice/services/authentication_service.dart';
-import 'package:linnefromice/services/evaluation_service.dart';
+
+import '../components/avatar_area.dart';
+import '../components/common_snack_bars.dart';
+import '../components/rated_heart.dart';
+import '../components/wrapper_common_background.dart';
+import '../components/wrapper_fab_circle_menu.dart';
+import '../models/account.dart';
+import '../services/authentication_service.dart';
+import '../services/evaluation_service.dart';
 
 class EvaluatePage extends HookWidget {
   EvaluatePage({

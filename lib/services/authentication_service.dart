@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:linnefromice/models/account.dart';
-import 'package:linnefromice/services/account_service.dart';
+
+import '../models/account.dart';
+import 'account_service.dart';
 
 final FirebaseAuth _firebaseAuthInstance = FirebaseAuth.instance;
 

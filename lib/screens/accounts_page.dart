@@ -4,12 +4,13 @@ import 'package:connectivity/connectivity.dart';
 import 'package:fab_circular_menu/fab_circular_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:linnefromice/components/rated_heart.dart';
-import 'package:linnefromice/components/wrapper_common_background.dart';
-import 'package:linnefromice/components/wrapper_fab_circle_menu.dart';
-import 'package:linnefromice/models/account.dart';
-import 'package:linnefromice/screens/account_detail_page.dart';
-import 'package:linnefromice/services/account_service.dart';
+
+import '../components/rated_heart.dart';
+import '../components/wrapper_common_background.dart';
+import '../components/wrapper_fab_circle_menu.dart';
+import '../models/account.dart';
+import '../services/account_service.dart';
+import 'account_detail_page.dart';
 
 class _AccountListTile extends StatelessWidget {
   _AccountListTile({

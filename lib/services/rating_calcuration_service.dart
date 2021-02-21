@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:linnefromice/models/account.dart';
-import 'package:linnefromice/models/evaluation.dart';
-import 'package:linnefromice/services/account_service.dart';
-import 'package:linnefromice/services/evaluation_service.dart';
+
+import '../models/account.dart';
+import '../models/evaluation.dart';
+import 'account_service.dart';
+import 'evaluation_service.dart';
 
 class RatingInformation {
   RatingInformation({

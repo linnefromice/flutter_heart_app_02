@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:linnefromice/components/commons_related_authentication.dart';
-import 'package:linnefromice/components/wrapper_common_background.dart';
-import 'package:linnefromice/screens/add_account_page.dart';
-import 'package:linnefromice/screens/delete_account_page.dart';
-import 'package:linnefromice/screens/home_page.dart';
-import 'package:linnefromice/screens/recalculate_rating_page.dart';
-import 'package:linnefromice/screens/sign_up_page.dart';
-import 'package:linnefromice/services/authentication_service.dart';
+
+import '../components/commons_related_authentication.dart';
+import '../components/wrapper_common_background.dart';
+import '../services/authentication_service.dart';
+import 'add_account_page.dart';
+import 'delete_account_page.dart';
+import 'home_page.dart';
+import 'recalculate_rating_page.dart';
+import 'sign_up_page.dart';
 
 class LoginPage extends HookWidget {
   final authService = AuthenticationService();

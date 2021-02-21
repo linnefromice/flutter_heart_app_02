@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:linnefromice/models/evaluation.dart';
+
+import '../models/evaluation.dart';
 
 class EvaluationService {
   final _instance = FirebaseFirestore.instance;

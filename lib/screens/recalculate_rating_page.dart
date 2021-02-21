@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:linnefromice/components/common_snack_bars.dart';
-import 'package:linnefromice/components/wrapper_common_background.dart';
-import 'package:linnefromice/models/account.dart';
-import 'package:linnefromice/services/account_service.dart';
-import 'package:linnefromice/services/rating_calcuration_service.dart';
+
+import '../components/common_snack_bars.dart';
+import '../components/wrapper_common_background.dart';
+import '../models/account.dart';
+import '../services/account_service.dart';
+import '../services/rating_calcuration_service.dart';
 
 class _Contents extends StatelessWidget {
   _Contents({
