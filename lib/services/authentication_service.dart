@@ -71,7 +71,7 @@ class AuthenticationService {
         return "The account already exists for that email.";
       }
       return "Internal Server Error";
-    } catch (e) {
+    } on Exception catch (e) {
       print(e);
       return "Internal Server Error";
     }
