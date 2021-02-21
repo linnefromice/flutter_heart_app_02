@@ -37,7 +37,7 @@ class SignUpPage extends HookWidget {
       final String avatarUrl
     ) async {
     final String errorMessage = await authService.signUp(
-      email: localPart + "@" + domain,
+      email: "$localPart@$domain",
       password: password,
       name: name,
       description: description,

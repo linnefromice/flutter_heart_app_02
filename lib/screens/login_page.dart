@@ -55,7 +55,7 @@ class LoginPage extends HookWidget {
     final String password
   }) async {
     final String errorMessage = await authService.authenticate(
-      email: localPart + "@" + domain,
+      email: "$localPart@$domain",
       password: password
     );
     if (errorMessage == null) {
