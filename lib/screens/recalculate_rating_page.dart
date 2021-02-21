@@ -66,7 +66,7 @@ class _Contents extends StatelessWidget {
         _buildExecuteButton(context),
         SingleChildScrollView(
           child: Column(
-            children: datas.map((e) => _buildCard(e)).toList(),
+            children: datas.map(_buildCard).toList(),
           ),
         )
       ],

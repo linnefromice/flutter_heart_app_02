@@ -24,7 +24,7 @@ class AccountService {
   Stream<List<Account>> streamAccounts() {
     return _instance.collection(_collectionName).orderBy(_defaultSortKey).snapshots().map(
       (querySnapshot) => querySnapshot.docs.map(
-        (queryDocumentSnapshot) => _generateModelFromQueryDocumentSnapshot(queryDocumentSnapshot)
+        _generateModelFromQueryDocumentSnapshot
       ).toList()
     );
   }
@@ -46,7 +46,7 @@ class AccountService {
   Future<List<Account>> findAccounts() async {
     QuerySnapshot querySnapshot = await _instance.collection(_collectionName).orderBy(_defaultSortKey).get();
     return querySnapshot.docs.map(
-      (documentSnapshot) => _generateModelFromDocumentSnapshot(documentSnapshot)
+      _generateModelFromDocumentSnapshot
     ).toList();
   }
 

@@ -92,7 +92,7 @@ class _Contents extends HookWidget {
               hintStyle: TextStyle(color: Colors.white),
               prefixIcon: IconButton(
                 icon: Icon(Icons.clear, color: Colors.white),
-                onPressed: () => textEditingController.clear(),
+                onPressed: textEditingController.clear,
               ),
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.white, width: 0.0),
@@ -177,7 +177,7 @@ class AccountsPage extends HookWidget {
               hasConnectivityController.add(false);
               break;
           }
-        }).catchError((e) => hasConnectivityController.addError(e));
+        }).catchError(hasConnectivityController.addError);
         return null;
       }, [hasConnectivityController, ["hasConnectivity"]]
     );
